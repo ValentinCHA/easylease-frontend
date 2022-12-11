@@ -117,5 +117,38 @@
 
 .button:hover {
     cursor: pointer;
-    background-color: rgb(129, 233, 255);
+    background-color: rgb(110, 231, 255);
+}
+
+.firstLoginModal {
+    display: flex;
+    height: 90%;
+    width: 90%;
+    border: 10px solid red;
+    background-color: green;
+}
+
+.loginBoxModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin: 2%;
+}
+
+.modalBtn {
+    margin-top: 6%;
+}
+
+.descModal {
+    margin-bottom: 2%;
+    margin-left: 19%;
+}
+
+.mdpModal {
+    margin-left: 15%;
+}
+
+.inputModal {
+    margin-bottom: 2%;
 }
