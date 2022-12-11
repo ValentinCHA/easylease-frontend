@@ -16,7 +16,7 @@ import {useRouter} from 'next/router'
 function Navbar() {
 
     const router = useRouter();
-
+//bienvenue
   return (
     <div className={style.container}>
       <div className={style.navbar}>
