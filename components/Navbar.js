@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useDebugValue } from 'react'
 import style from '../styles/Navbar.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserTie } from '@fortawesome/free-solid-svg-icons'
@@ -11,11 +11,22 @@ import { faDiagramNext } from '@fortawesome/free-solid-svg-icons'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
+
+
 import {useRouter} from 'next/router'
+import { useDispatch } from 'react-redux'
+import {logout} from '../reducers/user'
 
 function Navbar() {
 
     const router = useRouter();
+    const dispatch = useDispatch()
+
+    const handleLogout =()=>{
+        dispatch(logout())
+        router.push('/login')
+    }
+
 //bienvenue
   return (
     <div className={style.container}>
@@ -47,7 +58,7 @@ function Navbar() {
                     <span><FontAwesomeIcon icon={faEllipsis} className={style.spaceIcon} />Settings</span>
                 </div>
                 <div className={style.footerNav}>
-                    <span className={style.fonsize} ><FontAwesomeIcon icon={faXmark} className={style.spaceIcon} />Logout</span>
+                    <span onClick={()=>handleLogout()} className={style.fonsize} ><FontAwesomeIcon icon={faXmark} className={style.spaceIcon} />Logout</span>
                     <span className={style.fonsize}><FontAwesomeIcon icon={faArrowLeft} className={style.spaceIconLogout} />Toogle SideBar</span>
                 </div>
             </div>
