@@ -9,32 +9,42 @@ function Login() {
 
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.value);
-    
+    // URL de redirection pour les conditions d'utilisations //
     const url="https://google.com";
+    // Adresse du backend
     const BACKEND_ADDRESS = "http://localhost:3000";
 
+    // Récuperation du login et MDP pour la connexion (user déja créer) //
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    // Récuperation du login et MDP pour l'inscription //
     const [firstPassword, setFirstPassword] = useState('');
     const [firstLogin, setFirstLogin] = useState('');
+    // States des differentes modales //
     const [firstLoginModal, setFirstLoginModal] = useState(false);
     const [firstLoginModalUser, setFirstLoginModalUser] = useState(false);
     const [forgetPasswordModal, setForgetPasswordModal] = useState(false);
     const [emailErrorMain, setEmailErrorMain] = useState(false);
     const [emailErrorModal, setEmailErrorModal] = useState(false);
+    //
 
+    // Check si l'email est valide //
     const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+    // Savoir si l'user a le droit de cliquer sur "Première connexion" //
     let isAdmin = true;
 
+    // Pour les tests //
     console.log("USERNAME =>", username);
     console.log("PASSWORD =>", password);
 
+    // Redirection dynamique vers la page contrat pour le moment, elle redirigera vers la page dashboard a terme //
     const router = useRouter();
     if (user.token) {
       router.push('/contrat');
     }
 
+    // Click sur "Première connexion", la modale s'ouvre //
     const handleFirstLogin = () => {
         console.log("Click Première connexion");
         if (isAdmin) {
@@ -45,6 +55,7 @@ function Login() {
         setFirstLoginModalUser(true);
     };
 
+    // Clic en dehors ou sur la croix de la modale //
     const handleCancelFirstLogin = () => {
         setFirstLoginModal(false);
         setFirstLoginModalUser(false);
