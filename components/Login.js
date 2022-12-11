@@ -1,9 +1,14 @@
 import React, {useState} from "react";
 import styles from "../styles/Login.module.css";
-import { Button, Modal } from 'antd';
+import { Modal } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../reducers/user';
 
 function Login() {
 
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user.value);
+    
     let url="https://google.com";
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -12,6 +17,10 @@ function Login() {
     const [firstLoginModal, setFirstLoginModal] = useState(false);
     const [firstLoginModalUser, setFirstLoginModalUser] = useState(false);
     const [forgetPasswordModal, setForgetPasswordModal] = useState(false);
+    const [emailErrorMain, setEmailErrorMain] = useState(false);
+    const [emailErrorModal, setEmailErrorModal] = useState(false);
+
+    const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     let isAdmin = true;
 
@@ -44,13 +53,44 @@ function Login() {
     };
 
     const handleSubmit = () => {
-        console.log("Click on submit");
+        console.log("Sign in submit");
+        if (EMAIL_REGEX.test(username)) {
+            fetch('http://localhost:3000/users/signin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: username, password :password }),
+                }).then(response => response.json())
+                .then(data => {
+                    data.result && dispatch(login({ token: data.token, email: data.email, poste: data.poste, isAdmin: data.isAdmin }));
+                    console.log("CONNECTE");
+                });
+          } else {
+            setEmailErrorMain(true);
+          }
     };
+
+    console.log("FIRST LOGIN", firstLogin);
+    console.log("FIRST PASSWORD", firstPassword);
 
     const handleSignUpSubmit = () => {
         console.log("Sign Up Submit");
+        if (EMAIL_REGEX.test(firstLogin)) {
+            fetch('http://localhost:3000/users/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: firstLogin, password :firstPassword }),
+                }).then(response => response.json())
+                .then(data => {
+                    data.result && dispatch(login({ token: data.token, email: data.email, poste: data.poste, isAdmin: data.isAdmin }));
+                    console.log("CONNECTE");
+                });
+          } else {
+            setEmailErrorModal(true);
+          }
     };
 
+
+    console.log("USER =>", user);
   return (
     <>
       <div className={styles.mainSection}>
@@ -65,6 +105,7 @@ function Login() {
             <h2 className={styles.title}>Connectez vous à votre espace</h2>
             <span className={styles.desc}>Identifiant / e-mail :</span>
             <input type="text" className={styles.input} onChange={(e) => setUsername(e.target.value)} value={username} placeholder="E-mail" />
+            {emailErrorMain && <p className={styles.error}>Adresse mail invalide</p>}
             <span className={styles.links + ' ' + styles.first} onClick={() => handleFirstLogin()}>Première connexion ?</span>
             <span className={styles.desc + ' ' + styles.mdp}>Mot de passe :</span>
             <input type="password" className={styles.input} onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Mot de passe" />
@@ -84,6 +125,7 @@ function Login() {
             <h2 className={styles.title}>Bienvenue chez EasyLease</h2>
             <span className={styles.desc + ' ' + styles.descModal}>Nouvel identifiant / e-mail :</span>
             <input type="text" className={styles.input + ' ' + styles.inputModal} onChange={(e) => setFirstLogin(e.target.value)} value={firstLogin} placeholder="E-mail" />
+            {emailErrorModal && <p className={styles.error}>Adresse mail invalide</p>}
             <span className={styles.desc + ' ' + styles.mdpModal + ' ' + styles.descModal}>Nouveau mot de passe :</span>
             <input type="password" className={styles.input} onChange={(e) => setFirstPassword(e.target.value)} value={firstPassword} placeholder="Mot de passe" />
             <button className={styles.button + ' ' + styles.modalBtn} onClick={() => handleSignUpSubmit()}>Création de compte</button>
