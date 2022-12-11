@@ -1,0 +1,121 @@
+.mainSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100vh;
+    width: 100vw;
+}
+
+.imgLeft {
+    margin-top: 30%;
+    height: 25%;
+    width: 25%;
+}
+
+.imgRight {
+    margin-top: 10%;
+    height: 25%;
+    width: 25%;
+}
+
+.logo {
+    margin-top: 2%;
+    width: 25%;
+}
+
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 50%;
+    align-items: center;
+    justify-content:space-around;
+}
+
+.loginBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 55%;
+    width: 70%;
+    background: #FFFFFF;
+    box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    margin-bottom: 3%;
+}
+
+.textContent {
+    font-weight: 600;
+}
+
+.title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    color: #4A4A4A;
+    margin-top: 0;
+    margin-bottom: 3%;
+}
+
+.desc {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #4A4A4A;
+    margin-bottom: 1.5%;
+    margin-right: 35%;
+}
+
+
+.mdp {
+    margin-right: 40%;
+}
+
+.links {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #635CFF;
+    margin-bottom: 5%;
+    margin-top: 1.5%;
+}
+
+.first {
+    margin-bottom: 3%;
+}
+
+.links:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.input {
+    width: 60%;
+    height: 9%;
+    background: #FFFFFF;
+    border: 1px solid #C2CFE0;
+    border-radius: 10px;
+    padding: 2%;
+    outline: none;
+}
+
+.button {
+    padding: 13.5px 10px;
+    gap: 10px;
+    width: 70%;
+    height: 10%;
+    background: #635CFF;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    transition: 500ms;
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: rgb(129, 233, 255);
+}
