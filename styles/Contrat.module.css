@@ -1,5 +1,8 @@
 .container{
-    height: 100vh;
-    width: 100vw;
-    background-color: #fff;
+    display: flex;
+    width: 81%;
+    border-bottom: 2px solid rgb(235,239,242);
+}
+.head{
+    margin: 2% 8%;
 }

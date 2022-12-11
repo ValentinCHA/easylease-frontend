@@ -1,35 +1,92 @@
 .container{
+    float: left;
     height: 100vh;
-    width: 100vw;
+    width: 19%;
     background-color: #fff;
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .navbar{
-    height: 100%;
-    width: 18%;
-    border: 1px solid blue;
-    
+    height: 50%;
+    width: 100%;
 }
 .logo{
     height: auto;
     width: 30%;
     margin-bottom: 10%;
+
 }
-.account{
-    height: 10%;
+.accountBox{
+    height: 16%;
     width: 100%;
-    border: 1px solid black;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    flex-direction: row;
+    
 }
-.icon{
-    height: 30%;
+.avatar{
+    height: 50%;
     width: auto;
-    border: 1px solid black;
     padding: 3%;
     border-radius: 27px;
+    margin: 5%;
+    border: 1px solid black;
 }
 .infoUser{
     display: flex;
-    
+    flex-direction: column;
+}
+.name{
+    font-size: 80%;
+    margin-bottom: 2%;
+}
+.emailSize{
+    font-size: 70%;
+    padding: 1%;
+    color: rgb(149,164,186);
+}
+.nav{
+    height: auto;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.navigation{
+    margin: 8% 7%;
+}
+.spaceIcon{
+    margin: 0% 10%;
+}
+.spaceIconLogout{
+    margin: 0% 9%;
+}
+
+.secondNav{
+    margin-top: 24%;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: 2px solid rgb(235,239,242);
+}
+.footerNav{
+    display: flex;
+    flex-direction: column;
+    padding: 7% 0%;
+    justify-content: space-between;
+}
+.fonsize{
+    font-size: 90%;
+    margin-top: 3%;
+}
+.header{
+    width: 100vw;
+    height: 10vh;
+}
+.title{
+    margin: 1% 10%;
+    align-items: center;
+    font-size: 2em;
 }

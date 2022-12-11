@@ -1,7 +1,15 @@
 import Home from '../components/Home';
+import Head from 'next/head';
 
-function Index() {
-  return <Home />;
+function HomePage() {
+  return (
+    <>
+      <Head>
+        <title>Home / EasyLease</title>
+      </Head>
+      <Home />
+    </>
+  );
 }
 
-export default Index;
+export default HomePage;
