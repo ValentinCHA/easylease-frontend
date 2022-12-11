@@ -3,13 +3,16 @@ import styles from "../styles/Login.module.css";
 import { Modal } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../reducers/user';
+import { useRouter } from 'next/router';
 
 function Login() {
 
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.value);
     
-    let url="https://google.com";
+    const url="https://google.com";
+    const BACKEND_ADDRESS = "http://localhost:3000";
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [firstPassword, setFirstPassword] = useState('');
@@ -26,6 +29,11 @@ function Login() {
 
     console.log("USERNAME =>", username);
     console.log("PASSWORD =>", password);
+
+    const router = useRouter();
+    if (user.token) {
+      router.push('/contrat');
+    }
 
     const handleFirstLogin = () => {
         console.log("Click Première connexion");
@@ -55,7 +63,7 @@ function Login() {
     const handleSubmit = () => {
         console.log("Sign in submit");
         if (EMAIL_REGEX.test(username)) {
-            fetch('http://localhost:3000/users/signin', {
+            fetch(`${BACKEND_ADDRESS}/users/signin`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: username, password :password }),
@@ -75,7 +83,7 @@ function Login() {
     const handleSignUpSubmit = () => {
         console.log("Sign Up Submit");
         if (EMAIL_REGEX.test(firstLogin)) {
-            fetch('http://localhost:3000/users/signup', {
+            fetch(`${BACKEND_ADDRESS}/users/signup`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: firstLogin, password :firstPassword }),
