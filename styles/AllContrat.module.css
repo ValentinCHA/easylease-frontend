@@ -1,0 +1,12 @@
+.header {
+  display: flex;
+  width: 80%;
+  border-bottom: 2px solid rgb(235, 239, 242);
+}
+.head {
+  margin: 2% 8%;
+}
+.container {
+  width: 100%;
+  height: 100%;
+}
