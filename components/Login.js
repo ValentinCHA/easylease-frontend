@@ -32,7 +32,7 @@ function Login() {
     const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     // Savoir si l'user a le droit de cliquer sur "Première connexion" //
-    let isAdmin = false;
+    let isAdmin = true;
 
     // Pour les tests //
     console.log("USERNAME =>", username);

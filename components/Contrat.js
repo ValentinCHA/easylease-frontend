@@ -7,7 +7,7 @@ function Contrat() {
     <>
     <Navbar/>
     <div className={style.header}>
-      <h1 className={style.head} >Contacts</h1>
+      <h1 className={style.head} >Contrat</h1>
     </div>
     <div className={style.container}>
         

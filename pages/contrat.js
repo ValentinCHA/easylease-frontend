@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Contacts from '../components/Contacts';
+import Contacts from '../components/Contrat';
 
 function ContactsPage() {
   return (
