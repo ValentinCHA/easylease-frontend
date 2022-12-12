@@ -63,7 +63,7 @@
 }
 
 .secondNav{
-    height: 115%;
+    height: 50vh;
     width: 100%;
     display: flex;
     flex-direction: column;
