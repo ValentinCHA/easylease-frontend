@@ -37,7 +37,7 @@ function Navbar() {
     }
 
     const navContrat=()=>{
-        router.push('/contrat')
+        router.push('/allContrat')
     }
     const navClient=()=>{
         router.push('/allClients')

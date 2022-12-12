@@ -1,11 +1,11 @@
-import Head from "next/head";
-import AllContrat from "../components/AllContrat";
+import Head from 'next/head';
+import AllContrat from '../components/AllContrat';
 
 function AllContratPage() {
   return (
     <>
       <Head>
-        <title>AllContrat / EasyLease</title>
+        <title>Contrat / EasyLease</title>
       </Head>
       <AllContrat />
     </>
