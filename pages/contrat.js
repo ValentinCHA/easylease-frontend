@@ -1,15 +1,15 @@
 import Head from 'next/head';
-import Contacts from '../components/Contrat';
+import Contrat from '../components/Contrat';
 
-function ContactsPage() {
+function ContratPage() {
   return (
     <>
       <Head>
-        <title>Contact / EasyLease</title>
+        <title>Contrat / EasyLease</title>
       </Head>
-      <Contacts />
+      <Contrat />
     </>
   );
 }
 
-export default ContactsPage;
+export default ContratPage;

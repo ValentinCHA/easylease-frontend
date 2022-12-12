@@ -32,8 +32,8 @@ function Navbar() {
         router.push('/login')
     }
 
-    const navContact=()=>{
-        router.push('/contacts')
+    const navContrat=()=>{
+        router.push('/contrat')
     }
     const navClient=()=>{
         router.push('/client')
@@ -63,22 +63,22 @@ function Navbar() {
             {/* toutes mes icons qui vont permettre de naviguer de page en page */}
             <div className={style.navigationPage}>
                 {/* espace entre chaque box */}
-                <div className={style.spaceBoxSpan}>
-                    <span onClick={()=>navDashboard()}><FontAwesomeIcon icon={faChartSimple} className={style.spaceIconSpan} />Dashboard</span> {/* espace entre l'icon et le text */}
+                <div className={style.BoxSpan}>
+                    <span onClick={()=>navDashboard()} className={style.textStyle}><FontAwesomeIcon icon={faChartSimple} className={style.spaceIconSpan} />Dashboard</span> {/* espace entre l'icon et le text */}
                 </div>
-                <div className={style.spaceBoxSpan}>
-                    <span onClick={()=>navScenario()}><FontAwesomeIcon icon={faDiagramNext} className={style.spaceIconSpan} />Scénario</span>
+                <div className={style.BoxSpan}>
+                    <span onClick={()=>navScenario()} className={style.textStyle}><FontAwesomeIcon icon={faDiagramNext} className={style.spaceIconSpan} />Scénario</span>
                 </div>
-                <div className={style.spaceBoxSpan}>
-                    <span onClick={()=>navClient()}><FontAwesomeIcon icon={faEnvelope} className={style.spaceIconSpan} />Client</span>
+                <div className={style.BoxSpan}>
+                    <span onClick={()=>navClient()} className={style.textStyle}><FontAwesomeIcon icon={faEnvelope} className={style.spaceIconSpan} />Client</span>
                 </div>
-                <div className={style.spaceBoxSpan}>
-                    <span onClick={()=>navContact()}><FontAwesomeIcon icon={faUser} className={style.spaceIconSpan} />Contacts</span>
+                <div className={style.BoxSpan}>
+                    <span onClick={()=>navContrat()} className={style.textStyle}><FontAwesomeIcon icon={faUser} className={style.spaceIconSpan} />Contrat</span>
                 </div>
             </div>
             {/* taille de ma 2e navBar */}
             <div className={style.secondNav}>
-                <div className={style.spaceBoxSpan}>
+                <div className={style.BoxSpan}>
                     <span><FontAwesomeIcon icon={faEllipsis} className={style.spaceIconSpan} />Settings</span>
                 </div>
                 <div className={style.footerNav}>
