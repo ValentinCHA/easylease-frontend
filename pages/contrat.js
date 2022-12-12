@@ -1,5 +1,5 @@
-import Head from 'next/head';
-import Contrat from '../components/Contrat';
+import Head from "next/head";
+import Contrat from "../components/Contrat";
 
 function ContratPage() {
   return (
