@@ -10,6 +10,6 @@ function ContratPage() {
       <Contrat />
     </>
   );
-}
+} 
 
 export default ContratPage;
