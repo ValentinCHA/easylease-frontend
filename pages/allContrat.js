@@ -1,15 +1,15 @@
 import Head from 'next/head';
-import Contrat from '../components/Contrat';
+import AllContrat from '../components/AllContrat';
 
-function ContratPage() {
+function AllContratPage() {
   return (
     <>
       <Head>
         <title>Contrat / EasyLease</title>
       </Head>
-      <Contrat />
+      <AllContrat />
     </>
   );
 }
 
-export default ContratPage;
+export default AllContratPage;

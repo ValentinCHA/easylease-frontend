@@ -1,0 +1,27 @@
+.card{
+    padding-top: 2%;
+    margin: 5%;
+    height: auto;
+    width: 25%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+.userIcon{
+    height: auto;
+    padding-bottom: 5%;
+    width: 24%;
+    color: rgb(51,78,110);
+    text-shadow: 2px 2px 4px #000000;
+}
+.infoContrat{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+    align-items:center;
+    justify-content: center;
+}
