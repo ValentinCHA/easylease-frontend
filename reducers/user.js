@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: { token: null, email: null, poste: null, isAdmin: null },
+  value: { token: null, email: null, poste: null, interlocutors: [] , isAdmin: null},
 };
 
 export const userSlice = createSlice({
@@ -12,7 +12,7 @@ export const userSlice = createSlice({
       state.value.token = action.payload.token;
       state.value.email = action.payload.email;
       state.value.poste = action.payload.poste;
-      state.value.isAdmin = action.payload.isAdmin
+      state.value.isAdmin = action.payload.isAdmin;
     },
     logout: (state) => {
       state.value.token = null;
@@ -20,8 +20,11 @@ export const userSlice = createSlice({
       state.value.poste = null;
       state.value.isAdmin = null;
     },
+    addInterlocutor: (state,action) => {
+      state.value.interlocutors.push(action.payload);
+    }
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, addInterlocutor } = userSlice.actions;
 export default userSlice.reducer;
