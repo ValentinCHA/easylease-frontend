@@ -1,13 +1,16 @@
 import React from 'react'
-import style from '../styles/Contrat.module.css'
+import style from '../styles/Contacts.module.css'
 import Navbar from './Navbar';
 
 function Contrat() {
   return (
     <>
     <Navbar/>
+    <div className={style.header}>
+      <h1 className={style.head} >Contacts</h1>
+    </div>
     <div className={style.container}>
-      <h1 className={style.head} >Contrats</h1>
+        
     </div>
     </>
   )

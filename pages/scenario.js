@@ -1,15 +1,15 @@
 import Head from 'next/head';
-import Contrat from '../components/Contrat';
+import Scenario from '../components/Scenario';
 
-function ContratPage() {
+function ScenarioPage() {
   return (
     <>
       <Head>
         <title>Contrat / EasyLease</title>
       </Head>
-      <Contrat />
+      <Scenario />
     </>
   );
 }
 
-export default ContratPage;
+export default ScenarioPage;
