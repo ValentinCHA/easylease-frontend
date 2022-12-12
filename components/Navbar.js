@@ -32,6 +32,18 @@ function Navbar() {
         router.push('/login')
     }
 
+    const navContact=()=>{
+        router.push('/contacts')
+    }
+    const navClient=()=>{
+        router.push('/client')
+    }
+    const navScenario=()=>{
+        router.push('/scenario')
+    }
+    const navDashboard=()=>{
+        router.push('/dashboard')
+    }
 
   return (
     // toute ma navbar 
@@ -52,16 +64,16 @@ function Navbar() {
             <div className={style.navigationPage}>
                 {/* espace entre chaque box */}
                 <div className={style.spaceBoxSpan}>
-                    <span><FontAwesomeIcon icon={faChartSimple} className={style.spaceIconSpan} />Dashboard</span> {/* espace entre l'icon et le text */}
+                    <span onClick={()=>navDashboard()}><FontAwesomeIcon icon={faChartSimple} className={style.spaceIconSpan} />Dashboard</span> {/* espace entre l'icon et le text */}
                 </div>
                 <div className={style.spaceBoxSpan}>
-                    <span><FontAwesomeIcon icon={faDiagramNext} className={style.spaceIconSpan} />Scénario</span>
+                    <span onClick={()=>navScenario()}><FontAwesomeIcon icon={faDiagramNext} className={style.spaceIconSpan} />Scénario</span>
                 </div>
                 <div className={style.spaceBoxSpan}>
-                    <span><FontAwesomeIcon icon={faEnvelope} className={style.spaceIconSpan} />Client</span>
+                    <span onClick={()=>navClient()}><FontAwesomeIcon icon={faEnvelope} className={style.spaceIconSpan} />Client</span>
                 </div>
                 <div className={style.spaceBoxSpan}>
-                    <span><FontAwesomeIcon icon={faUser} className={style.spaceIconSpan} />Contacts</span>
+                    <span onClick={()=>navContact()}><FontAwesomeIcon icon={faUser} className={style.spaceIconSpan} />Contacts</span>
                 </div>
             </div>
             {/* taille de ma 2e navBar */}
