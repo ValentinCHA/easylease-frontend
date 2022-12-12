@@ -5,7 +5,7 @@ function ClientPage() {
   return (
     <>
       <Head>
-        <title>Contrat / EasyLease</title>
+        <title>Client / EasyLease</title>
       </Head>
       <Client />
     </>
