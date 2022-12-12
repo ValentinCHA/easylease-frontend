@@ -1,5 +1,7 @@
 import React, { useDebugValue } from 'react'
 import style from '../styles/Navbar.module.css'
+import { useSelector } from 'react-redux';
+
 
 //import des icon de la navbar
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -17,9 +19,11 @@ import {useRouter} from 'next/router'
 //import dispatch qui permet de d'activer les fonctions de mon reducer
 import { useDispatch } from 'react-redux'
 // fonction de mon fichier reducer/user
-import {logout} from '../reducers/user'
+import user, {logout} from '../reducers/user'
 
 function Navbar() {
+
+    const user = useSelector((state) => state.user.value);
 
     // declaration de useRouter dans une const router
     const router = useRouter();
@@ -56,8 +60,8 @@ function Navbar() {
             <div className={style.accountBox} >
                 <FontAwesomeIcon icon={faUserTie} className={style.avatar} />
                     <div className={style.infoUser}>
-                        <span className={style.name} >Jhon Doe</span>
-                        <span className={style.emailSize}>JhonDoe@gmail.com</span>
+                        <span className={style.name} >{user.name}</span>
+                        <span className={style.emailSize}>{user.email}</span>
                     </div>
             </div>
             {/* toutes mes icons qui vont permettre de naviguer de page en page */}
