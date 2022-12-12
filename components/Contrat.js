@@ -1,5 +1,5 @@
 import React from 'react'
-import style from '../styles/Contacts.module.css'
+import style from '../styles/Contrat.module.css'
 import Navbar from './Navbar';
 
 function Contrat() {
