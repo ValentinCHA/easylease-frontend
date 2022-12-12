@@ -36,7 +36,7 @@ function Navbar() {
         router.push('/contrat')
     }
     const navClient=()=>{
-        router.push('/client')
+        router.push('/allClients')
     }
     const navScenario=()=>{
         router.push('/scenario')
