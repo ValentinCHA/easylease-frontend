@@ -101,8 +101,8 @@
 .button {
   padding: 13.5px 10px;
   gap: 10px;
-  width: 70%;
-  height: 10%;
+  width: 100%;
+  height: 80%;
   background: #635cff;
   border-radius: 5px;
   border: none;
@@ -110,6 +110,9 @@
   font-size: 16px;
   font-weight: 400;
   transition: 500ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .button:hover {
@@ -120,11 +123,37 @@
 .form {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  margin: 2%;
 }
 
 .texte {
   padding: 1%;
+}
+
+.fileUpload {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.customFileUpload {
+  padding: 13.5px 10px;
+  gap: 10px;
+  width: 100%;
+  height: 80%;
+  background: #635cff;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  transition: 500ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
