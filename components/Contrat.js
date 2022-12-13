@@ -1,24 +1,23 @@
 import React from "react";
 import style from "../styles/Contrat.module.css";
 import Navbar from "./Navbar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Modal } from "antd";
-// import { NoStyleItemContext } from "antd/es/form/context";
 
 function Contrat() {
+  // état pour montrer la modal
   const [showModal, setShowModal] = useState(false);
+  // état pour stocker les datas du contrat récupérer (À ACTIVER LORSQUE LE BACK SERA PRÊT)
+  // const [dataInterlocuteur, setDataInterlocuteur] = useState([]);
+  // const [dataInterlocuteur, setDataInterlocuteur] = useState([]);
 
-  const data = [
-    {
-      type: "industriel",
-      montant: 100,
-      duree: 36,
-      debut: 2022,
-      fin: 2025,
-      vr: 20,
-    },
-  ];
+  // Adresse du backend
+  const BACKEND_ADDRESS = "http://localhost:3000";
 
+  // état pour récupérer la valeur de l'inputDoc
+  const [inputValue, setInputValue] = useState("");
+
+  // état des informations de l'interlocuteur
   const interlocuteur = [
     {
       nom: "wentzel",
@@ -28,7 +27,18 @@ function Contrat() {
       mail: "nicococo@easymoney.com",
     },
   ];
-  // const [dataContrat, setDataContrat] = useState([]);
+
+  // état des informations du contrat
+  const contrat = [
+    {
+      type: "industriel",
+      montant: 100,
+      duree: 36,
+      debut: 2022,
+      fin: 2025,
+      vr: 20,
+    },
+  ];
 
   // useEffect(() => {
   //   //fetch en base du contrat avec son id stocké dans le reducer
@@ -49,7 +59,7 @@ function Contrat() {
     );
   });
 
-  const contratData = data.map((item) => {
+  const contratData = contrat.map((item) => {
     return (
       <div className={style.infoContrat}>
         <span className={style.texte}>
@@ -68,6 +78,22 @@ function Contrat() {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
+  const handleSubmit = () => {
+    // requete POST qui doit enregistrer le PDF dans la DB du contrat du client
+    // fetch(`${BACKEND_ADDRESS}/`, {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({ document: document }),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     data.result;
+    //   });
   };
 
   return (
@@ -122,20 +148,29 @@ function Contrat() {
           >
             <div className={style.form}>
               <form>
-                {" "}
-                <label>
-                  Ajouter un document:
-                  <br />
-                  <input
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    className={style.button}
-                  />
+                <label
+                  htmlFor="filePicker"
+                  className={style.customFileUpload + " " + style.button}
+                >
+                  Ajouter un document
                 </label>
-                <br />{" "}
-                <button type="submit" className={style.button}>
-                  Ajouter{" "}
-                </button>{" "}
+                {inputValue}
+                <br />
+                <input
+                  className={style.fileUpload}
+                  type="file"
+                  id="filePicker"
+                  onChange={handleChange}
+                  value={inputValue}
+                />
+                <br />
+                <button
+                  type="submit"
+                  className={style.button}
+                  onClick={() => handleSubmit()}
+                >
+                  Ajouter
+                </button>
               </form>
             </div>
           </Modal>
