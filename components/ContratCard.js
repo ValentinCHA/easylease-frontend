@@ -14,9 +14,9 @@ function ContratCard(props) {
       <div className={style.infoContrat}>
         <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.5em'}}>{props.name}</span>
         <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>{props.type}</span>
-        <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>{props.durée}</span>
-        <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>{props.date_de_début}</span>
-        <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>{props.date_de_fin}</span>
+        <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>{props.durée} Mois</span>
+        <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>{props.montant} €</span>
+        <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>{props.creationDate.substring(0,10)}</span>
         <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>...</span>
       </div>
     </div>
