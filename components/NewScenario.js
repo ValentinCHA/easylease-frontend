@@ -194,17 +194,20 @@ function NewScenario() {
     setModalModifierFailed(false);
     setModalModifierSuccess(false);
     setModalSubmitFailed(false);
-  }
+  };
 
   const handleOkContrat = () => {
     setModalSubmitSuccess(false);
     router.push('/allContrat')
-  }
+  };
 
   const handleSaveScenario = () => {
     setModalSaveSuccess(false);
+  };
+
+  const returnScenario = () => {
     router.push('/scenario')
-  }
+  };
 
   let header;
   if (oldScenario) {
@@ -272,7 +275,10 @@ console.log("creation date", creationDate);
             </div>
           </div>
           <Modal onCancel={() => handleSaveScenario()} open={modalSaveSuccess} footer={null}>
-            <p style={{fontSize: 18, textAlign: 'center'}}>✅ Scenario eneregistré ! ✅</p>
+            <p style={{fontSize: 18, textAlign: 'center'}} className={style.modalSave}>✅ Scenario eneregistré ! ✅</p>
+            <div className={style.divSaveBtnModal}>
+              <button className={style.button + ' ' + style.scenarioBtnModal} onClick={() => returnScenario()}>Retourner sur la page scenarios</button>
+            </div>
           </Modal>
           <Modal onCancel={() => cancelModal()} open={modalSaveFailed} footer={null}>
             <p style={{fontSize: 18, textAlign: 'center'}}>❌ Merci de remplir tous les champs ! ❌</p>

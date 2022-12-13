@@ -7,7 +7,7 @@ function Scenario() {
     <>
     <Navbar/>
     <div className={style.header}>
-      <h1 className={style.head} >Scenario</h1>
+      <h1 className={style.head} >Scenarios</h1>
     </div>
     <div className={style.container}>
         
