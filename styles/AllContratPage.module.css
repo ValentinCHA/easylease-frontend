@@ -18,7 +18,8 @@
 }
 .search{
     display: flex;
-    width: 180%;
+    width: 80%;
+    margin: 0;
     height: 11%;
     align-items: center;
     margin-left: 7%;

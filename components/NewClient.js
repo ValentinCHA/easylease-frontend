@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import style from "../styles/NewClient.module.css";
 import Navbar from "./Navbar";
-import { addInterlocutor } from "../reducers/user";
+import { addInterlocutor, deleteInterlocutor } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
-
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { Modal } from "antd";
 function NewClient() {
   // Définir l'état local pour les champs de formulaire
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  console.log(user);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [chiffreAffaire, setChiffreAffaire] = useState("");
@@ -19,23 +19,90 @@ function NewClient() {
   const [interlocMail, setInterlocMail] = useState("");
   const [interlocJob, setInterlocJob] = useState("");
   const interlocutors = user.interlocutors;
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [NumberOfEmployees, setNumberofEmployees] = useState("");
+
+  useEffect(() => {
+    console.log(chiffreAffaire);
   
-  const dropDownInterlocutors = interlocutors.map((e) =>{
-    return <li>{e}</li>
+  }, [chiffreAffaire])
+  
+ 
+  const deleteInt = (e) => {
+    dispatch(deleteInterlocutor(e));
+  };
+  const modalContent = interlocutors.map((e, i) => {
+    return (
+      <div id={e} className={style.modalInterlocutorContainer}>
+        <ul>
+          <li>
+            {e}{" "}
+            <FontAwesomeIcon
+              onClick={() => deleteInt(i)}
+              className={style.interlocutorDeleter}
+              icon={faXmark}
+              key={i}
+            />
+          </li>
+        </ul>
+      </div>
+    );
+  });
+  const handleModalInterlocutor = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+  const dropDownInterlocutors = interlocutors.map((e) => {
+    return <option value={e}>{e}</option>;
   });
 
-
-  const handleNewInterlocutorSubmit = () =>{
-    dispatch(addInterlocutor(
-      interlocFirstName + "" + interlocName + "" + "("+interlocJob+ ")" + " " + phoneNumber
-    ));
+  const handleNewInterlocutorSubmit = () => {
+    dispatch(
+      addInterlocutor(
+        interlocFirstName +
+          " " +
+          interlocName +
+          " " +
+          "(" +
+          interlocJob +
+          ")" +
+          " " +
+          phoneNumber +
+          " / " +
+          interlocMail
+      )
+    );
     setPhoneNumer("");
     setInterlocFirstname("");
     setInterlocMail("");
-    setInterlocJob("")
-  }
+    setInterlocJob("");
+  };
 
-  
+  const handleNewClientSubmit = () => {
+    console.log("submitted");
+    fetch("http://localhost:3000/client/uploadClient", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: name,
+        tel: phoneNumber,
+        address: address,
+        numberOfEmployees: NumberOfEmployees,
+        chiffre: chiffreAffaire,
+        interlocutors: interlocutors,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.result) {
+          //Penser à ajouter un reducer pour les clients qui viennent d'être ajoutés !!
+          setName("");
+          setAddress("");
+          setChiffreAffaire("");
+          console.log("client ajouté!")
+        }
+      });
+  };
 
   return (
     <div className={style.maincontainer}>
@@ -69,26 +136,58 @@ function NewClient() {
                 onChange={(e) => setChiffreAffaire(e.target.value)}
                 value={chiffreAffaire}
               ></input>
-              <form >
-                <label for="cars">Nombre d'employés :</label>
-                <select className={style.dropdownform}>
+              <form>
+                <label for="nombre d'employés">Nombre d'employés :</label>
+                <select
+                  value={NumberOfEmployees}
+                  className={style.dropdownform}
+                  onChange={(e) => setNumberofEmployees(e.target.value)}
+                >
                   <option value="1 à 20">1 à 20</option>
                   <option value="20 à 100">20 à 100</option>
                   <option value="100 à 1000">100 à 1000</option>
                 </select>
               </form>
-              <form >
-                <label for="interlocutors">Interlocuteurs: </label>
-                <select className={style.dropdownform}>
-                  <option value="Paul Dupont">Paul Dupont</option>
 
-                </select>
-              </form>
-              <ul className={style.interlocutorsListContainer}>
-              {dropDownInterlocutors}
-              </ul>
+              {!isModalVisible && (
+                <div className={style.interlocutorItemListContainer}>
+                  <form>
+                    <label for="interlocutors"> </label>
+                    <select className={style.dropdownform}>
+                      {dropDownInterlocutors}
+                    </select>
+                  </form>
+                </div>
+              )}
+              {isModalVisible && (
+                <div className={style.modal}>
+                  <Modal
+                    getContainer="#react-modals"
+                    visible={isModalVisible}
+                    closable={false}
+                    footer={null}
+                    open={isModalVisible}
+                    onCancel={isModalVisible}
+                  >
+                    {modalContent}
+                    <button
+                      className={style.button}
+                      onClick={() => handleModalInterlocutor()}
+                    >
+                      Ok
+                    </button>
+                  </Modal>
+                </div>
+              )}
+              <span
+                onClick={handleModalInterlocutor}
+                className={style.textLink}
+              >
+                Modifier les interlocuteurs
+              </span>
             </div>
           </div>
+          <div className={style.line}></div>
           <div className={style.newInterlocutorContainer}>
             <span>Interlocuteur : </span>
             <input
