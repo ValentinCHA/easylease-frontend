@@ -5,6 +5,7 @@ import Head from "next/head";
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import user from "../reducers/user";
+import contrat from "../reducers/contrat";
 
 // redux-persist imports
 import { persistStore, persistReducer } from "redux-persist";
@@ -30,30 +31,30 @@ const storage =
     ? createWebStorage("local")
     : createNoopStorage();
 
-const reducers = combineReducers({ user });
+const reducers = combineReducers({ user, contrat });
 const persistConfig = {
   key: "easyLease75",
-  storage
+  storage,
 };
 
 const store = configureStore({
   reducer: persistReducer(persistConfig, reducers),
   middleware: (getDefaultMiddleware) =>
-  getDefaultMiddleware({ serializableCheck: false }),
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 
 const persistor = persistStore(store);
 
 function App({ Component, pageProps }) {
   return (
-      <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <Head>
-            <title>EasyLease</title>
-          </Head>
-          <Component {...pageProps} />
-        </PersistGate>
-      </Provider>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <Head>
+          <title>EasyLease</title>
+        </Head>
+        <Component {...pageProps} />
+      </PersistGate>
+    </Provider>
   );
 }
 
