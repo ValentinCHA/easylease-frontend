@@ -1,14 +1,29 @@
 .card{
     padding-top: 2%;
-    margin: 5%;
+    margin: 3% 7%;
     height: auto;
-    width: 25%;
+    width: 20%;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     display: flex;
     align-items:center;
     justify-content: center;
     flex-direction: column;
-
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+}
+.card:hover{
+    padding-top: 2%;
+    margin: 3% 7%;
+    height: auto;
+    width: 22%;
+    box-shadow: rgb(51, 78, 109) 0px 3px 8px;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+    transition-duration: 0.3s;
+    transition-timing-function: linear;
+    cursor: pointer;
 }
 .userIcon{
     height: auto;
