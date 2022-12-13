@@ -5,60 +5,47 @@ import ContratCard from './ContratCard'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-
+import { useDispatch, useSelector } from 'react-redux'
 
 function AllContrat() {
 
   const [inputValue, setInputValue] = useState('')
-  const [dataScenary, setDataScenary] = useState([])
+  const [dataContrat, setDataContrat] = useState([])
 
-// tableau d'essaie
-  let array = [
-    {name:'Macbook air Apple', type:'Ordinateurs', durée:'24 Mois',date_de_début:'10/09/22' ,date_de_fin:'10/09/24' ,date_de_fin:'100.000€', valeur_résiduel: '10%'},
-    {name:'Bureau Ikea', type:'Meubles', durée:'34 Mois',date_de_début:'10/09/23' ,date_de_fin:'10/09/26' ,montant:'200.000€', valeur_résiduel: '20%'},
-    {name:'Mercedes cla200', type:'Voitures', durée:'12 Mois',date_de_début:'10/09/22' ,date_de_fin:'10/09/23' ,montant:'400.000€', valeur_résiduel: '20%'},
-    {name:'Bmw x6', type:'voitures', durée:'12 Mois',date_de_début:'10/09/22' ,date_de_fin:'10/09/23' ,montant:'450.000€', valeur_résiduel: '10%'},
-    {name:'Aspirateur', type:'Machine', durée:'48 Mois',date_de_début:'10/09/22' ,date_de_fin:'10/09/26' ,montant:'50.000€', valeur_résiduel: '10%'},
-    {name:'Bouteille Oasis', type:'Boissons', durée:'6 Mois',date_de_début:'10/09/22' ,date_de_fin:'10/03/23' ,montant:'50.000€', valeur_résiduel: '10%'},
-    {name:'Tv samsung', type:'télévision', durée:'24 Mois',date_de_début:'10/09/22' ,date_de_fin:'10/09/24' ,montant:'100.000€', valeur_résiduel: '10%'},
-    {name:'Chaise ', type:'Meubles', durée:'24 Mois',date_de_début:'10/09/22' ,date_de_fin:'10/09/24' ,montant:'100.000€', valeur_résiduel: '10%'},
-  ]
-// map tableau d'essaie
-  const infoContrat = dataScenary.filter((data)=>{
+  useEffect(()=>{
+    fetch('http://localhost:3000/contrat/allContrat')
+    .then(response=>response.json())
+    .then(data=>{
+      if(data.result){
+        // console.log('data find',data.contrat)
+        const contrat = data.contrat.map((data,i)=>{
+        return ({
+          _id: data._id,
+          name: data.name,
+          type: data.type,
+          durée: data.duration,
+          montant: data.amount,
+          creationDate: data.creationDate,
+          date_de_début: data.contratStart,
+          date_de_fin: data.contratEnd,
+          valeur_résiduel: data.residualValue
+          })
+        })
+        setDataContrat(contrat)
+      }
+    })
+  },[])
+
+  const infoContrat = dataContrat.filter((data)=>{
     if(inputValue == ""){
       return data
     }else if(data.name.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())){
       return data
     }
   }).map((data,i)=>{
-    return <ContratCard {...data} />
+    return <ContratCard key={i} {...data} id={data._id} />
   })
 
-  useEffect(()=>{
-    fetch('http://localhost:3000/scenary/all')
-    .then(response=>response.json())
-    .then(data=>{
-      if(data){
-        console.log('data find',data)
-        const scenary = data.scenaries.map((data,i)=>{
-          return ({
-            name: data.name,
-            type: data.type,
-            durée: data.duration,
-            montant: data.amount,
-            creationDate: data.creationDate,
-            date_de_début: data.contratStart,
-            date_de_fin: data.contratEnd,
-            valeur_résiduel: data.residualValue
-          })
-        })
-        setDataScenary(scenary)
-      }
-    })
-  },[])
-
-
-  console.log(inputValue)
   return (
     <>
     {/* navbar et header */}
