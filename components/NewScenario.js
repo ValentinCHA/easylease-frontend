@@ -2,9 +2,11 @@ import React, {useState, useEffect} from 'react';
 import Navbar from './Navbar';
 import style from '../styles/NewScenario.module.css';
 import { Modal } from 'antd';
+import { useRouter } from 'next/router';
 
 function NewScenario() {
 
+  const router = useRouter();
   const date = new Date();
   // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
@@ -18,12 +20,18 @@ function NewScenario() {
   const [startDateLocation, setStartDateLocation] = useState("");
   const [endDateLocation, setEndDateLocation] = useState("");
   const [residualValue, setResidualValue] = useState("");
+  const [margeValue, setMargeValue] = useState("");
 
   const [oldScenario, setOldScenario] = useState(false);
   const [modalSaveSuccess, setModalSaveSuccess] = useState(false);
   const [scenaryName, setScenaryName] = useState("");
   const [modalSaveFailed, setModalSaveFailed] = useState(false);
   const [modalDeleteSuccess, setModalDeleteSuccess] = useState(false);
+  const [modalDeleteFailed, setModalDeleteFailed] = useState(false);
+  const [modalModifierFailed,setModalModifierFailed] = useState(false);
+  const [modalModifierSuccess,setModalModifierSuccess] = useState(false);
+  const [modalSubmitSuccess, setModalSubmitSuccess] = useState(false);
+  const [modalSubmitFailed, setModalSubmitFailed] = useState(false);
 
   // Check si le scenario est déja enregistrer en BDD//
   useEffect(() => {
@@ -52,6 +60,31 @@ function NewScenario() {
 
   const modification = () => {
     console.log("Click modification");
+    fetch(`${BACKEND_ADDRESS}/scenary/update/${scenaryName}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        client: selectionClient,
+        name: scenarioName,
+        type: equipementType,
+        duration: locationDuration,
+        amount : amountFinance,
+        creationDate: creationDate,
+        contratStart: startDateLocation,
+        contratEnd: endDateLocation,
+        residualValue: residualValue,
+        links: "TEST",
+        marge: margeValue,
+      })
+    }).then(response => response.json()).then(data => {
+        if (data.result) {
+          setModalModifierSuccess(true);
+          setScenaryName(data.name);
+        } else {
+          console.log("DATA PUT=>", data);
+          setModalModifierFailed(true);
+        }
+      })
   };
 
   const deletion = () => {
@@ -63,6 +96,7 @@ function NewScenario() {
     .then(data => {
       if (data.result) {
         setModalDeleteSuccess(true);
+        setOldScenario(false);
         setSelectionClient("");
         setCreationDate(date.toISOString().substring(0, 10));
         setScenarioName("");
@@ -72,6 +106,9 @@ function NewScenario() {
         setStartDateLocation("");
         setEndDateLocation("");
         setResidualValue("");
+        setMargeValue("");
+      } else {
+        setModalDeleteFailed(true);
       }
       console.log(data);
     })
@@ -93,6 +130,7 @@ function NewScenario() {
         contratEnd: endDateLocation,
         residualValue: residualValue,
         links: "TEST",
+        marge: margeValue,
       })
     }).then(response => response.json()).then(data => {
       if (data.result) {
@@ -107,14 +145,66 @@ function NewScenario() {
 
   const submit = () => {
     console.log("Click validation");
+    fetch(`${BACKEND_ADDRESS}/contrat/addContrat`, {
+      method : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        client: selectionClient,
+        name: scenarioName,
+        type: equipementType,
+        duration: locationDuration,
+        amount : amountFinance,
+        creationDate: creationDate,
+        contratStart: startDateLocation,
+        contratEnd: endDateLocation,
+        residualValue: residualValue,
+        links: "TEST",
+        marge: margeValue,
+      })
+    }).then(response => response.json())
+    .then(data => {
+      console.log("DATA CONTRAT =>", data);
+      if (data.result) {
+        setModalSubmitSuccess(true);
+        setOldScenario(false);
+        setSelectionClient("");
+        setCreationDate(date.toISOString().substring(0, 10));
+        setScenarioName("");
+        setEquipementType("");
+        setLocationDuration("");
+        setAmountFinance("");
+        setStartDateLocation("");
+        setEndDateLocation("");
+        setResidualValue("");
+        setMargeValue("")
+      //   setTimeout(function(){
+      //     router.push('/scenario')
+      // },1000);
+      } else {
+        setModalSubmitFailed(true);
+      }
+    })
   };
 
   const cancelModal = () => {
     setModalSaveSuccess(false);
     setModalSaveFailed(false);
     setModalDeleteSuccess(false);
+    setModalDeleteFailed(false);
+    setModalModifierFailed(false);
+    setModalModifierSuccess(false);
+    setModalSubmitFailed(false);
   }
 
+  const handleOkContrat = () => {
+    setModalSubmitSuccess(false);
+    router.push('/allContrat')
+  }
+
+  const handleSaveScenario = () => {
+    setModalSaveSuccess(false);
+    router.push('/scenario')
+  }
 
   let header;
   if (oldScenario) {
@@ -122,6 +212,7 @@ function NewScenario() {
   } else {
     header = <h1 className={style.head} >Nouveau Scenario</h1>
   };
+
 console.log("creation date", creationDate);
   return (
     <>
@@ -147,7 +238,8 @@ console.log("creation date", creationDate);
               <option>12</option>
               <option>24</option>
             </select>
-          <input type="text" className={style.input} onChange={(e) => setAmountFinance(e.target.value)} value={amountFinance} placeholder="Montant financé" />
+          <input type="text" className={style.input} onChange={(e) => setAmountFinance(e.target.value)} value={amountFinance} placeholder="Montant financé (€)" />
+          <input type="text" className={style.input} onChange={(e) => setMargeValue(e.target.value)} value={margeValue} placeholder="Marge (%)" />
           <p className={style.para + ' ' + style.un}>Date de début :</p>
           <input className={style.input} type="date" onChange={(e) => setStartDateLocation(e.target.value)} value={startDateLocation}/>
           <p className={style.para + ' ' + style.de}>Date de fin :</p>
@@ -179,14 +271,29 @@ console.log("creation date", creationDate);
             <button className={style.button + ' ' + style.bottomBtn} onClick={() => submit()}>Valider ce scénario en contrat</button>
             </div>
           </div>
-          <Modal onCancel={() => cancelModal()} open={modalSaveSuccess} footer={null}>
-            <p style={{fontSize: 18, textAlign: 'center'}}>✅ Scenario eneregistrer ! ✅</p>
+          <Modal onCancel={() => handleSaveScenario()} open={modalSaveSuccess} footer={null}>
+            <p style={{fontSize: 18, textAlign: 'center'}}>✅ Scenario eneregistré ! ✅</p>
           </Modal>
           <Modal onCancel={() => cancelModal()} open={modalSaveFailed} footer={null}>
             <p style={{fontSize: 18, textAlign: 'center'}}>❌ Merci de remplir tous les champs ! ❌</p>
           </Modal>
           <Modal onCancel={() => cancelModal()} open={modalDeleteSuccess} footer={null}>
             <p style={{fontSize: 18, textAlign: 'center'}}>✅ Scenario supprimé ! ✅</p>
+          </Modal>
+          <Modal onCancel={() => cancelModal()} open={modalDeleteFailed} footer={null}>
+            <p style={{fontSize: 18, textAlign: 'center'}}>❌ Scenario non supprimé ! ❌</p>
+          </Modal>
+          <Modal onCancel={() => cancelModal()} open={modalModifierSuccess} footer={null}>
+            <p style={{fontSize: 18, textAlign: 'center'}}>✅ Scenario modifié ! ✅</p>
+          </Modal>
+          <Modal onCancel={() => cancelModal()} open={modalModifierFailed} footer={null}>
+            <p style={{fontSize: 18, textAlign: 'center'}}>❌ Scenario non modifié ! ❌</p>
+          </Modal>
+          <Modal onCancel={() => handleOkContrat()} open={modalSubmitSuccess} footer={null}>
+            <p style={{fontSize: 18, textAlign: 'center'}}>✅ Scenario validé et transformer en contrat ! ✅</p>
+          </Modal>
+          <Modal onCancel={() => cancelModal()} open={modalSubmitFailed} footer={null}>
+            <p style={{fontSize: 18, textAlign: 'center'}}>❌ Echec de la transformation en contrat ! ❌</p>
           </Modal>
       </div>
     </div>
