@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: {},
+  value: '',
 };
 
-export const contratSlice = createSlice({
-  name: 'contrat',
+export const scenarioSlice = createSlice({
+  name: 'scenario',
   initialState,
   reducers: {
     addId: (state, action) => {
@@ -14,5 +14,5 @@ export const contratSlice = createSlice({
   },
 });
 
-export const { addId } = contratSlice.actions;
-export default contratSlice.reducer;
+export const { addId } = scenarioSlice.actions;
+export default scenarioSlice.reducer;
