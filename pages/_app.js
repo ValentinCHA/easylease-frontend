@@ -7,6 +7,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import user from "../reducers/user";
 import allClients from "../reducers/allClients";
 import contrat from "../reducers/contrat";
+import scenario from "../reducers/scenario";
 
 // redux-persist imports
 import { persistStore, persistReducer } from "redux-persist";
@@ -32,7 +33,7 @@ const storage =
     ? createWebStorage("local")
     : createNoopStorage();
 
-const reducers = combineReducers({ user, contrat, allClients });
+const reducers = combineReducers({ user, contrat, allClients, scenario });
 const persistConfig = {
   key: "easyLease75",
   storage,

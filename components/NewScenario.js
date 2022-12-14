@@ -4,15 +4,15 @@ import style from '../styles/NewScenario.module.css';
 import { Modal } from 'antd';
 import { useRouter } from 'next/router';
 import { useSelector } from "react-redux";
-import {
-  XYPlot,
-  XAxis,
-  YAxis,
-  VerticalGridLines,
-  HorizontalGridLines,
-  LineSeries,
-  MarkSeries
-} from 'react-vis';
+// import {
+//   XYPlot,
+//   XAxis,
+//   YAxis,
+//   VerticalGridLines,
+//   HorizontalGridLines,
+//   LineSeries,
+//   MarkSeries
+// } from 'react-vis';
 
 
   // return (
@@ -48,9 +48,13 @@ import {
 
 
 function NewScenario() {
+
+
   const router = useRouter();
   const date = new Date();
-  const idScenario = useSelector((state) => state.contrat.value);
+
+  const idScenario = useSelector((state) => state.scenario.value);
+
   // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
   let BACKEND_ADDRESS = "http://localhost:3000";
@@ -78,14 +82,15 @@ function NewScenario() {
   const [modalSubmitSuccess, setModalSubmitSuccess] = useState(false);
   const [modalSubmitFailed, setModalSubmitFailed] = useState(false);
 
+  console.log(idScenario)
   // Check si le scenario est déja enregistrer en BDD//
   useEffect(() => {
-    if (scenaryName === "") return;
-    fetch(`${BACKEND_ADDRESS}/scenary/${scenaryName}`)
+    if (!idScenario._id) return;
+    fetch(`${BACKEND_ADDRESS}/scenary/${idScenario._id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.scenary);
-        if (data.result) {
+        //console.log(data);
+        if (data.result){
           setOldScenario(data.result);
           setSelectionClient(data.scenary.client);
           setCreationDate(data.scenary.creationDate.slice(0, 10));
@@ -98,14 +103,14 @@ function NewScenario() {
           setResidualValue(data.scenary.residualValue);
         }
       });
-  }, [scenaryName]);
+  }, [idScenario._id]);
 
   console.log("START DATE =>", startDateLocation);
   console.log("CLIENT SELECTION =>", selectionClient);
 
   const modification = () => {
     console.log("Click modification");
-    fetch(`${BACKEND_ADDRESS}/scenary/update/${scenaryName}`, {
+    fetch(`${BACKEND_ADDRESS}/scenary/update/${idScenario._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -136,7 +141,7 @@ function NewScenario() {
 
   const deletion = () => {
     console.log("Click delete");
-    fetch(`${BACKEND_ADDRESS}/scenary/${scenaryName}`, {
+    fetch(`${BACKEND_ADDRESS}/scenary/${idScenario._id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
@@ -374,20 +379,20 @@ function NewScenario() {
                 </button>
               )}
             </div>
-            <div className={style.graphic}>
+            {/* <div className={style.graphic}> */}
             {/* <img
               className={style.img}
               src="/graphic.png"
               alt="Graphique temporaire"
             /> */}
-              <XYPlot width={700} height={450}>
+              {/* <XYPlot width={700} height={450}>
               <VerticalGridLines />
               <HorizontalGridLines />
               <XAxis />
               <YAxis />
               <MarkSeries data={dataGraph} />
               </XYPlot>
-            </div>
+            </div> */}
             <div className={style.buttonBottom}>
               <button
                 className={style.button + " " + style.bottomBtn}

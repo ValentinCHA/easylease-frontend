@@ -11,7 +11,6 @@ function ContratCard(props) {
 
   const dispatch = useDispatch();
 
-  //  console.log('contratCard',idContrat)
   const affichePageContrat = () => {
     dispatch(addId(props));
     router.push("/contrat");
