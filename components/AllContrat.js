@@ -20,6 +20,7 @@ function AllContrat() {
           const contrat = data.contrat.map((data, i) => {
             return {
               _id: data._id,
+              client: data.client,
               name: data.name,
               type: data.type,
               durée: data.duration,
@@ -61,20 +62,13 @@ function AllContrat() {
           {/* {/ mon input de recherche /} */}
           <div className={style.search}>
             <input
-              className={style.input}
-              onChange={(e) => setInputValue(e.target.value)}
-              type="text"
-              placeholder="  :page_facing_up: Search contrat....."
-              value={inputValue}
+              className={style.input}onChange={(e) => setInputValue(e.target.value)}type="text" placeholder="  Search contrat....." value={inputValue}
             />
             <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />
           </div>
           {/* {/ span qui affiche le nom du client /} */}
           <span
-            style={{
-              paddingLeft: 120,
-              borderBottom: "2px solid rgb(235,239,242)",
-            }}
+            style={{paddingLeft: 120, borderBottom: "2px solid rgb(235,239,242)",}}
           >
             Contrats de l’entreprise “Nom du client” :
           </span>
@@ -83,14 +77,7 @@ function AllContrat() {
         </div>
         {/* span voir plus */}
         <span
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "rgb(101,94,255)",
-            cursor: "pointer",
-            marginTop: -40,
-          }}
+          style={{display: "flex", justifyContent: "center", alignItems: "center", color: "rgb(101,94,255)" ,cursor: "pointer" ,marginTop: -40,}}
         >
           voir plus...
         </span>
