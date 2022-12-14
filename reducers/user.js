@@ -25,9 +25,12 @@ export const userSlice = createSlice({
     },
     deleteInterlocutor: (state,action) => {
      state.value.interlocutors.splice(action.payload,1);
+    },
+    emptyInterlocutors: (state) => {
+      state.value.interlocutors = [];
     }
   },
 });
 
-export const { login, logout, addInterlocutor,deleteInterlocutor } = userSlice.actions;
+export const { login, logout, addInterlocutor,deleteInterlocutor, emptyInterlocutors } = userSlice.actions;
 export default userSlice.reducer;
