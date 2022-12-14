@@ -67,7 +67,7 @@
 
 .input {
     background: #FFFFFF;
-    border: 1px solid #C2CFE0;
+    border: 1px solid #959eaa;
     border-radius: 7px;
     padding: 2%;
     outline: none;
@@ -99,4 +99,40 @@
 
 .img {
     height: 95%;
+}
+
+.para {
+    margin: 0;
+    margin-right: 59%;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.un {
+    margin-right: 60%;
+}
+
+.de {
+    margin-right: 67%;
+}
+
+.trois {
+    margin-right: 64%;
+}
+
+.modalSave {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.scenarioBtnModal {
+    width: 60%;
+}
+
+.divSaveBtnModal {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }

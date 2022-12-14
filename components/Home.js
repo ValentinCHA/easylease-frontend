@@ -5,7 +5,7 @@ function Home() {
     <div>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">EASYLEASE</a>
+          Chargement...
         </h1>
       </main>
     </div>
