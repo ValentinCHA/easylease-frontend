@@ -5,6 +5,7 @@ import Head from "next/head";
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import user from "../reducers/user";
+import allClients from "../reducers/allClients";
 import contrat from "../reducers/contrat";
 
 // redux-persist imports
@@ -31,7 +32,7 @@ const storage =
     ? createWebStorage("local")
     : createNoopStorage();
 
-const reducers = combineReducers({ user, contrat });
+const reducers = combineReducers({ user, contrat, allClients });
 const persistConfig = {
   key: "easyLease75",
   storage,

@@ -26,6 +26,7 @@ function Login() {
     const [forgetPasswordModal, setForgetPasswordModal] = useState(false);
     const [emailErrorMain, setEmailErrorMain] = useState(false);
     const [emailErrorModal, setEmailErrorModal] = useState(false);
+    const [userInnexistant, setUserInnexistant] = useState(false);
     //
 
     // Check si l'email est valide //
@@ -63,6 +64,7 @@ function Login() {
 
      const handleCancelForgetPassword = () => {
         setForgetPasswordModal(false);
+        setUserInnexistant(false);
      }
 
 
@@ -82,6 +84,10 @@ function Login() {
                 .then(data => {
                     data.result && dispatch(login({ token: data.token, email: data.email, poste: data.poste, isAdmin: data.isAdmin }));
                     console.log("CONNECTE");
+                    if (!data.result) {
+                      console.log("DATAS DE SUBMIT =>", data);
+                      setUserInnexistant(true);
+                    }
                 });
           } else {
             setEmailErrorMain(true);
@@ -152,11 +158,14 @@ function Login() {
         </Modal>
 
         <Modal onCancel={() => handleCancelFirstLogin()} open={firstLoginModalUser} footer={null}>
-            <p style={{fontSize: 18, textAlign: 'center'}}>Vous n'êtes pas l'administrateur vous ne pouvez pas vous créer de compte. Veuillez contacter l'administrateur !</p>
+            <p style={{fontSize: 18, textAlign: 'center'}}>❌ Vous n'êtes pas l'administrateur vous ne pouvez pas vous créer de compte. Veuillez contacter l'administrateur ! ❌</p>
         </Modal>
 
         <Modal onCancel={() => handleCancelForgetPassword()} open={forgetPasswordModal} footer={null}>
             <p style={{fontSize: 18, textAlign: 'center'}}>Merci de contacter l'administrateur en charge de votre compte !</p>
+        </Modal>
+        <Modal onCancel={() => handleCancelForgetPassword()} open={userInnexistant} footer={null}>
+            <p style={{fontSize: 18, textAlign: 'center'}}>❌ Utilisateur innexistant ! ❌</p>
         </Modal>
       </div>
     </>

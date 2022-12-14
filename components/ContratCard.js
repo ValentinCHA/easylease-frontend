@@ -3,7 +3,7 @@ import style from "../styles/ContratCard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileSignature } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addId } from "../reducers/contrat";
 
 function ContratCard(props) {
@@ -12,9 +12,8 @@ function ContratCard(props) {
   const dispatch = useDispatch();
 
   //  console.log('contratCard',idContrat)
-
   const affichePageContrat = () => {
-    dispatch(addId(props._id));
+    dispatch(addId(props));
     router.push("/contrat");
   };
 
