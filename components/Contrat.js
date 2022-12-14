@@ -21,6 +21,7 @@ function Contrat() {
   const [dataContrat, setDataContrat] = useState([]);
   const [interlocutorExist, setInterlocutorExist] = useState(false);
   const [dataInterlocuteur, setDataInterlocuteur] = useState([]);
+  const [modalSubmitSuccess, setModalSubmitSuccess] = useState(false);
 
   // Adresse du backend
   const BACKEND_ADDRESS = "http://localhost:3000";
@@ -33,10 +34,13 @@ function Contrat() {
     fetch(`http://localhost:3000/contrat/${idContrat._id}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log("DATA DU CONTRAT =>", data);
         setDataContrat([data.contrat]);
         setDataInterlocuteur([data.contrat.interlocutor]);
       });
   }, []);
+
+console.log("MAP INTERLOCUTEUR", dataInterlocuteur);
 
   const saveInterlocuteur = () => {
     fetch(`${BACKEND_ADDRESS}/interlocutor/addInterlocuteur`, {
@@ -48,15 +52,16 @@ function Contrat() {
         poste: interlocJob,
         phone: phoneNumber,
         mail: interlocMail,
-        client: dataContrat.contrat.client,
+        client: dataContrat[0].client,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("DATA CONTRAT =>", data);
         if (data.result) {
+          setDataInterlocuteur([data.newInterlocutor])
+          setInterlocutorExist(true);
           setModalSubmitSuccess(true);
-          setOldScenario(false);
           setInterlocName("");
           setPhoneNumer("");
           setInterlocFirstname("");
@@ -68,15 +73,16 @@ function Contrat() {
       });
   };
 
-  const interlocuteurData = dataInterlocuteur.map((item) => {
+  const interlocuteurData = dataInterlocuteur.map((item, i) => {
+    console.log("ITEM", item.nom);
     // à compléter avec les interlocuteurs
     return (
-      <div className={style.infoInterlocuteur}>
-        <span className={style.texte}>Nom : {item}</span>
-        <span className={style.texte}>Prénom : {item}</span>
-        <span className={style.texte}>Poste : {item}</span>
-        <span className={style.texte}>Téléphone : {item}</span>
-        <span className={style.texte}>Mail : {item}</span>
+      <div className={style.infoInterlocuteur} key={i}>
+        <span className={style.texte}>Nom : {item.nom}</span>
+        <span className={style.texte}>Prénom : {item.prenom}</span>
+        <span className={style.texte}>Poste : {item.poste}</span>
+        <span className={style.texte}>Téléphone : {item.phone}</span>
+        <span className={style.texte}>Mail : {item.mail}</span>
       </div>
     );
   });
@@ -139,7 +145,8 @@ function Contrat() {
               {contratData}
             </div>
             <div className={style.interlocuteur}>
-              {interlocutorExist && { interlocuteurData }}
+              {/* {interlocutorExist && { interlocuteurData }} */}
+              { interlocuteurData }
               {!interlocutorExist && (
                 <button
                   className={style.button}
@@ -260,6 +267,7 @@ function Contrat() {
               </button>
             </div>
           </Modal>
+
         </div>
       </div>
     </>

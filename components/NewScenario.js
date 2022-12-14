@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import style from '../styles/NewScenario.module.css';
 import { Modal } from 'antd';
 import { useRouter } from 'next/router';
+import { useSelector } from "react-redux";
 import {
   XYPlot,
   XAxis,
@@ -49,6 +50,7 @@ import {
 function NewScenario() {
   const router = useRouter();
   const date = new Date();
+  const idScenario = useSelector((state) => state.contrat.value);
   // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
   let BACKEND_ADDRESS = "http://localhost:3000";
