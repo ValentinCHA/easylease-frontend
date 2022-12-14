@@ -4,27 +4,20 @@ import style from '../styles/ClientProfil.module.css'
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import allClients from '../reducers/allClients';
 // import { fa-sharp fa-solid fa-download } from '@fortawesome/free-solid-svg-icons';
 
 function ClientProfil() {
 
     const user = useSelector((state) => state.user.value);
-    const [addClient, setAddClient] = useState([]);
+    const allClients = useSelector((state) => state.allClients.value);
 
-    useEffect(() => {
-        fetch('http://localhost:3000/client/test')
-            .then(response => response.json())
-            .then(data => {
-                setAddClient(data.clients[{}]);
-                setAddClient(data.clients.filter((data, i) => i > 0));
-            });
-    }, []);
-
-    const clients = addClient.map((data, i) => {
-        const addingClient = users.some(user => user.token === data.token);
-        return <Client key={i} {...data} addingClient={addingClient}/>;
-    });
-
+	let clients = '';
+	if (allClients.length > 0) {
+		clients = allClients.map((data, i) => {
+			return <Article key={i} {...data} isClient />;
+		});
+	}
     return (
         <>
             <div className={style.mainContainer}>
@@ -34,8 +27,6 @@ function ClientProfil() {
                 </div>
 
                 <div className={style.container}>
-                <button className={style.buttontestadd} onClick={() => addClient()}>add</button>
-
                     <div className={style.ButtonContainer}>
                         <button className={style.buttonmodifier} onClick={() => ModifClient()}>Modifier</button>
                         <button className={style.buttonsupprimer} onClick={() => SupprimClient()}>Supprimer</button>
