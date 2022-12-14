@@ -29,18 +29,20 @@ function Contrat() {
   // état pour récupérer la valeur de l'inputDoc
   const [inputValue, setInputValue] = useState("");
 
+  console.log("idContrat", idContrat);
+  console.log("dataInterlocuteur", dataInterlocuteur);
+  console.log("dataContrat", dataContrat);
+
   useEffect(() => {
     //fetch en base du contrat avec son id stocké dans le reducer
     fetch(`http://localhost:3000/contrat/${idContrat._id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("DATA DU CONTRAT =>", data);
+        console.log("DATA FETCH INITIALISATION =>", data);
         setDataContrat([data.contrat]);
         setDataInterlocuteur([data.contrat.interlocutor]);
       });
   }, []);
-
-console.log("MAP INTERLOCUTEUR", dataInterlocuteur);
 
   const saveInterlocuteur = () => {
     fetch(`${BACKEND_ADDRESS}/interlocutor/addInterlocuteur`, {
@@ -57,9 +59,9 @@ console.log("MAP INTERLOCUTEUR", dataInterlocuteur);
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("DATA CONTRAT =>", data);
+        console.log("DATA POST - ADD INTERLOCUTEUR =>", data);
         if (data.result) {
-          setDataInterlocuteur([data.newInterlocutor])
+          setDataInterlocuteur([data.newInterlocutor]);
           setInterlocutorExist(true);
           setModalSubmitSuccess(true);
           setInterlocName("");
@@ -74,7 +76,7 @@ console.log("MAP INTERLOCUTEUR", dataInterlocuteur);
   };
 
   const interlocuteurData = dataInterlocuteur.map((item, i) => {
-    console.log("ITEM", item.nom);
+    console.log("MAP sur dataInterlocuteur", item);
     // à compléter avec les interlocuteurs
     return (
       <div className={style.infoInterlocuteur} key={i}>
@@ -87,9 +89,8 @@ console.log("MAP INTERLOCUTEUR", dataInterlocuteur);
     );
   });
 
-  console.log(dataContrat);
-
   const contratData = dataContrat.map((item, i) => {
+    console.log("MAP sur dataContrat", item);
     return (
       <div className={style.infoContrat} key={i}>
         <span className={style.texte}>
@@ -146,7 +147,7 @@ console.log("MAP INTERLOCUTEUR", dataInterlocuteur);
             </div>
             <div className={style.interlocuteur}>
               {/* {interlocutorExist && { interlocuteurData }} */}
-              { interlocuteurData }
+              {interlocuteurData}
               {!interlocutorExist && (
                 <button
                   className={style.button}
@@ -267,7 +268,6 @@ console.log("MAP INTERLOCUTEUR", dataInterlocuteur);
               </button>
             </div>
           </Modal>
-
         </div>
       </div>
     </>
