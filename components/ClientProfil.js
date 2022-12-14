@@ -12,12 +12,7 @@ function ClientProfil() {
     const user = useSelector((state) => state.user.value);
     const allClients = useSelector((state) => state.allClients.value);
 
-	let clients = '';
-	if (allClients.length > 0) {
-		clients = allClients.map((data, i) => {
-			return <Article key={i} {...data} isClient />;
-		});
-	}
+	
     return (
         <>
             <div className={style.mainContainer}>

@@ -1,46 +1,47 @@
-import React from 'react'
 import Navbar from './Navbar';
 import style from '../styles/AllClients.module.css'
 import ClientCard from './ClientCard'
 import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
 
 
-function AllClients(props) {
+function AllClients() {
 
+  const [dataClient, setDataClient] = useState([]);
   const user = useSelector((state) => state.user.value);
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    fetch(`http://localhost:3000/client/test/${user.token}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
 
-  if (!user.token) {
-    return;
+          setDataClient(data.clientsInfos);
+        }
+      });
+  }, []);
+
+  function clientsInfos(client) {
+    console.log(client);
   }
 
-  fetch(`http://localhost:3000/users/test/${users.token}`)
-    .then(response => response.json())
-    .then(data => {
-      if (data.result && data.client) {
-        if (props.isClient) {
-          dispatch(removeclient(props));
-        } else {
-          dispatch(addClient(props));
-        }
-      }
-    });
-};
+  return (
 
-return (
-  <>
-    <Navbar />
-    <div className={style.header}>
-      <button className={style.buttontestadd} onClick={() => handleClientClick()}>add</button>
+    <>
+      <Navbar />
+      <div className={style.header}>
+        <h1 className={style.head} >All Clients</h1>
+      </div>
+      <div className={style.container}>{dataClient.map((client, i) => {
 
-      <h1 className={style.head} >All Clients</h1>
-    </div>
-    <div className={style.container}>
-
-    </div>
-  </>
-)
-
+        return (
+          <button className={style.buttonTest}
+            onClick={() => clientsInfos(client)}>client {i}</button>
+        )
+      })}
+      </div>
+    </>
+  )
+}
 
 export default AllClients;
