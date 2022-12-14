@@ -3,6 +3,48 @@ import Navbar from './Navbar';
 import style from '../styles/NewScenario.module.css';
 import { Modal } from 'antd';
 import { useRouter } from 'next/router';
+import {
+  XYPlot,
+  XAxis,
+  YAxis,
+  VerticalGridLines,
+  HorizontalGridLines,
+  LineSeries,
+  MarkSeries
+} from 'react-vis';
+
+
+  // return (
+  //   <XYPlot width={300} height={300}>
+  //     <VerticalGridLines />
+  //     <HorizontalGridLines />
+  //     <XAxis />
+  //     <YAxis />
+  //     <LineSeries data={data} />
+  //   </XYPlot>
+  // );
+  // const data = [
+  //   {month: "Janvier", sales: 3500},
+  //   {month: "Février", sales: 3000},
+  //   {month: "Mars", sales: 2500},
+  //   {month: "Avril", sales: 2000},
+  //   {month: "Mai", sales: 1500},
+  //   {month: "Juin", sales: 1000},
+  //   {month: "Juillet", sales: 500},
+  //   {month: "Août", sales: 100}]
+  const dataGraph = [
+    {x: 1, y: 89, student: "Étudiant 1"},
+    {x: 2, y: 75, student: "Étudiant 2"},
+    {x: 3, y: 64, student: "Étudiant 3"},
+    {x: 4, y: 77, student: "Étudiant 4"},
+    {x: 5, y: 82, student: "Étudiant 5"},
+    {x: 6, y: 91, student: "Étudiant 6"},
+    {x: 7, y: 55, student: "Étudiant 7"},
+    {x: 8, y: 70, student: "Étudiant 8"},
+    {x: 9, y: 40, student: "Étudiant 9"},
+    {x: 10, y: 65, student: "Étudiant 10"},
+  ];
+
 
 function NewScenario() {
 
@@ -264,11 +306,18 @@ console.log("creation date", creationDate);
             {!oldScenario && <button className={style.button} onClick={() => save()}>Enregistrer</button>}
             </div>
             <div className={style.graphic}>
-            <img
+            {/* <img
               className={style.img}
               src="/graphic.png"
               alt="Graphique temporaire"
-            />
+            /> */}
+              <XYPlot width={700} height={450}>
+              <VerticalGridLines />
+              <HorizontalGridLines />
+              <XAxis />
+              <YAxis />
+              <MarkSeries data={dataGraph} />
+              </XYPlot>
             </div>
             <div className={style.buttonBottom}>
             <button className={style.button + ' ' + style.bottomBtn} onClick={() => submit()}>Valider ce scénario en contrat</button>
