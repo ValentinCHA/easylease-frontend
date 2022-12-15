@@ -17,8 +17,10 @@ function Scenario(props) {
   const affichePageScenario = () => {
      dispatch(addId(props));
      console.log('valeur reducer scenario',idScenario.id)
-    router.push("/NewScenario");
+    router.push("/newScenario");
   };
+
+  console.log("ID SCENARIO FROM CARD", idScenario);
 
   return (
     // contenue de ma card contrat

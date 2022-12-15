@@ -11,8 +11,11 @@ export const scenarioSlice = createSlice({
     addId: (state, action) => {
       state.value = action.payload;
     },
+    removeId : (state) => {
+      state.value = '';
+    },
   },
 });
 
-export const { addId } = scenarioSlice.actions;
+export const { addId, removeId } = scenarioSlice.actions;
 export default scenarioSlice.reducer;
