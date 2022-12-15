@@ -16,7 +16,7 @@ function AllScenario() {
   const [dataScenario, setDataScenario] = useState([]);
 
   const afficheNewScenarioPage =()=>{
-    router.push('/NewScenario')
+    router.push('/newScenario')
   }
 
   useEffect(() => {
