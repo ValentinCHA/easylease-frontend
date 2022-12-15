@@ -30,7 +30,7 @@ function AllClients(props) {
 
 return (
   <>
-    <Navbar />
+    <Navbar styleAllClients={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
     <div className={style.header}>
       <button className={style.buttontestadd} onClick={() => handleClientClick()}>add</button>
 

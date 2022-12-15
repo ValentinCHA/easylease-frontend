@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import Scenario from "./Scenario";
 import { removeId } from "../reducers/scenario";
 import { useDispatch} from "react-redux";
+import Header  from './Header'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -61,10 +62,8 @@ function AllScenario() {
     <>
       {/* {/* navbar et header /} */}
       <div className={style.main}>
-        <Navbar />
-        <div className={style.header}>
-          <h1 className={style.head}>Scenario</h1>
-        </div>
+        <Navbar styleScenario={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
+          <Header name="Scenarios"/>
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}
           <div className={style.search}>
@@ -79,8 +78,8 @@ function AllScenario() {
           <div className={style.containerScenarioCard}>{infoContrat}</div>
         </div>
         {/* span voir plus */}
-        <span
-          style={{display: "flex", justifyContent: "center", alignItems: "center", color: "rgb(101,94,255)" ,cursor: "pointer" ,marginTop: -40,}}>voir plus...</span>
+        {/* <span
+          style={{display: "flex", justifyContent: "center", alignItems: "center", color: "rgb(101,94,255)" ,cursor: "pointer" ,marginTop: -40,}}>voir plus...</span> */}
       </div>
     </>
   );

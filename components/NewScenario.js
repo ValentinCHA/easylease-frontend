@@ -4,7 +4,8 @@ import style from '../styles/NewScenario.module.css';
 import { Modal } from 'antd';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from "react-redux";
-import { addId } from '../reducers/scenario'
+import { addId } from '../reducers/scenario';
+import Header from './Header';
 import {
   XYPlot,
   XAxis,
@@ -14,6 +15,7 @@ import {
   LineMarkSeries,
   MarkSeries
 } from 'react-vis';
+import { removeId } from "../reducers/scenario";
 
 
   // return (
@@ -53,6 +55,7 @@ function NewScenario() {
 
   let BACKEND_ADDRESS = "http://localhost:3000";
   const [selectionClient, setSelectionClient] = useState("");
+  const [clientFromCard, setClientFromCard] = useState("")
   const [creationDate, setCreationDate] = useState(
     date.toISOString().substring(0, 10)
   );
@@ -75,33 +78,66 @@ function NewScenario() {
   const [modalModifierSuccess, setModalModifierSuccess] = useState(false);
   const [modalSubmitSuccess, setModalSubmitSuccess] = useState(false);
   const [modalSubmitFailed, setModalSubmitFailed] = useState(false);
+  const [clientList, setClientList] = useState([]);
+  const [oneClient, setOneClient] = useState([]);
+  const [selectionInterlocuteur, setSelectionInterlocuteur] = useState({});
+  const [selectClientById, setSelectClientById] = useState("");
+  const [clientNameFromFetch, setClientNameFromFetch] = useState("");
+  const [deleteBtn, setDeleteBtn] = useState(false);
 
   console.log(idScenario)
   // Check si le scenario est déja enregistrer en BDD//
-  useEffect(() => {
-    if (!idScenario._id) return;
-    fetch(`${BACKEND_ADDRESS}/scenary/${idScenario._id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        //console.log(data);
-        if (data.result){
-          setOldScenario(data.result);
-          setSelectionClient(data.scenary.client);
-          setCreationDate(data.scenary.creationDate.slice(0, 10));
-          setScenarioName(data.scenary.name);
-          setEquipementType(data.scenary.type);
-          setLocationDuration(data.scenary.duration);
-          setAmountFinance(data.scenary.amount);
-          setStartDateLocation(data.scenary.contratStart.slice(0, 10));
-          setEndDateLocation(data.scenary.contratEnd.slice(0, 10));
-          setResidualValue(data.scenary.residualValue);
-          setMargeValue(data.scenary.marge)
-        }
-      });
-  }, []);
 
+  useEffect(() => {
+    if (selectionClient) {
+      fetch(`${BACKEND_ADDRESS}/client/${selectionClient}`)
+      .then(response => response.json())
+      .then(data => {
+        setOneClient([data.client])
+        setSelectClientById(data.client._id)
+        setClientNameFromFetch(data.client.name)
+      })
+    }
+   }, [selectionClient]);
+
+  console.log("ONE CLIENT =>", oneClient);
+
+  useEffect(() => {
+    if (!idScenario._id) {
+      fetch(`${BACKEND_ADDRESS}/client/allClients`)
+      .then(response => response.json())
+      .then(data => {
+        //console.log("Liste des clients", data.clients);
+        setClientList(data.clients)
+      })
+    }
+    if (idScenario._id) {
+
+      fetch(`${BACKEND_ADDRESS}/scenary/${idScenario._id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          //console.log(data);
+          if (data.result){
+            setOldScenario(data.result);
+            setClientFromCard(data.scenary.name);
+            setSelectClientById(data.scenary.client)
+            setCreationDate(data.scenary.creationDate.slice(0, 10));
+            setScenarioName(data.scenary.name);
+            setEquipementType(data.scenary.type);
+            setLocationDuration(data.scenary.duration);
+            setAmountFinance(data.scenary.amount);
+            setStartDateLocation(data.scenary.contratStart.slice(0, 10));
+            setEndDateLocation(data.scenary.contratEnd.slice(0, 10));
+            setResidualValue(data.scenary.residualValue);
+            setMargeValue(data.scenary.marge)
+          }
+        });
+    }
+  }, [deleteBtn]);
+  console.log("ID SCENARIO.ID" , idScenario._id);
   console.log("START DATE =>", startDateLocation);
   console.log("CLIENT SELECTION =>", selectionClient);
+  console.log("CLIENT LIST", clientList);
 
   const modification = () => {
     console.log("Click modification");
@@ -109,7 +145,7 @@ function NewScenario() {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        client: selectionClient,
+        client: selectClientById,
         name: scenarioName,
         type: equipementType,
         duration: locationDuration,
@@ -143,7 +179,6 @@ function NewScenario() {
         if (data.result) {
           setModalDeleteSuccess(true);
           setOldScenario(false);
-          setSelectionClient("");
           setCreationDate(date.toISOString().substring(0, 10));
           setScenarioName("");
           setEquipementType("");
@@ -166,7 +201,7 @@ function NewScenario() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        client: selectionClient,
+        client: selectClientById,
         name: scenarioName,
         type: equipementType,
         duration: locationDuration,
@@ -185,6 +220,7 @@ function NewScenario() {
           dispatch(addId(data.infosScenario))
           setModalSaveSuccess(true);
           setOldScenario(true);
+          setSelectionClient("")
         } else {
           console.log("DATA =>", data);
           setModalSaveFailed(true);
@@ -193,14 +229,17 @@ function NewScenario() {
   };
 
   console.log("ID SCENARIO FROM NEW SCENARIO", idScenario);
+  console.log("SELECT CLIENT BY ID", selectClientById);
+  console.log("SCENARIO NAME +>>>>>>>>>>>>>", scenarioName);
 
   const submit = () => {
+    
     console.log("Click validation");
     fetch(`${BACKEND_ADDRESS}/contrat/addContrat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        client: selectionClient,
+        client: selectClientById,
         name: scenarioName,
         type: equipementType,
         duration: locationDuration,
@@ -244,7 +283,6 @@ function NewScenario() {
   const cancelModal = () => {
     setModalSaveSuccess(false);
     setModalSaveFailed(false);
-    setModalDeleteSuccess(false);
     setModalDeleteFailed(false);
     setModalModifierFailed(false);
     setModalModifierSuccess(false);
@@ -260,35 +298,61 @@ function NewScenario() {
     setModalSaveSuccess(false);
   };
 
+  const handleDeleteOk = () => {
+       setModalDeleteSuccess(false);
+      //  router.push('/allScenario')
+      setDeleteBtn(true);
+      dispatch(removeId())
+  }
+
   const returnScenario = () => {
-    router.push('/scenario')
+    router.push('/allScenario')
   };
 
-  let header;
+let header;
   if (oldScenario) {
-    header = <h1 className={style.head}>Scenario : {scenarioName}</h1>;
+    header = `Nom du scénario : ${scenarioName}`
   } else {
-    header = <h1 className={style.head}>Nouveau Scenario</h1>;
+    header = "Nouveau Scenario"
+  }
+  console.log("SECNARIO NAME", scenarioName);
+  let clientsListDeroulante;
+  if (clientList) {
+   clientsListDeroulante =  clientList.map((data, i) => {
+      return (
+        <option key={i}>{data.name}</option>
+      )
+    })
+  }
+
+  let interlocutorListDeroulante;
+  if (oneClient) {
+    interlocutorListDeroulante = oneClient.map((data, i) => {
+      return (
+        <option key={i}>{data.interlocutor.name}</option>
+      )
+    })
   }
 
   console.log("creation date", creationDate);
+  console.log("Client selectionné =>", selectionClient);
   return (
     <>
       <div className={style.mainContainer}>
-        <Navbar />
-        <div className={style.header}>{header}</div>
+        <Navbar styleScenario={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
+        <Header name ={header}/>
         <div className={style.container}>
           <div className={style.leftSection}>
-            <select
+           {oldScenario && <p className={style.nomClient}>Nom du client : {`${clientNameFromFetch} ${clientFromCard}`}</p>}
+          {!oldScenario && <select
               className={style.input}
               onChange={(e) => setSelectionClient(e.target.value)}
               value={selectionClient}
+              defaultValue
             >
               <option value="" disabled selected hidden>Choisisez un client</option>
-              <option>Client 1</option>
-              <option>Client 2</option>
-              <option>6396041f066842463b1fa74a</option>
-            </select>
+              {clientsListDeroulante}
+            </select>}
             <p className={style.para}>Date de création :</p>
             <input
               className={style.input}
@@ -388,7 +452,7 @@ function NewScenario() {
               src="/graphic.png"
               alt="Graphique temporaire"
             /> */}
-            <XYPlot width={500} height={400}>
+            <XYPlot width={750} height={500}>
                   <LineMarkSeries
                     data={dataGraph}
                     xType="time"
@@ -409,9 +473,20 @@ function NewScenario() {
               </button>
             </div>
           </div>
-          <Modal onCancel={() => handleSaveScenario()} open={modalSaveSuccess} footer={null}>
-            <p style={{fontSize: 18, textAlign: 'center'}} className={style.modalSave}>✅ Scenario eneregistré ! ✅</p>
+          <Modal onCancel={() => handleSaveScenario()} open={modalSaveSuccess} footer={null} className={style.modalSuccess}>
+            <p style={{fontSize: 22, textAlign: 'center'}} className={style.modalSave}>✅ Scenario eneregistré ! ✅</p>
+            <p style={{fontSize: 18, textAlign: 'center'}}>Merci de choisir un interlocuteur pour ce scénario :</p>
+            <select
+              className={style.input + ' ' + style.inputModalInterlocuteur}
+              onChange={(e) => setSelectionInterlocuteur(e.target.value)}
+              value={selectionInterlocuteur}
+              defaultValue
+            >
+              <option value="" disabled selected hidden>Choisisez un interlocuteur</option>
+              {interlocutorListDeroulante}
+            </select>
             <div className={style.divSaveBtnModal}>
+              <button className={style.button + ' ' + style.scenarioBtnModal} onClick={() => addInterlocutor()}>Ajout interlocuteur</button>
               <button className={style.button + ' ' + style.scenarioBtnModal} onClick={() => returnScenario()}>Retourner sur la page scenarios</button>
             </div>
           </Modal>
@@ -425,7 +500,7 @@ function NewScenario() {
             </p>
           </Modal>
           <Modal
-            onCancel={() => cancelModal()}
+            onCancel={() => handleDeleteOk()}
             open={modalDeleteSuccess}
             footer={null}
           >
