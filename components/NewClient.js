@@ -26,7 +26,7 @@ function NewClient() {
   const [interlocutors, setInterlocutors] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [numberOfEmployees, setNumberofEmployees] = useState(0);
-
+  const [newClientAdded, setNewClientAdded] = useState(false);
 
   const deleteInt = (e) => {
     interlocutors.splice(e, 1);
@@ -99,11 +99,12 @@ function NewClient() {
       .then((data) => {
         if (data.result) {
           //Penser à ajouter un reducer pour les clients qui viennent d'être ajoutés !!
+          console.log("C'est good");
           setName("");
           setAddress("");
-  
+          setNumberofEmployees(0);
           setChiffreAffaire("");
-          console.log("client ajouté!");
+          setNewClientAdded(true);
         }
       });
   };
@@ -167,13 +168,13 @@ function NewClient() {
               {isModalVisible && (
                 <div className={style.modal}>
                   <Modal
-                    getContainer="#react-modals"
                     visible={isModalVisible}
                     closable={false}
                     footer={null}
                     open={isModalVisible}
                     onCancel={isModalVisible}
                   >
+                    <div className={style.modalContainer}>
                     {modalContent}
                     <button
                       className={style.button}
@@ -181,20 +182,38 @@ function NewClient() {
                     >
                       Ok
                     </button>
+                    </div>
                   </Modal>
                 </div>
               )}
-              <span
-                onClick={handleModalInterlocutor}
-                className={style.textLink}
-              >
-                Modifier les interlocuteurs
-              </span>
+              {newClientAdded && (
+                <div className={style.modal}>
+                  <Modal
+                    
+                    visible={newClientAdded}
+                    closable={false}
+                    footer={null}
+                    open={newClientAdded}
+                    onCancel={newClientAdded}
+                  >
+                    <div className={style.modalContainer}>
+                    <span>Nouveau client ajouté !</span>
+                    <button
+                      className={style.button}
+                      onClick={() => setNewClientAdded(false)}
+                    >
+                      Ok
+                    </button>
+                    </div>
+                  </Modal>
+                </div>
+              )}
+
             </div>
           </div>
           <div className={style.line}></div>
           <div className={style.newInterlocutorContainer}>
-            <span>Interlocuteur : </span>
+            <span>Interlocuteur(s) : </span>
             <input
               className={style.input + " " + style.inputNewInterlocutor}
               placeholder="Numéro de téléphone"
@@ -237,6 +256,12 @@ function NewClient() {
               Ajout Interlocuteur
             </button>
           </div>
+          <span
+                onClick={() => handleModalInterlocutor()}
+                className={style.textLink}
+              >
+                Modifier les interlocuteurs
+              </span>
           <div className={style.buttonNewClientContainer}></div>
         </div>
         <button
