@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import style from "../styles/AllScenario.module.css";
 import Navbar from "./Navbar";
 import Scenario from "./Scenario";
-import { addId } from "../reducers/contrat";
+import { removeId } from "../reducers/scenario";
+import { useDispatch} from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -11,12 +12,13 @@ import { useRouter } from "next/router";
 
 function AllScenario() {
   const router = useRouter();
-
+  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
   const [dataScenario, setDataScenario] = useState([]);
 
   const afficheNewScenarioPage =()=>{
-    router.push('/NewScenario')
+    dispatch(removeId())
+    router.push('/newScenario')
   }
 
   useEffect(() => {
