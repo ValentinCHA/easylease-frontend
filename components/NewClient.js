@@ -25,9 +25,8 @@ function NewClient() {
   const [interlocJob, setInterlocJob] = useState("");
   const [interlocutors, setInterlocutors] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [numberOfEmployees, setNumberofEmployees] = useState("1 à 20");
+  const [numberOfEmployees, setNumberofEmployees] = useState(0);
 
-  console.log("interlocutors", interlocutors);
 
   const deleteInt = (e) => {
     interlocutors.splice(e, 1);
@@ -50,12 +49,18 @@ function NewClient() {
       </div>
     );
   });
-  
+
   const handleModalInterlocutor = () => {
     setIsModalVisible(!isModalVisible);
   };
-  const dropDownInterlocutors = interlocutors.map((e,i) => {
-    return <option key={i} value={e.name}>{e.firstname}<span> </span>{e.name}</option>;
+  const dropDownInterlocutors = interlocutors.map((e, i) => {
+    return (
+      <option key={i} value={e.name}>
+        {e.firstname}  _
+        {e.name} , en tant que : 
+        {e.poste}
+      </option>
+    );
   });
 
   const handleNewInterlocutorSubmit = () => {
@@ -81,11 +86,13 @@ function NewClient() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        token: user.token,
         name: name,
         address: address,
         numberOfEmployees: numberOfEmployees,
         chiffreAffaire: chiffreAffaire,
         interlocutors: interlocutors,
+        clientBirth: Date.now(),
       }),
     })
       .then((response) => response.json())
@@ -94,6 +101,7 @@ function NewClient() {
           //Penser à ajouter un reducer pour les clients qui viennent d'être ajoutés !!
           setName("");
           setAddress("");
+  
           setChiffreAffaire("");
           console.log("client ajouté!");
         }
@@ -136,24 +144,21 @@ function NewClient() {
                 onChange={(e) => setChiffreAffaire(e.target.value)}
                 value={chiffreAffaire}
               ></input>
-              <form>
-                <label for="nombre d'employés">Nombre d'employés :</label>
-                <select
-                  value={numberOfEmployees}
-                  className={style.dropdownform}
+              <div className={style.numberOfEmployeesContainer}>
+                <label for="Nombre d'employés">Nombre d'employés:</label>
+                <input
+                  className={style.input + " " + style.inputNewClient}
+                  placeholder="Nombre d'employés"
+                  type="text"
                   onChange={(e) => setNumberofEmployees(e.target.value)}
-                >
-                  <option value="1 à 20">1 à 20</option>
-                  <option value="20 à 100">20 à 100</option>
-                  <option value="100 à 1000">100 à 1000</option>
-                </select>
-              </form>
-
+                  value={numberOfEmployees}
+                ></input>
+              </div>
               {!isModalVisible && (
                 <div className={style.interlocutorItemListContainer}>
                   <form>
                     <label for="interlocutors"> </label>
-                    <select className={style.dropdownform}>
+                    <select className={style.dropdownmenu}>
                       {dropDownInterlocutors}
                     </select>
                   </form>

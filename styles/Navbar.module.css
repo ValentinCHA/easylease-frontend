@@ -54,23 +54,20 @@
 }
 .navigationPage{
     height: auto;
-    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 .BoxSpan{
-    width: 120%;
+    
     padding: 8% 10%;
     transition-duration: 0.3s;
     transition-timing-function: linear;
 }
 .BoxSpan:hover{
-    padding-right:13%;
-    cursor: pointer;
-    font-size: 130%;
-    transition-duration: 0.3s;
-    transition-timing-function: linear;
+background-color: #add8e6;
+  color: white;
+  cursor: pointer;
 }
 .boxSpan{
     margin-top: 3%;
@@ -82,13 +79,9 @@
     transition-timing-function: linear;
 }
 .boxSpan:hover{
-    margin-top: 3%;
+    background-color: #add8e6;
+    color: white;
     cursor: pointer;
-    padding-right:13%;
-    cursor: pointer;
-    font-size: 120%;
-    transition-duration: 0.3s;
-    transition-timing-function: linear;
 }
 .spaceIconSpan{
     margin: 0% 10%;
@@ -98,7 +91,7 @@
     margin: 0% 9%;
 }
 .textStyle{
-    color: rgb(51,78,110);
+    
     text-shadow: 2px 2px 4px #c5c5c5;
 }
 .secondNav{
