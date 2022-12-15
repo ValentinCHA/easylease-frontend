@@ -36,7 +36,8 @@ function AllContrat() {
       });
   }, []);
 
-  const infoContrat = dataContrat.filter((data) => {
+  const infoContrat = dataContrat
+    .filter((data) => {
       if (inputValue == "") {
         return data;
       } else if (
@@ -53,22 +54,38 @@ function AllContrat() {
     <>
       {/* {/* navbar et header /} */}
       <div className={style.main}>
-        <Navbar />
+        <Navbar styleAllContrats={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
         <div className={style.header}>
           <h1 className={style.head}>Contrat</h1>
         </div>
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}
           <div className={style.search}>
-            <input className={style.input}onChange={(e) => setInputValue(e.target.value)}type="text" placeholder="  Search contrat....." value={inputValue}/>
+            <input
+              className={style.input}
+              onChange={(e) => setInputValue(e.target.value)}
+              type="text"
+              placeholder="  Search contrat....."
+              value={inputValue}
+            />
             <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />
-          </div>          
+          </div>
           {/* {/ div qui contiendra tout mes coponents contrat Card /} */}
           <div className={style.containerContratCard}>{infoContrat}</div>
         </div>
         {/* span voir plus */}
         <span
-          style={{display: "flex", justifyContent: "center", alignItems: "center", color: "rgb(101,94,255)" ,cursor: "pointer" ,marginTop: -40,}}>voir plus...</span>
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "rgb(101,94,255)",
+            cursor: "pointer",
+            marginTop: -40,
+          }}
+        >
+          voir plus...
+        </span>
       </div>
     </>
   );

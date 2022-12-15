@@ -1,3 +1,9 @@
+// Plan d'action pour Nico :
+// - route PUT  sur l'interlocuteur du contrat
+// - route PUT sur le contrat pour le modifier
+// - route DELETE pour supprimer le contrat
+// - route PUT pour mette à jour le link du document asscocié au contrat
+
 import React from "react";
 import style from "../styles/Contrat.module.css";
 import Navbar from "./Navbar";
@@ -75,11 +81,40 @@ function Contrat() {
       });
   };
 
+  const contratData = dataContrat.map((item, i) => {
+    console.log("MAP sur dataContrat", item);
+    const contratStart = new Date(item.contratStart);
+    const contratStartFormattedDate = contratStart.toLocaleDateString();
+    const contratEnd = new Date(item.contratEnd);
+    const contratEndFormattedDate = contratEnd.toLocaleDateString();
+
+    return (
+      <div className={style.data} key={i}>
+        <span className={style.texte}>
+          Type d'équipements financés : {item.type}
+        </span>
+        <span className={style.texte}>Montant financé : {item.amount} €</span>
+        <span className={style.texte}>
+          Durée contractuelle : {item.duration} mois
+        </span>
+        <span className={style.texte}>
+          Date de démarrage : {contratStartFormattedDate}
+        </span>
+        <span className={style.texte}>
+          Date de fin : {contratEndFormattedDate}
+        </span>
+        <span className={style.texte}>
+          Valeur résiduelle : {item.residualValue} %
+        </span>
+      </div>
+    );
+  });
+
   const interlocuteurData = dataInterlocuteur.map((item, i) => {
     console.log("MAP sur dataInterlocuteur", item);
     // à compléter avec les interlocuteurs
     return (
-      <div className={style.infoInterlocuteur} key={i}>
+      <div className={style.data} key={i}>
         <span className={style.texte}>Nom : {item.nom}</span>
         <span className={style.texte}>Prénom : {item.prenom}</span>
         <span className={style.texte}>Poste : {item.poste}</span>
@@ -89,33 +124,10 @@ function Contrat() {
     );
   });
 
-  const contratData = dataContrat.map((item, i) => {
-    console.log("MAP sur dataContrat", item);
-    return (
-      <div className={style.infoContrat} key={i}>
-        <span className={style.texte}>
-          Type d'équipements financés : {item.type}
-        </span>
-        <span className={style.texte}>Montant financé : {item.amount} </span>
-        <span className={style.texte}>
-          Durée contractuelle : {item.duration} mois
-        </span>
-        <span className={style.texte}>
-          Date de démarrage : {item.contratStart}
-        </span>
-        <span className={style.texte}>Date de fin : {item.contratEnd}</span>
-        <span className={style.texte}>
-          Valeur résiduelle : {item.residualValue} %
-        </span>
-      </div>
-    );
-  });
-
   const handleCloseModal = () => {
     setShowModalDoc(false);
     setShowModalInterlocuteur(false);
   };
-
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -137,35 +149,53 @@ function Contrat() {
       <div className={style.mainContent}>
         <Navbar />
         <div className={style.header}>
-          <h1 className={style.head}>Contrat</h1>
+          <h1 className={style.head}>Contrat : {idContrat.name} </h1>
         </div>
         <div className={style.container}>
           <div className={style.SousContainerLeft}>
-            <div className={style.contrat}>
-              <span>Informations du contrat :</span>
-              {contratData}
+            <div className={style.boxData + " " + style.boxData1}>
+              <span className={style.titreBoxData}>
+                Informations du contrat :
+              </span>
+              <div className={style.contenuBoxData}>{contratData}</div>
             </div>
-            <div className={style.interlocuteur}>
-              {/* {interlocutorExist && { interlocuteurData }} */}
-              {interlocuteurData}
-              {!interlocutorExist && (
+            <div className={style.boxData + " " + style.boxData}>
+              <span className={style.titreBoxData}>
+                Interlocuteur du contrat :
+              </span>
+              <div className={style.contenuBoxData}>{interlocuteurData}</div>
+            </div>
+            <div className={style.boxData + " " + style.boxData3}>
+              <div className={style.contenuBoxData}>
                 <button
                   className={style.button}
                   onClick={() => setShowModalInterlocuteur(true)}
                 >
-                  Enregistrer un interlocuteur
+                  Modifier l'interlocuteur
                 </button>
-              )}
+              </div>
             </div>
           </div>
           <div className={style.SousContainerRight}>
-            <div className={style.buttonContainer}>
-              <button className={style.button}>Modifier</button>
-              <button className={style.button}>Supprimer</button>
+            <div className={style.boxData + " " + style.boxData4}>
+              <div className={style.contenuBoxData}>
+                <button className={style.button}>Modifier</button>
+
+                <button className={style.button}>Supprimer</button>
+              </div>
             </div>
 
-            <div className={style.docsContainer}>
-              <span>Documents joints : </span>
+            <div className={style.boxData + " " + style.boxData5}>
+              <span className={style.titreBoxData}>Documents joints : </span>
+              <div className={style.contenuBoxData}>
+                <img
+                  src="/faux-contrat.webp"
+                  alt="Image contrat"
+                  width="200px"
+                  height="200px"
+                />
+              </div>
+
               {/* <iframe
                 src={`${testPdf}#view=fitH`}
                 title="testPdf"
@@ -174,17 +204,79 @@ function Contrat() {
               /> */}
             </div>
 
-            <div className={style.addDoc}>
-              <div className={style.ajoutDoc}>
-                <button
-                  onClick={() => setShowModalDoc(true)}
-                  className={style.button}
-                >
-                  Ajouter un document
-                </button>
+            <div className={style.boxData + " " + style.boxData6}>
+              <div className={style.contenuBoxData}>
+                <div>
+                  <button
+                    onClick={() => setShowModalDoc(true)}
+                    className={style.button}
+                  >
+                    Ajouter un document
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+          <Modal
+            onCancel={() => handleCloseModal()}
+            open={showModalInterlocuteur}
+            footer={null}
+          >
+            <span>Nouvel Interlocuteur du contrat : </span>
+            <div className={style.newInterlocutorContainer}>
+              <br />
+              <div className={style.InputNewInterlocutorContainer}>
+                <input
+                  className={style.inputNewInterlocuteur}
+                  placeholder="Nom"
+                  type="text"
+                  onChange={(e) => setInterlocName(e.target.value)}
+                  value={interlocName}
+                ></input>
+                <br />
+                <input
+                  className={style.inputNewInterlocuteur}
+                  placeholder="Prénom"
+                  type="text"
+                  onChange={(e) => setInterlocFirstname(e.target.value)}
+                  value={interlocFirstName}
+                ></input>
+                <br />
+                <input
+                  className={style.inputNewInterlocuteur}
+                  placeholder="Poste"
+                  type="text"
+                  onChange={(e) => setInterlocJob(e.target.value)}
+                  value={interlocJob}
+                ></input>
+                <br />
+                <input
+                  className={style.inputNewInterlocuteur}
+                  placeholder="Numéro de téléphone"
+                  type="text"
+                  onChange={(e) => setPhoneNumer(e.target.value)}
+                  value={phoneNumber}
+                ></input>
+                <br />
+                <input
+                  className={style.inputNewInterlocuteur}
+                  placeholder="Email"
+                  type="text"
+                  onChange={(e) => setInterlocMail(e.target.value)}
+                  value={interlocMail}
+                ></input>
+                <br />
+                <div>
+                  <button
+                    className={style.button}
+                    onClick={() => saveInterlocuteur()}
+                  >
+                    Enregistrer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Modal>
           <Modal
             onCancel={() => handleCloseModal()}
             open={showModalDoc}
@@ -196,7 +288,7 @@ function Contrat() {
                   htmlFor="filePicker"
                   className={style.customFileUpload + " " + style.button}
                 >
-                  Ajouter un document
+                  Sélectionner un document
                 </label>
                 {inputValue}
                 <br />
@@ -210,7 +302,7 @@ function Contrat() {
                 <br />
                 <button
                   type="submit"
-                  className={style.button}
+                  className={style.customFileUpload + " " + style.button}
                   onClick={() => handleSubmit()}
                 >
                   Ajouter
@@ -218,62 +310,10 @@ function Contrat() {
               </form>
             </div>
           </Modal>
-          <Modal
-            onCancel={() => handleCloseModal()}
-            open={showModalInterlocuteur}
-            footer={null}
-          >
-            <div className={style.newInterlocutorContainer}>
-              <span>Interlocuteur : </span>
-              <input
-                className={style.input + " " + style.inputNewInterlocutor}
-                placeholder="Numéro de téléphone"
-                type="text"
-                onChange={(e) => setPhoneNumer(e.target.value)}
-                value={phoneNumber}
-              ></input>
-              <input
-                className={style.input + " " + style.inputNewInterlocutor}
-                placeholder="Nom"
-                type="text"
-                onChange={(e) => setInterlocName(e.target.value)}
-                value={interlocName}
-              ></input>
-              <input
-                className={style.input + " " + style.inputNewInterlocutor}
-                placeholder="Prénom"
-                type="text"
-                onChange={(e) => setInterlocFirstname(e.target.value)}
-                value={interlocFirstName}
-              ></input>
-              <input
-                className={style.input + " " + style.inputNewInterlocutor}
-                placeholder="Email"
-                type="text"
-                onChange={(e) => setInterlocMail(e.target.value)}
-                value={interlocMail}
-              ></input>
-              <input
-                className={style.input + " " + style.inputNewInterlocutor}
-                placeholder="Poste"
-                type="text"
-                onChange={(e) => setInterlocJob(e.target.value)}
-                value={interlocJob}
-              ></input>
-              <button
-                className={style.button}
-                onClick={() => saveInterlocuteur()}
-              >
-                Ajout Interlocuteur
-              </button>
-            </div>
-          </Modal>
         </div>
       </div>
     </>
   );
 }
-
-//test
 
 export default Contrat;

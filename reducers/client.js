@@ -4,7 +4,7 @@ const initialState = {
 	value: [],
 };
 
-export const allClientsSlice = createSlice({
+export const clientSlice = createSlice({
 	name: 'clients',
 	initialState,
 	reducers: {
@@ -18,5 +18,5 @@ export const allClientsSlice = createSlice({
 	},
 });
 
-export const { addClient, removeClient } = allClientsSlice.actions;
-export default allClientsSlice.reducer;
+export const { addClient, removeClient } = clientSlice.actions;
+export default clientSlice.reducer;
