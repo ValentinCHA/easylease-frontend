@@ -3,7 +3,7 @@ import style from "../styles/AllScenario.module.css";
 import Navbar from "./Navbar";
 import Scenario from "./Scenario";
 import { removeId } from "../reducers/scenario";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -76,7 +76,9 @@ function AllScenario() {
           </div>
 
           {/* {/ div qui contiendra tout mes coponents contrat Card /} */}
-          <div className={style.containerScenarioCard}>{infoContrat}</div>
+          <div className={style.containerScenarioCard}>
+            {infoContrat}
+            </div>
         </div>
         {/* span voir plus */}
         <span
