@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from "react";
 import style from "../styles/NewClient.module.css";
 import Navbar from "./Navbar";
-import {
-  addInterlocutor,
-  deleteInterlocutor,
-  emptyInterlocutors,
-} from "../reducers/user";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "antd";
 
 function NewClient() {
   // Définir l'état local pour les champs de formulaire
-  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.user.value);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -26,18 +21,18 @@ function NewClient() {
   const [interlocutors, setInterlocutors] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [numberOfEmployees, setNumberofEmployees] = useState(0);
+  const [newClientAdded, setNewClientAdded] = useState(false);
 
-
-  const deleteInt = (e) => {
-    interlocutors.splice(e, 1);
+  const deleteInt = (i) => {
+    setInterlocutors(interlocutors.filter((_, index) => index !== i)); 
   };
-
+  
   const modalContent = interlocutors.map((e, i) => {
     return (
       <div id={e} className={style.modalInterlocutorContainer}>
         <ul>
           <li>
-            {e}{" "}
+            {e.firstname} {e.name} {e.poste}
             <FontAwesomeIcon
               onClick={() => deleteInt(i)}
               className={style.interlocutorDeleter}
@@ -49,17 +44,19 @@ function NewClient() {
       </div>
     );
   });
-
   const handleModalInterlocutor = () => {
     setIsModalVisible(!isModalVisible);
   };
   const dropDownInterlocutors = interlocutors.map((e, i) => {
     return (
-      <option key={i} value={e.name}>
-        {e.firstname}  _
-        {e.name} , en tant que : 
-        {e.poste}
-      </option>
+      <div className={style.interlocuteurslist} key={i} value={e.name}>
+        <span>Interlocuteur {i + 1}</span>
+        <ul className={style.interlocuteursul}>
+          <li className={style.interlocuteursli}>
+            {e.firstname} _{e.name} , en tant que :{e.poste}
+          </li>
+        </ul>
+      </div>
     );
   });
 
@@ -99,17 +96,18 @@ function NewClient() {
       .then((data) => {
         if (data.result) {
           //Penser à ajouter un reducer pour les clients qui viennent d'être ajoutés !!
+          console.log("C'est good");
           setName("");
           setAddress("");
-  
+          setNumberofEmployees(0);
           setChiffreAffaire("");
-          console.log("client ajouté!");
+          setNewClientAdded(true);
         }
       });
   };
 
   useEffect(() => {
-    dispatch(emptyInterlocutors());
+    setInterlocutors([]);
   }, []);
 
   return (
@@ -154,47 +152,67 @@ function NewClient() {
                   value={numberOfEmployees}
                 ></input>
               </div>
-              {!isModalVisible && (
+              {!isModalVisible && dropDownInterlocutors.length>0 &&(
                 <div className={style.interlocutorItemListContainer}>
-                  <form>
-                    <label for="interlocutors"> </label>
-                    <select className={style.dropdownmenu}>
-                      {dropDownInterlocutors}
-                    </select>
-                  </form>
+                  {dropDownInterlocutors}
+                  <br/>
+                  {dropDownInterlocutors.length>0 && (
+                    <span
+                      onClick={() => handleModalInterlocutor()}
+                      className={style.textLink}
+                    > 
+                      Modifier les interlocuteurs
+                    </span>
+                  )}
                 </div>
               )}
               {isModalVisible && (
                 <div className={style.modal}>
                   <Modal
-                    getContainer="#react-modals"
                     visible={isModalVisible}
                     closable={false}
                     footer={null}
                     open={isModalVisible}
                     onCancel={isModalVisible}
                   >
-                    {modalContent}
-                    <button
-                      className={style.button}
-                      onClick={() => handleModalInterlocutor()}
-                    >
-                      Ok
-                    </button>
+                    <div className={style.modalContainer}>
+                      {modalContent}
+                      <button
+                        className={style.button}
+                        onClick={() => handleModalInterlocutor()}
+                      >
+                        Ok
+                      </button>
+                    </div>
                   </Modal>
                 </div>
               )}
-              <span
-                onClick={handleModalInterlocutor}
-                className={style.textLink}
-              >
-                Modifier les interlocuteurs
-              </span>
+              {newClientAdded && (
+                <div className={style.modal}>
+                  <Modal
+                    visible={newClientAdded}
+                    closable={false}
+                    footer={null}
+                    open={newClientAdded}
+                    onCancel={newClientAdded}
+                  >
+                    <div className={style.modalContainer}>
+                      <span>Nouveau client ajouté !</span>
+                      <button
+                        className={style.button}
+                        onClick={() => setNewClientAdded(false)}
+                      >
+                        Ok
+                      </button>
+                    </div>
+                  </Modal>
+                </div>
+              )}
             </div>
           </div>
-          <div className={style.line}></div>
+
           <div className={style.newInterlocutorContainer}>
-            <span>Interlocuteur : </span>
+            <span>Ajouter un interlocuteur : </span>
             <input
               className={style.input + " " + style.inputNewInterlocutor}
               placeholder="Numéro de téléphone"
@@ -237,6 +255,7 @@ function NewClient() {
               Ajout Interlocuteur
             </button>
           </div>
+
           <div className={style.buttonNewClientContainer}></div>
         </div>
         <button

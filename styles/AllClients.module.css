@@ -1,3 +1,7 @@
+.main{
+    height: 100vh;
+    width: 100vw;
+}
 .header{
     display: flex;
     width: 80%;
@@ -7,6 +11,64 @@
     margin: 2% 8%;
 }
 .container{
-    width: 100%;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 87.5%;
+    width: 81.5%;
+}
+.search{
+    display: flex;
+    width: 80%;
+    margin: 0;
+    height: 11%;
+    align-items: center;
+    margin-left: 7%;
+    padding: 0;
+}
+.select{
+    width: 30%;
+    height: 40%;
+    border: 1px solid #fff;
+    border-bottom: 1px solid rgb(147,151,157);
+    color: rgb(147,151,157);
+    background-color: rgb(245,248,250);
+}
+.input{
+    padding-left: 10px;
+    width: 22%;
+    height: 50%;
+    border: 1px solid #fff;
+    border: 1px solid rgb(147,151,157);
+    border-radius: 20px;
+    transition-duration: 0.3s;
+    transition-timing-function: linear;
+    font-size: 90%;
+}
+.input:hover{
+    width: 22%;
+    height: 50%;
+    font-size: 100%;
+    border: 1px solid #fff;
+    border: 1px solid rgb(147,151,157);
+    background-color: rgb(245,248,250);
+    border-radius: 20px;
+    transition-duration: 0.3s;
+    transition-timing-function: linear;
+}
+.input::placeholder{
+    color: rgb(147,151,157);
+    font-size: 110%;
+}
+.icon{
+    padding: 10px;
+    cursor: pointer;
+}
+
+.containerClientCard{
+    display: flex;
+    flex-wrap: wrap;
+    overflow: scroll;
+    height: 80%;
+    justify-content: space-around;
+    align-items: center;
 }
