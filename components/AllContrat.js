@@ -62,10 +62,7 @@ function AllContrat() {
           <div className={style.search}>
             <input className={style.input}onChange={(e) => setInputValue(e.target.value)}type="text" placeholder="  Search contrat....." value={inputValue}/>
             <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />
-          </div>
-          {/* {/ span qui affiche le nom du client /} */}
-          <span
-            style={{paddingLeft: 120, borderBottom: "2px solid rgb(235,239,242)"}}>Contrats de l’entreprise “Nom du client” :</span>
+          </div>          
           {/* {/ div qui contiendra tout mes coponents contrat Card /} */}
           <div className={style.containerContratCard}>{infoContrat}</div>
         </div>
