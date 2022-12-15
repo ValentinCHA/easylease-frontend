@@ -15,7 +15,7 @@ function AllClients(props) {
     return;
   }
 
-  fetch(`http://localhost:3000/users/test/${users.token}`)
+  fetch(`http://localhost:3000/users/test/${user.token}`)
     .then(response => response.json())
     .then(data => {
       if (data.result && data.client) {
@@ -26,7 +26,7 @@ function AllClients(props) {
         }
       }
     });
-};
+
 
 return (
   <>
@@ -41,6 +41,6 @@ return (
     </div>
   </>
 )
-
+}
 
 export default AllClients;

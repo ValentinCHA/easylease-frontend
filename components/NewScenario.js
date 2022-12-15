@@ -3,14 +3,15 @@ import Navbar from './Navbar';
 import style from '../styles/NewScenario.module.css';
 import { Modal } from 'antd';
 import { useRouter } from 'next/router';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addId } from '../reducers/scenario'
 import {
   XYPlot,
   XAxis,
   YAxis,
   VerticalGridLines,
   HorizontalGridLines,
-  LineSeries,
+  LineMarkSeries,
   MarkSeries
 } from 'react-vis';
 
@@ -34,23 +35,20 @@ import {
   //   {month: "Juillet", sales: 500},
   //   {month: "Août", sales: 100}]
   const dataGraph = [
-    {x: 1, y: 89, student: "Étudiant 1"},
-    {x: 2, y: 75, student: "Étudiant 2"},
-    {x: 3, y: 64, student: "Étudiant 3"},
-    {x: 4, y: 77, student: "Étudiant 4"},
-    {x: 5, y: 82, student: "Étudiant 5"},
-    {x: 6, y: 91, student: "Étudiant 6"},
-    {x: 7, y: 55, student: "Étudiant 7"},
-    {x: 8, y: 70, student: "Étudiant 8"},
-    {x: 9, y: 40, student: "Étudiant 9"},
-    {x: 10, y: 65, student: "Étudiant 10"},
+    {x: 0, y: 1000, },
+    {x: 12, y: 900, },
+    {x: 24, y: 800, },
   ];
 
 
 function NewScenario() {
+
+  const dispatch = useDispatch();
   const router = useRouter();
   const date = new Date();
-  const idScenario = useSelector((state) => state.contrat.value);
+
+  const idScenario = useSelector((state) => state.scenario.value);
+
   // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
   let BACKEND_ADDRESS = "http://localhost:3000";
@@ -69,7 +67,7 @@ function NewScenario() {
 
   const [oldScenario, setOldScenario] = useState(false);
   const [modalSaveSuccess, setModalSaveSuccess] = useState(false);
-  const [scenaryName, setScenaryName] = useState("");
+
   const [modalSaveFailed, setModalSaveFailed] = useState(false);
   const [modalDeleteSuccess, setModalDeleteSuccess] = useState(false);
   const [modalDeleteFailed, setModalDeleteFailed] = useState(false);
@@ -78,14 +76,15 @@ function NewScenario() {
   const [modalSubmitSuccess, setModalSubmitSuccess] = useState(false);
   const [modalSubmitFailed, setModalSubmitFailed] = useState(false);
 
+  console.log(idScenario)
   // Check si le scenario est déja enregistrer en BDD//
   useEffect(() => {
-    if (scenaryName === "") return;
-    fetch(`${BACKEND_ADDRESS}/scenary/${scenaryName}`)
+    if (!idScenario._id) return;
+    fetch(`${BACKEND_ADDRESS}/scenary/${idScenario._id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.scenary);
-        if (data.result) {
+        //console.log(data);
+        if (data.result){
           setOldScenario(data.result);
           setSelectionClient(data.scenary.client);
           setCreationDate(data.scenary.creationDate.slice(0, 10));
@@ -96,16 +95,17 @@ function NewScenario() {
           setStartDateLocation(data.scenary.contratStart.slice(0, 10));
           setEndDateLocation(data.scenary.contratEnd.slice(0, 10));
           setResidualValue(data.scenary.residualValue);
+          setMargeValue(data.scenary.marge)
         }
       });
-  }, [scenaryName]);
+  }, []);
 
   console.log("START DATE =>", startDateLocation);
   console.log("CLIENT SELECTION =>", selectionClient);
 
   const modification = () => {
     console.log("Click modification");
-    fetch(`${BACKEND_ADDRESS}/scenary/update/${scenaryName}`, {
+    fetch(`${BACKEND_ADDRESS}/scenary/update/${idScenario._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -126,7 +126,6 @@ function NewScenario() {
       .then((data) => {
         if (data.result) {
           setModalModifierSuccess(true);
-          setScenaryName(data.name);
         } else {
           console.log("DATA PUT=>", data);
           setModalModifierFailed(true);
@@ -136,7 +135,7 @@ function NewScenario() {
 
   const deletion = () => {
     console.log("Click delete");
-    fetch(`${BACKEND_ADDRESS}/scenary/${scenaryName}`, {
+    fetch(`${BACKEND_ADDRESS}/scenary/${idScenario._id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
@@ -163,7 +162,7 @@ function NewScenario() {
 
   const save = () => {
     console.log("Click enregistrer");
-    fetch(`${BACKEND_ADDRESS}/scenary/new`, {
+    fetch(`${BACKEND_ADDRESS}/scenary/new/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -183,14 +182,17 @@ function NewScenario() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
+          dispatch(addId(data.infosScenario))
           setModalSaveSuccess(true);
-          setScenaryName(data.name);
+          setOldScenario(true);
         } else {
           console.log("DATA =>", data);
           setModalSaveFailed(true);
         }
       });
   };
+
+  console.log("ID SCENARIO FROM NEW SCENARIO", idScenario);
 
   const submit = () => {
     console.log("Click validation");
@@ -230,6 +232,9 @@ function NewScenario() {
           //   setTimeout(function(){
           //     router.push('/scenario')
           // },1000);
+          fetch(`${BACKEND_ADDRESS}/scenary/${idScenario._id}`, {
+            method: "DELETE",
+          })
         } else {
           setModalSubmitFailed(true);
         }
@@ -261,7 +266,7 @@ function NewScenario() {
 
   let header;
   if (oldScenario) {
-    header = <h1 className={style.head}>Scenario : {selectionClient}</h1>;
+    header = <h1 className={style.head}>Scenario : {scenarioName}</h1>;
   } else {
     header = <h1 className={style.head}>Nouveau Scenario</h1>;
   }
@@ -279,6 +284,7 @@ function NewScenario() {
               onChange={(e) => setSelectionClient(e.target.value)}
               value={selectionClient}
             >
+              <option value="" disabled selected hidden>Choisisez un client</option>
               <option>Client 1</option>
               <option>Client 2</option>
               <option>6396041f066842463b1fa74a</option>
@@ -310,6 +316,7 @@ function NewScenario() {
               onChange={(e) => setLocationDuration(e.target.value)}
               value={locationDuration}
             >
+              <option value="" disabled selected hidden>Choisisez une durée de location</option>
               <option>6</option>
               <option>12</option>
               <option>24</option>
@@ -348,6 +355,7 @@ function NewScenario() {
               onChange={(e) => setResidualValue(e.target.value)}
               value={residualValue}
             >
+              <option value="" disabled selected hidden>Choisisez une valeur résiduelle</option>
               <option>0..05</option>
               <option>0.10</option>
               <option>0.15</option>
@@ -380,13 +388,17 @@ function NewScenario() {
               src="/graphic.png"
               alt="Graphique temporaire"
             /> */}
-              <XYPlot width={700} height={450}>
-              <VerticalGridLines />
-              <HorizontalGridLines />
-              <XAxis />
-              <YAxis />
-              <MarkSeries data={dataGraph} />
-              </XYPlot>
+            <XYPlot width={500} height={400}>
+                  <LineMarkSeries
+                    data={dataGraph}
+                    xType="time"
+                    yType="linear"
+                    size={3}
+                    color="#007bff"
+                  />
+                  <XAxis title="Mois" />
+                  <YAxis title="Montant" />
+                </XYPlot>
             </div>
             <div className={style.buttonBottom}>
               <button

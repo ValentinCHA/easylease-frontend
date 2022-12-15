@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   value: {},
 };
 
 export const contratSlice = createSlice({
-  name: "user",
+  name: 'contrat',
   initialState,
   reducers: {
     addId: (state, action) => {

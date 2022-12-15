@@ -43,7 +43,7 @@ function Navbar() {
         router.push('/allClients')
     }
     const navScenario=()=>{
-        router.push('/scenario')
+        router.push('/allScenario')
     }
     const navDashboard=()=>{
         router.push('/dashboard')

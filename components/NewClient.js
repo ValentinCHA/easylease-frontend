@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import style from "../styles/NewClient.module.css";
 import Navbar from "./Navbar";
-import { addInterlocutor, deleteInterlocutor } from "../reducers/user";
+import {
+  addInterlocutor,
+  deleteInterlocutor,
+  emptyInterlocutors,
+} from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "antd";
+
 function NewClient() {
   // Définir l'état local pour les champs de formulaire
   const dispatch = useDispatch();
@@ -18,19 +23,15 @@ function NewClient() {
   const [interlocFirstName, setInterlocFirstname] = useState("");
   const [interlocMail, setInterlocMail] = useState("");
   const [interlocJob, setInterlocJob] = useState("");
-  const interlocutors = user.interlocutors;
+  const [interlocutors, setInterlocutors] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [NumberOfEmployees, setNumberofEmployees] = useState("");
+  const [numberOfEmployees, setNumberofEmployees] = useState(0);
 
-  useEffect(() => {
-    console.log(chiffreAffaire);
-  
-  }, [chiffreAffaire])
-  
- 
+
   const deleteInt = (e) => {
-    dispatch(deleteInterlocutor(e));
+    interlocutors.splice(e, 1);
   };
+
   const modalContent = interlocutors.map((e, i) => {
     return (
       <div id={e} className={style.modalInterlocutorContainer}>
@@ -48,61 +49,68 @@ function NewClient() {
       </div>
     );
   });
+
   const handleModalInterlocutor = () => {
     setIsModalVisible(!isModalVisible);
   };
-  const dropDownInterlocutors = interlocutors.map((e) => {
-    return <option value={e}>{e}</option>;
+  const dropDownInterlocutors = interlocutors.map((e, i) => {
+    return (
+      <option key={i} value={e.name}>
+        {e.firstname}  _
+        {e.name} , en tant que : 
+        {e.poste}
+      </option>
+    );
   });
 
   const handleNewInterlocutorSubmit = () => {
-    dispatch(
-      addInterlocutor(
-        interlocFirstName +
-          " " +
-          interlocName +
-          " " +
-          "(" +
-          interlocJob +
-          ")" +
-          " " +
-          phoneNumber +
-          " / " +
-          interlocMail
-      )
-    );
+    setInterlocutors((interlocutor) => [
+      ...interlocutor,
+      {
+        firstname: interlocFirstName,
+        name: interlocName,
+        poste: interlocJob,
+        tel: phoneNumber,
+        email: interlocMail,
+      },
+    ]);
     setPhoneNumer("");
     setInterlocFirstname("");
+    setInterlocName("");
     setInterlocMail("");
     setInterlocJob("");
   };
 
   const handleNewClientSubmit = () => {
-    console.log("submitted");
     fetch("http://localhost:3000/client/uploadClient", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        token: user.token,
         name: name,
-        tel: phoneNumber,
         address: address,
-        numberOfEmployees: NumberOfEmployees,
-        chiffre: chiffreAffaire,
+        numberOfEmployees: numberOfEmployees,
+        chiffreAffaire: chiffreAffaire,
         interlocutors: interlocutors,
+        clientBirth: Date.now(),
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.result) {
           //Penser à ajouter un reducer pour les clients qui viennent d'être ajoutés !!
           setName("");
           setAddress("");
+  
           setChiffreAffaire("");
-          console.log("client ajouté!")
+          console.log("client ajouté!");
         }
       });
   };
+
+  useEffect(() => {
+    dispatch(emptyInterlocutors());
+  }, []);
 
   return (
     <div className={style.maincontainer}>
@@ -136,24 +144,21 @@ function NewClient() {
                 onChange={(e) => setChiffreAffaire(e.target.value)}
                 value={chiffreAffaire}
               ></input>
-              <form>
-                <label for="nombre d'employés">Nombre d'employés :</label>
-                <select
-                  value={NumberOfEmployees}
-                  className={style.dropdownform}
+              <div className={style.numberOfEmployeesContainer}>
+                <label for="Nombre d'employés">Nombre d'employés:</label>
+                <input
+                  className={style.input + " " + style.inputNewClient}
+                  placeholder="Nombre d'employés"
+                  type="text"
                   onChange={(e) => setNumberofEmployees(e.target.value)}
-                >
-                  <option value="1 à 20">1 à 20</option>
-                  <option value="20 à 100">20 à 100</option>
-                  <option value="100 à 1000">100 à 1000</option>
-                </select>
-              </form>
-
+                  value={numberOfEmployees}
+                ></input>
+              </div>
               {!isModalVisible && (
                 <div className={style.interlocutorItemListContainer}>
                   <form>
                     <label for="interlocutors"> </label>
-                    <select className={style.dropdownform}>
+                    <select className={style.dropdownmenu}>
                       {dropDownInterlocutors}
                     </select>
                   </form>
