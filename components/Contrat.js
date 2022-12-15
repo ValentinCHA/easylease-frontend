@@ -91,19 +91,26 @@ function Contrat() {
 
   const contratData = dataContrat.map((item, i) => {
     console.log("MAP sur dataContrat", item);
+    const contratStart = new Date(item.contratStart);
+    const contratStartFormattedDate = contratStart.toLocaleDateString();
+    const contratEnd = new Date(item.contratEnd);
+    const contratEndFormattedDate = contratEnd.toLocaleDateString();
+
     return (
       <div className={style.infoContrat} key={i}>
         <span className={style.texte}>
           Type d'équipements financés : {item.type}
         </span>
-        <span className={style.texte}>Montant financé : {item.amount} </span>
+        <span className={style.texte}>Montant financé : {item.amount} €</span>
         <span className={style.texte}>
           Durée contractuelle : {item.duration} mois
         </span>
         <span className={style.texte}>
-          Date de démarrage : {item.contratStart}
+          Date de démarrage : {contratStartFormattedDate}
         </span>
-        <span className={style.texte}>Date de fin : {item.contratEnd}</span>
+        <span className={style.texte}>
+          Date de fin : {contratEndFormattedDate}
+        </span>
         <span className={style.texte}>
           Valeur résiduelle : {item.residualValue} %
         </span>
@@ -137,7 +144,7 @@ function Contrat() {
       <div className={style.mainContent}>
         <Navbar />
         <div className={style.header}>
-          <h1 className={style.head}>Contrat</h1>
+          <h1 className={style.head}>Contrat : {idContrat.name} </h1>
         </div>
         <div className={style.container}>
           <div className={style.SousContainerLeft}>
