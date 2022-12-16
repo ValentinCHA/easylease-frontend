@@ -7,6 +7,7 @@ function NewClientPage() {
       <Head>
         <title>Nouveau Client / EasyLease</title>
       </Head>
+ 
       <NewClient />
     </>
   );

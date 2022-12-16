@@ -22,6 +22,7 @@ function NewClient() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [numberOfEmployees, setNumberofEmployees] = useState(0);
   const [newClientAdded, setNewClientAdded] = useState(false);
+  const [alertInterlocutor, setAlertInterlocutor] = useState(false);
 
   const deleteInt = (i) => {
     setInterlocutors(interlocutors.filter((_, index) => index !== i)); 
@@ -44,6 +45,9 @@ function NewClient() {
       </div>
     );
   });
+
+
+
   const handleModalInterlocutor = () => {
     setIsModalVisible(!isModalVisible);
   };
@@ -61,6 +65,7 @@ function NewClient() {
   });
 
   const handleNewInterlocutorSubmit = () => {
+    
     setInterlocutors((interlocutor) => [
       ...interlocutor,
       {
@@ -75,10 +80,13 @@ function NewClient() {
     setInterlocFirstname("");
     setInterlocName("");
     setInterlocMail("");
-    setInterlocJob("");
-  };
+    setInterlocJob("");}
+
+    console.log('test')
+
 
   const handleNewClientSubmit = () => {
+    if(interlocutors.length>0){
     fetch("http://localhost:3000/client/uploadClient", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -104,7 +112,10 @@ function NewClient() {
           setNewClientAdded(true);
         }
       });
-  };
+  } else {
+    setAlertInterlocutor(true);
+  }}
+  
 
   useEffect(() => {
     setInterlocutors([]);
@@ -152,7 +163,7 @@ function NewClient() {
                   value={numberOfEmployees}
                 ></input>
               </div>
-              {!isModalVisible && dropDownInterlocutors.length>0 &&(
+              { dropDownInterlocutors.length>0 &&(
                 <div className={style.interlocutorItemListContainer}>
                   {dropDownInterlocutors}
                   <br/>
@@ -258,6 +269,9 @@ function NewClient() {
 
           <div className={style.buttonNewClientContainer}></div>
         </div>
+        {alertInterlocutor &&  (
+          <span className={style.alert}> Ajoutez d'abord un interlocuteur !</span>
+        )}
         <button
           className={style.button}
           onClick={() => handleNewClientSubmit()}
