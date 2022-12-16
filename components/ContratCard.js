@@ -23,11 +23,31 @@ function ContratCard(props) {
       <FontAwesomeIcon icon={faFileSignature} className={style.userIcon} />
       {/ info du contrat */}
       <div className={style.infoContrat}>
-        <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.4em'}}>{props.client.substring(0,10)}</span>
-        <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.2em'}}>{props.name}</span>
-        <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>{props.montant} €</span>
-        <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>{props.creationDate.substring(0,10)}</span>
-        <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>...</span>
+        <span
+          style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.4em" }}
+        >
+          {props.client.substring(0, 10)}
+        </span>
+        <span
+          style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.2em" }}
+        >
+          {props.name}
+        </span>
+        <span
+          style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.0em" }}
+        >
+          {props.amount} €
+        </span>
+        <span
+          style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.0em" }}
+        >
+          {props.creationDate.substring(0, 10)}
+        </span>
+        <span
+          style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.0em" }}
+        >
+          ...
+        </span>
       </div>
     </div>
   );

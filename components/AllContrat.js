@@ -11,27 +11,14 @@ function AllContrat() {
   const [inputValue, setInputValue] = useState("");
   const [dataContrat, setDataContrat] = useState([]);
 
+  console.log("FETCH Infos All Contrat", dataContrat);
+
   useEffect(() => {
     fetch("http://localhost:3000/contrat/allContrat")
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          // console.log('data find',data.contrat)
-          const contrat = data.contrat.map((data, i) => {
-            return {
-              _id: data._id,
-              client: data.client,
-              name: data.name,
-              type: data.type,
-              durée: data.duration,
-              montant: data.amount,
-              creationDate: data.creationDate,
-              date_de_début: data.contratStart,
-              date_de_fin: data.contratEnd,
-              valeur_résiduel: data.residualValue,
-            };
-          });
-          setDataContrat(contrat);
+          setDataContrat(data.contrat);
         }
       });
   }, []);
@@ -47,14 +34,16 @@ function AllContrat() {
       }
     })
     .map((data, i) => {
-      return <ContratCard key={i} {...data} id={data._id} />;
+      return <ContratCard key={i} {...data} />;
     });
 
   return (
     <>
       {/* {/* navbar et header /} */}
       <div className={style.main}>
-        <Navbar styleAllContrats={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
+        <Navbar
+          styleAllContrats={{ backgroundColor: "rgba(0, 217, 255, 0.383)" }}
+        />
         <div className={style.header}>
           <h1 className={style.head}>Contrat</h1>
         </div>

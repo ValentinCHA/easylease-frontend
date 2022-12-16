@@ -1,99 +1,50 @@
-// Plan d'action pour Nico :
-// - route PUT  sur l'interlocuteur du contrat
-// - route PUT sur le contrat pour le modifier
-// - route DELETE pour supprimer le contrat
-// - route PUT pour mette à jour le link du document asscocié au contrat
-
 import React from "react";
 import style from "../styles/Contrat.module.css";
 import Navbar from "./Navbar";
 import { useState, useEffect, useRef } from "react";
 import { Modal } from "antd";
 import { useSelector } from "react-redux";
-import { addId } from "../reducers/contrat";
+const { ObjectId } = require("mongoose").Types;
 
 function Contrat() {
-  // état pour montrer la modal
-  const [showModalDoc, setShowModalDoc] = useState(false);
-  const [showModalInterlocuteur, setShowModalInterlocuteur] = useState(false);
+  const BACKEND_ADDRESS = "http://localhost:3000";
+  const ContratReducer = useSelector((state) => state.contrat.value);
+  const [dataInterlocutor, setDataInterlocutor] = useState([]);
+
   const [interlocName, setInterlocName] = useState("");
   const [phoneNumber, setPhoneNumer] = useState("");
   const [interlocFirstName, setInterlocFirstname] = useState("");
   const [interlocMail, setInterlocMail] = useState("");
   const [interlocJob, setInterlocJob] = useState("");
-
-  const idContrat = useSelector((state) => state.contrat.value);
-  // état pour stocker les datas du contrat récupérer (À ACTIVER LORSQUE LE BACK SERA PRÊT)
-  const [dataContrat, setDataContrat] = useState([]);
-  const [interlocutorExist, setInterlocutorExist] = useState(false);
-  const [dataInterlocuteur, setDataInterlocuteur] = useState([]);
-  const [modalSubmitSuccess, setModalSubmitSuccess] = useState(false);
-
-  // Adresse du backend
-  const BACKEND_ADDRESS = "http://localhost:3000";
-
-  // état pour récupérer la valeur de l'inputDoc
+  const [showModalInterlocutor, setShowModalInterlocutor] = useState(false);
+  const [modalModifierSuccess, setModalModifierSuccess] = useState(false);
+  const [modalModifierFailed, setModalModifierFailed] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [showModalDoc, setShowModalDoc] = useState(false);
 
-  console.log("idContrat", idContrat);
-  console.log("dataInterlocuteur", dataInterlocuteur);
-  console.log("dataContrat", dataContrat);
+  console.log("ContratReducer", ContratReducer);
+  console.log("dataInterlocutor", dataInterlocutor);
 
   useEffect(() => {
-    //fetch en base du contrat avec son id stocké dans le reducer
-    fetch(`http://localhost:3000/contrat/${idContrat._id}`)
+    fetch(`${BACKEND_ADDRESS}/interlocutor/${ContratReducer.interlocutor}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("DATA FETCH INITIALISATION =>", data);
-        setDataContrat([data.contrat]);
-        setDataInterlocuteur([data.contrat.interlocutor]);
+        setDataInterlocutor([data.contrat]);
       });
   }, []);
 
-  const saveInterlocuteur = () => {
-    fetch(`${BACKEND_ADDRESS}/interlocutor/addInterlocuteur`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: interlocName,
-        firstname: interlocFirstName,
-        poste: interlocJob,
-        tel: phoneNumber,
-        email: interlocMail,
-        client: dataContrat[0].client,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("DATA POST - ADD INTERLOCUTEUR =>", data);
-        if (data.result) {
-          setDataInterlocuteur([data.newInterlocutor]);
-          setInterlocutorExist(true);
-          setModalSubmitSuccess(true);
-          setInterlocName("");
-          setPhoneNumer("");
-          setInterlocFirstname("");
-          setInterlocMail("");
-          setInterlocJob("");
-        } else {
-          console.log("post new interlocuteur failed");
-        }
-      });
-  };
-
-  const contratData = dataContrat.map((item, i) => {
-    console.log("MAP sur dataContrat", item);
+  const contratData = [ContratReducer].map((item, i) => {
     const contratStart = new Date(item.contratStart);
     const contratStartFormattedDate = contratStart.toLocaleDateString();
     const contratEnd = new Date(item.contratEnd);
     const contratEndFormattedDate = contratEnd.toLocaleDateString();
-
     return (
       <div className={style.data} key={i}>
         <span className={style.texte}>
           Type d'équipements financés : {item.type}
         </span>
         <span className={style.texte}>Montant financé : {item.amount} €</span>
+        <span className={style.texte}>Marge : {item.marge} %</span>
         <span className={style.texte}>
           Durée contractuelle : {item.duration} mois
         </span>
@@ -110,9 +61,7 @@ function Contrat() {
     );
   });
 
-  const interlocuteurData = dataInterlocuteur.map((item, i) => {
-    console.log("MAP sur dataInterlocuteur", item);
-    // à compléter avec les interlocuteurs
+  const interlocutorData = dataInterlocutor.map((item, i) => {
     return (
       <div className={style.data} key={i}>
         <span className={style.texte}>Nom : {item.name}</span>
@@ -123,14 +72,72 @@ function Contrat() {
       </div>
     );
   });
+  const objectIdArray = [new ObjectId("1234567890abcdef12345678")];
 
-  const handleCloseModal = () => {
-    setShowModalDoc(false);
-    setShowModalInterlocuteur(false);
+  [new ObjectId(ContratReducer.client)];
+
+  const saveInterlocutor = () => {
+    fetch(`${BACKEND_ADDRESS}/interlocutor/addInterlocuteur`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: interlocName,
+        firstname: interlocFirstName,
+        poste: interlocJob,
+        phone: phoneNumber,
+        email: interlocMail,
+        client: objectIdArray,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("INTERLOCUTEUR AJOUTÉ EN DB INTERLOCUTEUR =>", data);
+        if (data.result) {
+          setDataInterlocutor([data.newInterlocutor]);
+          setInterlocName("");
+          setPhoneNumer("");
+          setInterlocFirstname("");
+          setInterlocMail("");
+          setInterlocJob("");
+          setShowModalInterlocutor(false);
+        } else {
+          console.log("post new interlocutor failed");
+        }
+      });
+    // fetch(`${BACKEND_ADDRESS}/contrat/update/${ContratReducer._id}`, {
+    //   method: "PUT",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     client: ContratReducer.client,
+    //     name: ContratReducer.name,
+    //     interlocutor: dataInterlocutor._id,
+    //     type: ContratReducer.type,
+    //     duration: ContratReducer.durée,
+    //     amount: ContratReducer.montant,
+    //     creationDate: ContratReducer.creationDate,
+    //     contratStart: ContratReducer.date_de_début,
+    //     contratEnd: ContratReducer.date_de_fin,
+    //     residualValue: ContratReducer.valeur_résiduel,
+    //     links: "TEST",
+    //     marge: ContratReducer.marge,
+    //   }),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     if (data.result) {
+    //       // setModalModifierSuccess(true);
+    //       console.log("CONTRAT MODIFIÉ AVEC NOUVEL INTERLOCUTEUR =>", data);
+    //     } else {
+    //       console.log("DATA PUT=>", data);
+    //       // setModalModifierFailed(true);
+    //     }
+    //   });
   };
+
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
+
   const handleSubmit = () => {
     // requete POST qui doit enregistrer le PDF dans la DB du contrat du client
     // fetch(`${BACKEND_ADDRESS}/`, {
@@ -144,12 +151,19 @@ function Contrat() {
     //   });
   };
 
+  const handleCloseModal = () => {
+    setShowModalDoc(false);
+    setShowModalInterlocutor(false);
+    setModalModifierFailed(false);
+    setModalModifierSuccess(false);
+  };
+
   return (
     <>
       <div className={style.mainContent}>
         <Navbar />
         <div className={style.header}>
-          <h1 className={style.head}>Contrat : {idContrat.name} </h1>
+          <h1 className={style.head}>Contrat : {ContratReducer.name} </h1>
         </div>
         <div className={style.container}>
           <div className={style.SousContainerLeft}>
@@ -161,17 +175,17 @@ function Contrat() {
             </div>
             <div className={style.boxData + " " + style.boxData}>
               <span className={style.titreBoxData}>
-                Interlocuteur du contrat :
+                Interlocutor du contrat :
               </span>
-              <div className={style.contenuBoxData}>{interlocuteurData}</div>
+              <div className={style.contenuBoxData}>{interlocutorData}</div>
             </div>
             <div className={style.boxData + " " + style.boxData3}>
               <div className={style.contenuBoxData}>
                 <button
                   className={style.button}
-                  onClick={() => setShowModalInterlocuteur(true)}
+                  onClick={() => setShowModalInterlocutor(true)}
                 >
-                  Modifier l'interlocuteur
+                  Modifier l'interlocutor
                 </button>
               </div>
             </div>
@@ -219,15 +233,15 @@ function Contrat() {
           </div>
           <Modal
             onCancel={() => handleCloseModal()}
-            open={showModalInterlocuteur}
+            open={showModalInterlocutor}
             footer={null}
           >
-            <span>Nouvel Interlocuteur du contrat : </span>
+            <span>Nouvel Interlocutor du contrat : </span>
             <div className={style.newInterlocutorContainer}>
               <br />
               <div className={style.InputNewInterlocutorContainer}>
                 <input
-                  className={style.inputNewInterlocuteur}
+                  className={style.inputNewInterlocutor}
                   placeholder="Nom"
                   type="text"
                   onChange={(e) => setInterlocName(e.target.value)}
@@ -235,7 +249,7 @@ function Contrat() {
                 ></input>
                 <br />
                 <input
-                  className={style.inputNewInterlocuteur}
+                  className={style.inputNewInterlocutor}
                   placeholder="Prénom"
                   type="text"
                   onChange={(e) => setInterlocFirstname(e.target.value)}
@@ -243,7 +257,7 @@ function Contrat() {
                 ></input>
                 <br />
                 <input
-                  className={style.inputNewInterlocuteur}
+                  className={style.inputNewInterlocutor}
                   placeholder="Poste"
                   type="text"
                   onChange={(e) => setInterlocJob(e.target.value)}
@@ -251,7 +265,7 @@ function Contrat() {
                 ></input>
                 <br />
                 <input
-                  className={style.inputNewInterlocuteur}
+                  className={style.inputNewInterlocutor}
                   placeholder="Numéro de téléphone"
                   type="text"
                   onChange={(e) => setPhoneNumer(e.target.value)}
@@ -259,7 +273,7 @@ function Contrat() {
                 ></input>
                 <br />
                 <input
-                  className={style.inputNewInterlocuteur}
+                  className={style.inputNewInterlocutor}
                   placeholder="Email"
                   type="text"
                   onChange={(e) => setInterlocMail(e.target.value)}
@@ -269,7 +283,7 @@ function Contrat() {
                 <div>
                   <button
                     className={style.button}
-                    onClick={() => saveInterlocuteur()}
+                    onClick={() => saveInterlocutor()}
                   >
                     Enregistrer
                   </button>
@@ -310,6 +324,24 @@ function Contrat() {
               </form>
             </div>
           </Modal>
+          <Modal
+            onCancel={() => handleCloseModal()}
+            open={modalModifierSuccess}
+            footer={null}
+          >
+            <p style={{ fontSize: 18, textAlign: "center" }}>
+              ✅ Interlocutor modifié ! ✅
+            </p>
+          </Modal>
+          <Modal
+            onCancel={() => handleCloseModal()}
+            open={modalModifierFailed}
+            footer={null}
+          >
+            <p style={{ fontSize: 18, textAlign: "center" }}>
+              ❌ Interlocutor non modifié ! ❌
+            </p>
+          </Modal>
         </div>
       </div>
     </>
@@ -322,7 +354,7 @@ export default Contrat;
 // Bouton modifier l'interloc
 // - fait :  POST Interloc pour ajout d'un new interloc en db
 // à faire : PUT Contrat pour modifier interloc contrat
-// à faire : POST Client pour ajouter interlocuteur
+// à faire : POST Client pour ajouter interlocutor
 
 // - route PUT Contrat pour le modifier
 // - route DELETE Contrat pour supprimer le contrat
