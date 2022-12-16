@@ -53,7 +53,7 @@ function AllContrat() {
     <>
       {/* {/* navbar et header /} */}
       <div className={style.main}>
-        <Navbar />
+      <Navbar styleAllClients={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
         <div className={style.header}>
           <h1 className={style.head}>Répertoire client</h1>
         </div>

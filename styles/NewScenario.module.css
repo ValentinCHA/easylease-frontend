@@ -13,8 +13,8 @@
 }
 .container{
     display: flex;
-    width: 81.5%;
-    height: 87.5%;
+    width: auto;
+    height: 92%;
 }
 
 .leftSection {
@@ -135,4 +135,16 @@
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+.inputModalInterlocuteur {
+    margin-left: 29%;
+    width: auto;
+    margin-bottom: 5%;
+}
+
+.nomClient {
+    font-size: 18px;
+    font-weight: 400;
+    text-decoration: underline;
 }

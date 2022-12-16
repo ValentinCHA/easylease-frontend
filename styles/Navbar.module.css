@@ -22,8 +22,11 @@
     display: flex;
     align-items: center;
     flex-direction: row;
+    margin-bottom: 5%;
+    border-bottom: 1px solid rgba(86, 86, 90, 0.24);
     
 }
+
 .accountBox:hover{
     height: 16%;
     width: 100%;
@@ -33,11 +36,12 @@
     cursor: pointer;
 }
 .avatar{
-    height: 50%;
+    height: 60%;
     width: auto;
     padding: 3%;
     border-radius: 27px;
     margin: 5%;
+    color: #645cffcc;
 }
 .infoUser{
     display: flex;
@@ -48,9 +52,9 @@
     margin-bottom: 2%;
 }
 .emailSize{
-    font-size: 70%;
+    font-size: 16px;
     padding: 1%;
-    color: rgb(149,164,186);
+    color: #645cffcc;
 }
 .navigationPage{
     height: auto;
@@ -59,15 +63,16 @@
     justify-content: space-around;
 }
 .BoxSpan{
-    
-    padding: 8% 10%;
+    padding: 8% 0%;
     transition-duration: 0.3s;
     transition-timing-function: linear;
+    border-radius: 10px;
+    margin: 1% 2%;
 }
 .BoxSpan:hover{
-background-color: #add8e6;
-  color: white;
-  cursor: pointer;
+    cursor: pointer;
+    background-color: rgb(110, 231, 255);
+    color: #635CFF;
 }
 .boxSpan{
     margin-top: 3%;
@@ -85,17 +90,19 @@ background-color: #add8e6;
 }
 .spaceIconSpan{
     margin: 0% 10%;
-    color: rgb(196,208,225);
+    color: rgba(0, 42, 255, 0.851);
 }
 .spaceIconLogout{
     margin: 0% 9%;
+    color: rgba(0, 42, 255, 0.851);
 }
 .textStyle{
-    
-    text-shadow: 2px 2px 4px #c5c5c5;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(4, 0, 255, 0.802);
 }
 .secondNav{
-    height: 50vh;
+    height: auto;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -105,6 +112,7 @@ background-color: #add8e6;
 .footerNav{
     display: flex;
     flex-direction: column;
+    margin-top: 45%;
     padding: 7% 0%;
     justify-content: space-between;
 }

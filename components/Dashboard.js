@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 function Dashboard() {
   return (
     <>
-    <Navbar/>
+    <Navbar styleDashboard={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
     <div className={style.header}>
       <h1 className={style.head} >Dashboard</h1>
     </div>

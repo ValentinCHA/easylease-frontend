@@ -10,7 +10,9 @@ function HomePage() {
   const router = useRouter();
   if (!user.token) {
     router.push('/login');
-  }
+  } else {
+    router.push('/dashboard')
+  };
 
   return (
     <>

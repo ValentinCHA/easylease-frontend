@@ -22,9 +22,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
   height: auto;
   padding: 20px;
+  
 }
 
 .form input {
@@ -42,7 +44,7 @@
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: center;
-  gap: 10%;
+  align-items: center;
 }
 
 .inputNewInterlocutor {
@@ -76,6 +78,7 @@
   gap: 10%;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .input {
@@ -130,11 +133,12 @@
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  padding-bottom: 5%;
+  padding-bottom: auto;
   gap: 5%;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 50px;
+  gap:10px;
 }
 
 .button {
@@ -167,14 +171,13 @@
 .interlocutorItemListContainer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  width: 80vh;
+  gap: 5%;
+  flex-wrap: wrap;
 }
 
-.line {
-  background-color: #635cff;
-  width: 1px;
-  height: 50%;
-}
 
 .textLink {
   cursor: pointer;
@@ -202,7 +205,6 @@
   font-size: 14px;
   margin-right: 5px;
 }
-
 .numberOfEmployeesContainer input {
   width: 100px;
   padding: 5px;
@@ -219,4 +221,86 @@
   padding: 16px;
   background-color: #fff;
   border-radius: 4px;
+}
+
+.interlocuteurslist {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.interlocuteursul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.interlocuteursli {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.interlocuteursli:last-child {
+  border-bottom: none;
+}
+
+.interlocuteursli span {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+
+.interlocuteursli {
+
+  background-color: #E6E6FA; 
+
+}
+
+.interlocuteursli:hover {
+  background-color: #f5f5f5;
+}
+
+.interlocuteursli span {
+  font-size: 1.2em;
+}
+.modalInterlocutorContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.modalInterlocutorContainer ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.modalInterlocutorContainer li {
+  display: flex;
+  align-items: center;
+}
+
+.modalInterlocutorContainer li + li {
+  margin-top: 5px;
+}
+
+.modalInterlocutorContainer .interlocutorDeleter {
+  cursor: pointer;
+  color: #999;
+  transition: all 0.3s;
+  margin-left: 10px;
+}
+
+.modalInterlocutorContainer .interlocutorDeleter:hover {
+  color: #333;
+}
+
+.alert{
+  color: red;
+  font-style: italic;
 }
