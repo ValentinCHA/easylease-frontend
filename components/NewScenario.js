@@ -84,9 +84,23 @@ function NewScenario() {
   const [selectClientById, setSelectClientById] = useState("");
   const [clientNameFromFetch, setClientNameFromFetch] = useState("");
   const [deleteBtn, setDeleteBtn] = useState(false);
+  const [modalSaveInterloc, setModalSaveInterloc] = useState(false);
+  const [interlocFilter, setInterlocFilter] = useState([]);
+  const [modalInterlocError, setModalInterlocError] = useState(false);
+  const [addInterlocutorModal, setAddInterlocutorModal] = useState(true);
+
+  const [interlocName, setInterlocName] = useState("");
+  const [phoneNumber, setPhoneNumer] = useState("");
+  const [interlocFirstName, setInterlocFirstname] = useState("");
+  const [interlocMail, setInterlocMail] = useState("");
+  const [interlocJob, setInterlocJob] = useState("");
+
+  const [addInterlocutorSucccess, setAddInterlocutorSuccess] = useState(false);
+  const [addInterlocutorFailed, setAddInterlocutorFailed] = useState(false);
 
   console.log(idScenario)
   // Check si le scenario est déja enregistrer en BDD//
+
 
   useEffect(() => {
     if (selectionClient) {
@@ -95,7 +109,8 @@ function NewScenario() {
       .then(data => {
         setOneClient([data.client])
         setSelectClientById(data.client._id)
-        setClientNameFromFetch(data.client.name)
+        setClientNameFromFetch(data.client.name);
+        setInterlocFilter([])
       })
     }
    }, [selectionClient]);
@@ -116,10 +131,17 @@ function NewScenario() {
       fetch(`${BACKEND_ADDRESS}/scenary/${idScenario._id}`)
         .then((response) => response.json())
         .then((data) => {
-          //console.log(data);
+          console.log("DATA SCENARIO !!!!!!!!!!!", data);
           if (data.result){
+            console.log();
             setOldScenario(data.result);
-            setClientFromCard(data.scenary.name);
+            fetch(`${BACKEND_ADDRESS}/client/id/${data.scenary.client}`)
+            .then(response => response.json())
+            .then(data => {
+              console.log("DATA 2 EME FETCH", data);
+             setClientFromCard(data.client.name);
+             setOneClient([data.client])
+            })
             setSelectClientById(data.scenary.client)
             setCreationDate(data.scenary.creationDate.slice(0, 10));
             setScenarioName(data.scenary.name);
@@ -231,16 +253,24 @@ function NewScenario() {
   console.log("ID SCENARIO FROM NEW SCENARIO", idScenario);
   console.log("SELECT CLIENT BY ID", selectClientById);
   console.log("SCENARIO NAME +>>>>>>>>>>>>>", scenarioName);
+  console.log("SELECTION INTERLOC", selectionInterlocuteur);
+
+  const beforeSubmit = () => {
+    setModalSaveInterloc(true);
+  };
 
   const submit = () => {
-    
-    console.log("Click validation");
+  if (interlocFilter.length <= 0) {
+    setModalInterlocError(true);
+    return
+  }
     fetch(`${BACKEND_ADDRESS}/contrat/addContrat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         client: selectClientById,
         name: scenarioName,
+        interlocutor: interlocFilter[0].interlocutor._id,
         type: equipementType,
         duration: locationDuration,
         amount: amountFinance,
@@ -254,7 +284,7 @@ function NewScenario() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("DATA CONTRAT =>", data);
+        console.log("DATA CONTRAT =>>>>", data);
         if (data.result) {
           setModalSubmitSuccess(true);
           setOldScenario(false);
@@ -271,10 +301,14 @@ function NewScenario() {
           //   setTimeout(function(){
           //     router.push('/scenario')
           // },1000);
-          fetch(`${BACKEND_ADDRESS}/scenary/${idScenario._id}`, {
-            method: "DELETE",
-          })
+          if (idScenario._id) {
+
+            fetch(`${BACKEND_ADDRESS}/scenary/${idScenario._id}`, {
+              method: "DELETE",
+            })
+          }
         } else {
+          console.log("DATA ERROR ???", data);
           setModalSubmitFailed(true);
         }
       });
@@ -287,6 +321,7 @@ function NewScenario() {
     setModalModifierFailed(false);
     setModalModifierSuccess(false);
     setModalSubmitFailed(false);
+    setModalSaveInterloc(false);
   };
 
   const handleOkContrat = () => {
@@ -299,9 +334,8 @@ function NewScenario() {
   };
 
   const handleDeleteOk = () => {
-       setModalDeleteSuccess(false);
-      //  router.push('/allScenario')
-      setDeleteBtn(true);
+      setModalDeleteSuccess(false);
+      setDeleteBtn(!deleteBtn);
       dispatch(removeId())
   }
 
@@ -328,14 +362,54 @@ let header;
   let interlocutorListDeroulante;
   if (oneClient) {
     interlocutorListDeroulante = oneClient.map((data, i) => {
-      return (
-        <option key={i}>{data.interlocutor.name}</option>
-      )
-    })
+      if (data.interlocutor) {
+        return (
+          <option key={i}>{data.interlocutor.name}</option>
+        )
+      }
+    });
+  };
+
+  const handleCancelModalInterloc = () => {
+    setSelectionInterlocuteur("");
+    setModalSaveInterloc(false);
   }
+
+  useEffect(() => {
+      setInterlocFilter(oneClient.filter(e => e.interlocutor ? e.interlocutor.name === selectionInterlocuteur: null));
+   },[selectionInterlocuteur])
+
+    console.log("INTERLOC FILTER =>", interlocFilter);
 
   console.log("creation date", creationDate);
   console.log("Client selectionné =>", selectionClient);
+
+  const addInterlocutor = () => {
+    setModalSaveInterloc(false);
+    setAddInterlocutorModal(true);
+  };
+
+  const interlocutorModal = () => {
+    setAddInterlocutorModal(false);
+    setModalSaveInterloc(true);
+  };
+
+  const saveInterlocuteur = () => {
+    
+    setAddInterlocutorSuccess(true);
+    setAddInterlocutorModal(false);
+  }
+
+  const closeModalInterlocuteurSuccess = () => {
+    setModalSaveInterloc(true);
+    setAddInterlocutorSuccess(false);
+  };
+
+  const closeModalInterlocuteurFailed = () => {
+    setModalSaveInterloc(true);
+    setAddInterlocutorFailed(false);
+  }
+
   return (
     <>
       <div className={style.mainContainer}>
@@ -467,7 +541,7 @@ let header;
             <div className={style.buttonBottom}>
               <button
                 className={style.button + " " + style.bottomBtn}
-                onClick={() => submit()}
+                onClick={() => beforeSubmit()}
               >
                 Valider ce scénario en contrat
               </button>
@@ -475,19 +549,85 @@ let header;
           </div>
           <Modal onCancel={() => handleSaveScenario()} open={modalSaveSuccess} footer={null} className={style.modalSuccess}>
             <p style={{fontSize: 22, textAlign: 'center'}} className={style.modalSave}>✅ Scenario eneregistré ! ✅</p>
-            <p style={{fontSize: 18, textAlign: 'center'}}>Merci de choisir un interlocuteur pour ce scénario :</p>
+            <div className={style.divSaveBtnModal}>
+              <button className={style.button + ' ' + style.scenarioBtnModal} onClick={() => returnScenario()}>Retourner sur la page scenarios</button>
+            </div>
+          </Modal>
+          <Modal onCancel={() => handleCancelModalInterloc()} open={modalSaveInterloc} footer={null} className={style.modalSuccess}>
+          <p style={{fontSize: 18, textAlign: 'center'}}>Merci de choisir un interlocuteur pour ce scénario :</p>
             <select
               className={style.input + ' ' + style.inputModalInterlocuteur}
               onChange={(e) => setSelectionInterlocuteur(e.target.value)}
               value={selectionInterlocuteur}
               defaultValue
             >
-              <option value="" disabled selected hidden>Choisisez un interlocuteur</option>
+              <option value="" selected hidden>Choisisez un interlocuteur</option>
               {interlocutorListDeroulante}
             </select>
+            <p style={{fontSize: 17, textAlign: 'center'}} className={style.interlocModal}>L'interlocuteur n'est pas dans la liste ? </p>
             <div className={style.divSaveBtnModal}>
               <button className={style.button + ' ' + style.scenarioBtnModal} onClick={() => addInterlocutor()}>Ajout interlocuteur</button>
-              <button className={style.button + ' ' + style.scenarioBtnModal} onClick={() => returnScenario()}>Retourner sur la page scenarios</button>
+              <button className={style.button + ' ' + style.scenarioBtnModal} onClick={() => submit()}>Valider le scenario !</button>
+              </div>
+          </Modal>
+          <Modal
+            onCancel={() => interlocutorModal(false)}
+            open={addInterlocutorModal}
+            footer={null}
+          >
+            <div className={style.modalInterContainer}>
+            <span className={style.textInterModal}>Nouvel Interlocuteur contrat : </span>
+              <br />
+              <div className={style.InputNewInterlocutorContainer}>
+                <input
+                  className={style.input + ' ' + style.inputInterloc}
+                  placeholder="Nom"
+                  type="text"
+                  onChange={(e) => setInterlocName(e.target.value)}
+                  value={interlocName}
+                ></input>
+                <br />
+                <input
+                  className={style.input + ' ' + style.inputInterloc}
+                  placeholder="Prénom"
+                  type="text"
+                  onChange={(e) => setInterlocFirstname(e.target.value)}
+                  value={interlocFirstName}
+                ></input>
+                <br />
+                <input
+                  className={style.input + ' ' + style.inputInterloc}
+                  placeholder="Poste"
+                  type="text"
+                  onChange={(e) => setInterlocJob(e.target.value)}
+                  value={interlocJob}
+                ></input>
+                <br />
+                <input
+                  className={style.input + ' ' + style.inputInterloc}
+                  placeholder="Numéro de téléphone"
+                  type="text"
+                  onChange={(e) => setPhoneNumer(e.target.value)}
+                  value={phoneNumber}
+                ></input>
+                <br />
+                <input
+                  className={style.input + ' ' + style.inputInterloc}
+                  placeholder="Email"
+                  type="text"
+                  onChange={(e) => setInterlocMail(e.target.value)}
+                  value={interlocMail}
+                ></input>
+                <br />
+                <div>
+                  <button
+                    className={style.button + ' ' + style.btnInterModal}
+                    onClick={() => saveInterlocuteur()}
+                  >
+                    Enregistrer
+                  </button>
+                </div>
+              </div>
             </div>
           </Modal>
           <Modal
@@ -551,6 +691,33 @@ let header;
           >
             <p style={{ fontSize: 18, textAlign: "center" }}>
               ❌ Echec de la transformation en contrat ! ❌
+            </p>
+          </Modal>
+          <Modal
+            onCancel={() => setModalInterlocError(false)}
+            open={modalInterlocError}
+            footer={null}
+          >
+            <p style={{ fontSize: 18, textAlign: "center" }}>
+              ❌ Vous n'avez pas choisi d'interlocuteur ! ❌
+            </p>
+          </Modal>
+          <Modal
+            onCancel={() => closeModalInterlocuteurFailed(false)}
+            open={addInterlocutorFailed}
+            footer={null}
+          >
+            <p style={{ fontSize: 18, textAlign: "center" }}>
+              ❌ L'ajout à échoué ! ❌
+            </p>
+          </Modal>
+          <Modal
+            onCancel={() => closeModalInterlocuteurSuccess()}
+            open={addInterlocutorSucccess}
+            footer={null}
+          >
+            <p style={{ fontSize: 18, textAlign: "center" }}>
+            ✅ Interlocuteur ajouté ! ✅
             </p>
           </Modal>
         </div>

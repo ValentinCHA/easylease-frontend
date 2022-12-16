@@ -129,11 +129,14 @@
 
 .scenarioBtnModal {
     width: 60%;
+    margin-bottom: 3%;
 }
 
 .divSaveBtnModal {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
 }
 
@@ -147,4 +150,45 @@
     font-size: 18px;
     font-weight: 400;
     text-decoration: underline;
+}
+
+.interlocModal {
+    margin: 0;
+    margin-bottom: 3%;
+};
+
+.InputNewInterlocutorContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid red;
+  }
+  
+  .inputNewInterlocuteur {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 70%;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid blue;
+  }
+
+.btnInterModal {
+    width: 100%;
+    margin-top: 5%;
+}
+
+.inputInterloc {
+    margin: 2%;
+    width: 90%;
+}
+
+.textInterModal {
+    margin: 3%;
+    font-size: 18px;
+    text-decoration: underline;
+    font-weight: 600;
 }
