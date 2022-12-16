@@ -55,11 +55,11 @@ function Contrat() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        nom: interlocName,
-        prenom: interlocFirstName,
+        name: interlocName,
+        firstname: interlocFirstName,
         poste: interlocJob,
-        phone: phoneNumber,
-        mail: interlocMail,
+        tel: phoneNumber,
+        email: interlocMail,
         client: dataContrat[0].client,
       }),
     })
@@ -115,11 +115,11 @@ function Contrat() {
     // à compléter avec les interlocuteurs
     return (
       <div className={style.data} key={i}>
-        <span className={style.texte}>Nom : {item.nom}</span>
-        <span className={style.texte}>Prénom : {item.prenom}</span>
+        <span className={style.texte}>Nom : {item.name}</span>
+        <span className={style.texte}>Prénom : {item.firstname}</span>
         <span className={style.texte}>Poste : {item.poste}</span>
-        <span className={style.texte}>Téléphone : {item.phone}</span>
-        <span className={style.texte}>Mail : {item.mail}</span>
+        <span className={style.texte}>Téléphone : {item.tel}</span>
+        <span className={style.texte}>Mail : {item.email}</span>
       </div>
     );
   });
@@ -317,3 +317,13 @@ function Contrat() {
 }
 
 export default Contrat;
+
+// Plan d'action pour Nico :
+// Bouton modifier l'interloc
+// - fait :  POST Interloc pour ajout d'un new interloc en db
+// à faire : PUT Contrat pour modifier interloc contrat
+// à faire : POST Client pour ajouter interlocuteur
+
+// - route PUT Contrat pour le modifier
+// - route DELETE Contrat pour supprimer le contrat
+// - route PUT Contrat pour mette à jour le link
