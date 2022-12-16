@@ -27,6 +27,7 @@ function AllContrat() {
               numberOfEmployees: data.numberOfEmployees,
               clientBirth: data.clientBirth,
               chiffre: data.chiffre,
+              interlocutor:data.interlocutor,
 
             };
           });
@@ -54,7 +55,7 @@ function AllContrat() {
       <div className={style.main}>
         <Navbar />
         <div className={style.header}>
-          <h1 className={style.head}>AllClients</h1>
+          <h1 className={style.head}>Répertoire client</h1>
         </div>
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}
@@ -64,7 +65,7 @@ function AllContrat() {
           </div>
           {/* {/ span qui affiche le nom du client /} */}
           <span
-            style={{ paddingLeft: 120, borderBottom: "2px solid rgb(235,239,242)" }}>Contrats de l’entreprise “Nom du client” :</span>
+            style={{ paddingLeft: 120, borderBottom: "2px solid rgb(235,239,242)" }}></span>
           {/* {/ div qui contiendra tout mes coponents contrat Card /} */}
           <div className={style.containerClientCard}>{infoClient}</div>
         </div>
