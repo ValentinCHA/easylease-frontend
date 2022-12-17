@@ -12,20 +12,28 @@
   margin: 2% 8%;
 }
 .container {
+  /* border: 5px red solid; */
   width: 100%;
   height: 87.5%;
 }
 
 .GridContent {
+  /* border: 5px blue solid; */
   width: 100%;
-  display: grid;
-  height: 30rem;
-  margin: 0 auto;
+  display: flex;
+  height: 100%;
+  margin:20px
 
-  width: auto;
-  grid-template-columns: repeat(2, 1fr);
-  
 }
+
+.GridParent {
+  /* border: 5px red solid; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 
 .RightContent {
   display: flex;
@@ -33,7 +41,6 @@
   align-items: center;
   border: 0.1rem solid rgba(0, 0, 0, 0.275);
   border-radius: 1rem;
-
   margin: 0 auto;
   width: 30rem;
   box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.25);
@@ -41,13 +48,10 @@
 
 .Infosclient {
   box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.25);
-
   border-radius: 1rem;
   border: 0.1rem solid rgba(0, 0, 0, 0.275);
-
   display: block;
   margin: 0 auto;
-
   width: 30rem;
   /* background-color: rgb(0, 0, 0); */
 }
@@ -61,17 +65,19 @@
 
 .ButtonContainer {
   padding: 0.5rem;
-  width: 53rem;
-  display: grid;
+  width: 65rem;
+  height: 15rem;
+  display: flex;
   margin: 0 auto 1rem;
   gap: 23rem;
   grid-template-columns: repeat(2, 1fr);
+
 }
 .ButtonContainer > button {
   cursor: pointer;
   padding: 13.5px 10px;
-  gap: 10px;
-  width: 14rem;
+  gap: 20px;
+  width: 50rem;
   height: 3.25rem;
   background: #635cff;
   border-radius: 5px;
@@ -90,14 +96,14 @@
 
 .buttonAddDoc:hover {
   border: 0.1rem solid #635cff;
-
   color: #635cff;
   background: white;
   transition: all 0.3s;
 }
-.buttonAddDoc {
-  cursor: pointer;
 
+.buttonModif{
+
+  cursor: pointer;
   padding: 13.5px 10px;
   gap: 10px;
   width: 14rem;
@@ -109,5 +115,16 @@
   font-size: 16px;
   font-weight: 400;
   transition: 500ms;
-  
 }
+.docsContainer {
+  box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 1rem;
+  border: 0.1rem solid rgba(0, 0, 0, 0.275);
+  display: block;
+  margin: 0 auto;
+  width: 30rem;
+  padding-left: 1em;
+  font-size: large;
+
+}
+
