@@ -7,7 +7,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 80vw;
+  width: 80%;
   border: 1px solid crimson;
   align-items: center;
   height: 90%;
@@ -16,15 +16,18 @@
   background-color: #fff;
   border: 1px solid #ddd;
   box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow-y: scroll;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  
   width: 100%;
-  height: auto;
+
   padding: 20px;
   
 }
@@ -32,34 +35,47 @@
 .form input {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  font-size: 16px;
   border: 1px solid #ddd;
-  box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.form input:hover,
+.form input:focus {
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+.form input:active {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
 .newClientContainer {
-  height: 100%;
+  
   width: 60%;
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
+  
 }
-
+.newInterlocutorContainer{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ddd;
+  justify-content: center;
+  
+}
 .inputNewInterlocutor {
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
   gap: 4%;
-  border: none;
-  padding: 12px;
-  border-radius: 4px;
-  background-color: white;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1);
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
+
 .inputNewInterlocutor :hover,
 .inputNewInterlocutor :focus {
   box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
@@ -73,35 +89,43 @@
 
 .formContainer {
   display: flex;
-  height: 100%;
   flex-direction: column;
-  gap: 10%;
-  justify-content: center;
   align-items: center;
   width: 100%;
+  padding: 16px;
+  gap: 10%;
 }
 
 .input {
   width: 60%;
-  height: 30px;
+  height: 48px;
   background: #ffffff;
-  padding: 10px;
+  padding: 0 16px;
   outline: none;
-  border: 1px solid #cccccc;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   font-size: 16px;
   line-height: 20px;
-}
-.inputNewClient {
- 
-  padding: 0.75rem 0;
-  font-size: 1rem;
+
+}.inputNewClient {
   width: 100%;
-  box-sizing: border-box;
-  transition: all 0.3s ease-in-out;
-  font-family: 'Roboto', sans-serif;
-  color: #333;
-  position: relative;
-  background-color: #fff;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 20px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.inputNewClient:hover,
+.inputNewClient:focus {
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+.inputNewClient:active {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
 .inputNewClient:before {
@@ -118,27 +142,10 @@
 
 .inputNewClient:focus {
   outline: none;
-  color: #333;
-  box-shadow: 0 0 0 2px #333;
 }
 
 .inputNewClient:focus:before {
   transform: scaleX(1);
-}
-
-.newInterlocutorContainer {
-  background-color: none;
-  height: 100%;
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  padding-bottom: auto;
-  gap: 5%;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
-  gap:10px;
 }
 
 .button {
@@ -176,6 +183,7 @@
   width: 80vh;
   gap: 5%;
   flex-wrap: wrap;
+  
 }
 
 

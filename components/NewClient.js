@@ -23,11 +23,11 @@ function NewClient() {
   const [numberOfEmployees, setNumberofEmployees] = useState(0);
   const [newClientAdded, setNewClientAdded] = useState(false);
   const [alertInterlocutor, setAlertInterlocutor] = useState(false);
-
+  console.log(alertInterlocutor);
   const deleteInt = (i) => {
-    setInterlocutors(interlocutors.filter((_, index) => index !== i)); 
+    setInterlocutors(interlocutors.filter((_, index) => index !== i));
   };
-  
+
   const modalContent = interlocutors.map((e, i) => {
     return (
       <div id={e} className={style.modalInterlocutorContainer}>
@@ -46,8 +46,6 @@ function NewClient() {
     );
   });
 
-
-
   const handleModalInterlocutor = () => {
     setIsModalVisible(!isModalVisible);
   };
@@ -65,7 +63,6 @@ function NewClient() {
   });
 
   const handleNewInterlocutorSubmit = () => {
-    
     setInterlocutors((interlocutor) => [
       ...interlocutor,
       {
@@ -80,42 +77,41 @@ function NewClient() {
     setInterlocFirstname("");
     setInterlocName("");
     setInterlocMail("");
-    setInterlocJob("");}
-
-    console.log('test')
-
+    setInterlocJob("");
+    setAlertInterlocutor(false);
+  };
 
   const handleNewClientSubmit = () => {
-    if(interlocutors.length>0){
-    fetch("http://localhost:3000/client/uploadClient", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        token: user.token,
-        name: name,
-        address: address,
-        numberOfEmployees: numberOfEmployees,
-        chiffreAffaire: chiffreAffaire,
-        interlocutors: interlocutors,
-        clientBirth: Date.now(),
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          //Penser à ajouter un reducer pour les clients qui viennent d'être ajoutés !!
-          console.log("C'est good");
-          setName("");
-          setAddress("");
-          setNumberofEmployees(0);
-          setChiffreAffaire("");
-          setNewClientAdded(true);
-        }
-      });
-  } else {
-    setAlertInterlocutor(true);
-  }}
-  
+    if (interlocutors.length > 0) {
+      fetch("http://localhost:3000/client/uploadClient", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: user.token,
+          name: name,
+          address: address,
+          numberOfEmployees: numberOfEmployees,
+          chiffreAffaire: chiffreAffaire,
+          interlocutors: interlocutors,
+          clientBirth: Date.now(),
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.result) {
+            //Penser à ajouter un reducer pour les clients qui viennent d'être ajoutés !!
+            console.log("C'est good");
+            setName("");
+            setAddress("");
+            setNumberofEmployees(0);
+            setChiffreAffaire("");
+            setNewClientAdded(true);
+          }
+        });
+    } else {
+      setAlertInterlocutor(true);
+    }
+  };
 
   useEffect(() => {
     setInterlocutors([]);
@@ -130,8 +126,9 @@ function NewClient() {
       <div className={style.container}>
         <div className={style.form}>
           <div className={style.newClientContainer}>
-            <span>Création de client</span>
+            <h2>Création de client</h2>
             <div className={style.formContainer}>
+              <label>Nom</label>
               <input
                 className={style.input + " " + style.inputNewClient}
                 placeholder="Nom"
@@ -139,6 +136,7 @@ function NewClient() {
                 onChange={(e) => setName(e.target.value)}
                 value={name}
               ></input>
+              <label>Address</label>
               <input
                 className={style.input + " " + style.inputNewClient}
                 placeholder="Address"
@@ -146,6 +144,7 @@ function NewClient() {
                 onChange={(e) => setAddress(e.target.value)}
                 value={address}
               ></input>
+              <label>Chiffre d'affaires</label>
               <input
                 className={style.input + " " + style.inputNewClient}
                 placeholder="Chiffre d'affaires"
@@ -154,7 +153,7 @@ function NewClient() {
                 value={chiffreAffaire}
               ></input>
               <div className={style.numberOfEmployeesContainer}>
-                <label for="Nombre d'employés">Nombre d'employés:</label>
+                <label>Nombre d'employés:</label>
                 <input
                   className={style.input + " " + style.inputNewClient}
                   placeholder="Nombre d'employés"
@@ -163,67 +162,25 @@ function NewClient() {
                   value={numberOfEmployees}
                 ></input>
               </div>
-              { dropDownInterlocutors.length>0 &&(
+              {dropDownInterlocutors.length > 0 && (
                 <div className={style.interlocutorItemListContainer}>
                   {dropDownInterlocutors}
-                  <br/>
-                  {dropDownInterlocutors.length>0 && (
+                  <br />
+                  {dropDownInterlocutors.length > 0 && (
                     <span
                       onClick={() => handleModalInterlocutor()}
                       className={style.textLink}
-                    > 
+                    >
                       Modifier les interlocuteurs
                     </span>
                   )}
-                </div>
-              )}
-              {isModalVisible && (
-                <div className={style.modal}>
-                  <Modal
-                    visible={isModalVisible}
-                    closable={false}
-                    footer={null}
-                    open={isModalVisible}
-                    onCancel={isModalVisible}
-                  >
-                    <div className={style.modalContainer}>
-                      {modalContent}
-                      <button
-                        className={style.button}
-                        onClick={() => handleModalInterlocutor()}
-                      >
-                        Ok
-                      </button>
-                    </div>
-                  </Modal>
-                </div>
-              )}
-              {newClientAdded && (
-                <div className={style.modal}>
-                  <Modal
-                    visible={newClientAdded}
-                    closable={false}
-                    footer={null}
-                    open={newClientAdded}
-                    onCancel={newClientAdded}
-                  >
-                    <div className={style.modalContainer}>
-                      <span>Nouveau client ajouté !</span>
-                      <button
-                        className={style.button}
-                        onClick={() => setNewClientAdded(false)}
-                      >
-                        Ok
-                      </button>
-                    </div>
-                  </Modal>
                 </div>
               )}
             </div>
           </div>
 
           <div className={style.newInterlocutorContainer}>
-            <span>Ajouter un interlocuteur : </span>
+            <h3>Ajouter un interlocuteur : </h3>
             <input
               className={style.input + " " + style.inputNewInterlocutor}
               placeholder="Numéro de téléphone"
@@ -269,8 +226,11 @@ function NewClient() {
 
           <div className={style.buttonNewClientContainer}></div>
         </div>
-        {alertInterlocutor &&  (
-          <span className={style.alert}> Ajoutez d'abord un interlocuteur !</span>
+        {alertInterlocutor && (
+          <span className={style.alert}>
+            {" "}
+            Ajoutez d'abord un interlocuteur !
+          </span>
         )}
         <button
           className={style.button}
