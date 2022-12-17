@@ -176,6 +176,48 @@ function NewClient() {
                   )}
                 </div>
               )}
+               {isModalVisible && (
+                <div className={style.modal}>
+                  <Modal
+                    visible={isModalVisible}
+                    closable={false}
+                    footer={null}
+                    open={isModalVisible}
+                    onCancel={isModalVisible}
+                  >
+                    <div className={style.modalContainer}>
+                      {modalContent}
+                      <button
+                        className={style.button}
+                        onClick={() => handleModalInterlocutor()}
+                      >
+                        Ok
+                      </button>
+                    </div>
+                  </Modal>
+                </div>
+              )}
+              {newClientAdded && (
+                <div className={style.modal}>
+                  <Modal
+                    visible={newClientAdded}
+                    closable={false}
+                    footer={null}
+                    open={newClientAdded}
+                    onCancel={newClientAdded}
+                  >
+                    <div className={style.modalContainer}>
+                      <span>Nouveau client ajouté !</span>
+                      <button
+                        className={style.button}
+                        onClick={() => setNewClientAdded(false)}
+                      >
+                        Ok
+                      </button>
+                    </div>
+                  </Modal>
+                </div>
+              )}
             </div>
           </div>
 
