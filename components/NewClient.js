@@ -23,7 +23,7 @@ function NewClient() {
   const [numberOfEmployees, setNumberofEmployees] = useState(0);
   const [newClientAdded, setNewClientAdded] = useState(false);
   const [alertInterlocutor, setAlertInterlocutor] = useState(false);
-  console.log(alertInterlocutor);
+  console.log(newClientAdded);
   const deleteInt = (i) => {
     setInterlocutors(interlocutors.filter((_, index) => index !== i));
   };
@@ -55,7 +55,7 @@ function NewClient() {
         <span>Interlocuteur {i + 1}</span>
         <ul className={style.interlocuteursul}>
           <li className={style.interlocuteursli}>
-            {e.firstname} _{e.name} , en tant que :{e.poste}
+            {e.firstname} _{e.name}  : {e.poste}
           </li>
         </ul>
       </div>
@@ -81,6 +81,7 @@ function NewClient() {
   };
 
   const handleNewClientSubmit = () => {
+    
     if (interlocutors.length > 0) {
       fetch("http://localhost:3000/client/uploadClient", {
         method: "POST",
@@ -95,17 +96,25 @@ function NewClient() {
           clientBirth: Date.now(),
         }),
       })
-        .then((response) => response.json())
+        .then((response) => {
+          console.log(response);
+          if (!response.ok) {
+            console.log("Error fetching data");
+          }
+          return response.json();
+        })
         .then((data) => {
           if (data.result) {
-            //Penser à ajouter un reducer pour les clients qui viennent d'être ajoutés !!
-            console.log("C'est good");
+            console.log("Client bien ajouté");
             setName("");
             setAddress("");
             setNumberofEmployees(0);
             setChiffreAffaire("");
             setNewClientAdded(true);
           }
+        })
+        .catch((error) => {
+          console.log(error);
         });
     } else {
       setAlertInterlocutor(true);
@@ -179,7 +188,7 @@ function NewClient() {
                {isModalVisible && (
                 <div className={style.modal}>
                   <Modal
-                    visible={isModalVisible}
+
                     closable={false}
                     footer={null}
                     open={isModalVisible}
