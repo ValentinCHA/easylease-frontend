@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "antd";
+import Header from "./Header";
 
 function NewClient() {
   // Définir l'état local pour les champs de formulaire
@@ -55,7 +56,7 @@ function NewClient() {
         <span>Interlocuteur {i + 1}</span>
         <ul className={style.interlocuteursul}>
           <li className={style.interlocuteursli}>
-            {e.firstname} _{e.name}  : {e.poste}
+            {e.firstname} _{e.name} : {e.poste}
           </li>
         </ul>
       </div>
@@ -63,7 +64,8 @@ function NewClient() {
   });
 
   const handleNewInterlocutorSubmit = () => {
-    setInterlocutors((interlocutor) => [...interlocutor,
+    setInterlocutors((interlocutor) => [
+      ...interlocutor,
       {
         firstname: interlocFirstName,
         name: interlocName,
@@ -81,7 +83,6 @@ function NewClient() {
   };
 
   const handleNewClientSubmit = () => {
-    
     if (interlocutors.length > 0) {
       fetch("http://localhost:3000/client/uploadClient", {
         method: "POST",
@@ -128,15 +129,12 @@ function NewClient() {
   return (
     <div className={style.maincontainer}>
       <Navbar />
-      <div className={style.header}>
-        <h1 className={style.head}>New Client</h1>
-      </div>
+      <Header name="New Client" />
       <div className={style.container}>
         <div className={style.form}>
           <div className={style.newClientContainer}>
-            
             <div className={style.formContainer}>
-            <h2>Création de client</h2>
+              <h2>Création de client</h2>
               <label>Nom</label>
               <input
                 className={style.input + " " + style.inputNewClient}
@@ -171,29 +169,22 @@ function NewClient() {
                   value={numberOfEmployees}
                 ></input>
               </div>
-              {dropDownInterlocutors.length>0 &&(
+              {dropDownInterlocutors.length > 0 && (
                 <div className={style.interlocutorItemListContainer}>
                   {dropDownInterlocutors}
-                  <br/>
-                  
-                    <span
-                      onClick={() => handleModalInterlocutor()}
-                      className={style.textLink}
-                    >
-                      Modifier les interlocuteurs
-                    </span>
-                  
+                  <br />
+
+                  <span
+                    onClick={() => handleModalInterlocutor()}
+                    className={style.textLink}
+                  >
+                    Modifier les interlocuteurs
+                  </span>
                 </div>
               )}
-               {isModalVisible && (
+              {isModalVisible && (
                 <div className={style.modal}>
-                  <Modal
-
-                    closable={false}
-                    footer={null}
-                    open={isModalVisible}
-                    onCancel={isModalVisible}
-                  >
+                  <Modal closable={false} footer={null} open={isModalVisible}>
                     <div className={style.modalContainer}>
                       {modalContent}
                       <button
@@ -208,12 +199,7 @@ function NewClient() {
               )}
               {newClientAdded && (
                 <div className={style.modal}>
-                  <Modal
-                    closable={false}
-                    footer={null}
-                    open={newClientAdded}
-                    onCancel={newClientAdded}
-                  >
+                  <Modal closable={false} footer={null} open={newClientAdded}>
                     <div className={style.modalContainer}>
                       <span>Nouveau client ajouté !</span>
                       <button
@@ -276,19 +262,18 @@ function NewClient() {
 
           <div className={style.buttonNewClientContainer}></div>
           {alertInterlocutor && (
-          <span className={style.alert}>
-            {" "}
-            Ajoutez d'abord un interlocuteur !
-          </span>
-        )}
+            <span className={style.alert}>
+              {" "}
+              Ajoutez d'abord un interlocuteur !
+            </span>
+          )}
+        </div>
         <button
           className={style.button}
           onClick={() => handleNewClientSubmit()}
         >
           Création du client
         </button>
-        </div>
-       
       </div>
     </div>
   );

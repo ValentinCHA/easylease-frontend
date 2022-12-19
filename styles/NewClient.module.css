@@ -1,3 +1,11 @@
+.header{
+  display: flex;
+  width: 80%;
+  border-bottom: 2px solid rgb(235,239,242);
+}
+.head{
+  margin: 2% 8%;
+}
 .maincontainer {
   height: 100vh;
   width: 100vw;
@@ -8,16 +16,16 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 81.5%;
+  height: auto;
+  justify-content: space-around;
   align-items: center;
-  background-color: #fff;
-
 
 }
 
 .form {
   display: flex;
-  flex-direction: column;
+
   align-items: center;
   height: 100%;
   width: 100%;
