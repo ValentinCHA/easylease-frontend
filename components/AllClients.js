@@ -6,10 +6,18 @@ import { addId } from "../reducers/contrat";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import Header  from './Header'
+
 
 function AllContrat() {
+  const router = useRouter();
   const [inputValue, setInputValue] = useState("");
   const [dataClient, setDataClient] = useState([]);
+
+  const afficheNewClientPage =()=>{
+    router.push('/newClient')
+  }
 
   const user = useSelector((state) => state.user.value);
 
@@ -17,9 +25,10 @@ function AllContrat() {
     fetch(`http://localhost:3000/client/test/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         if (data.result) {
           // console.log('data find',data.contrat)
-          const client = data.clientsInfos.map((data, i) => {
+          const client = data.userInfos.clients.map((data, i) => {
             return {
               _id: data._id,
               name: data.name,
@@ -27,7 +36,6 @@ function AllContrat() {
               numberOfEmployees: data.numberOfEmployees,
               clientBirth: data.clientBirth,
               chiffre: data.chiffre,
-
             };
           });
           setDataClient(client);
@@ -53,24 +61,25 @@ function AllContrat() {
       {/* {/* navbar et header /} */}
       <div className={style.main}>
       <Navbar styleAllClients={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
-        <div className={style.header}>
-          <h1 className={style.head}>AllClients</h1>
-        </div>
+        <Header name="Clients"/>
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}
           <div className={style.search}>
+          <div className={style.boxInput}>
+
             <input className={style.input} onChange={(e) => setInputValue(e.target.value)} type="text" placeholder="  Search contrat....." value={inputValue} />
             <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />
+            </div>
+
+            <button className={style.nouveauContrat} onClick={()=>afficheNewClientPage()}>Nouveau Client</button>
+
           </div>
-          {/* {/ span qui affiche le nom du client /} */}
-          <span
-            style={{ paddingLeft: 120, borderBottom: "2px solid rgb(235,239,242)" }}>Contrats de l’entreprise “Nom du client” :</span>
+
           {/* {/ div qui contiendra tout mes coponents contrat Card /} */}
-          <div className={style.containerClientCard}>{infoClient}</div>
+          <div className={style.containerClientCard}>
+            {infoClient}
+          </div>
         </div>
-        {/* span voir plus */}
-        <span
-          style={{ display: "flex", justifyContent: "center", alignItems: "center", color: "rgb(101,94,255)", cursor: "pointer", marginTop: -40, }}>voir plus...</span>
       </div>
     </>
   );

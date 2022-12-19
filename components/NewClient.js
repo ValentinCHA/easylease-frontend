@@ -24,7 +24,7 @@ function NewClient() {
   const [newClientAdded, setNewClientAdded] = useState(false);
 
   const deleteInt = (i) => {
-    setInterlocutors(interlocutors.filter((_, index) => index !== i)); 
+    setInterlocutors(interlocutors.filter((_, index) => index !== i));
   };
   
   const modalContent = interlocutors.map((e, i) => {
@@ -61,8 +61,7 @@ function NewClient() {
   });
 
   const handleNewInterlocutorSubmit = () => {
-    setInterlocutors((interlocutor) => [
-      ...interlocutor,
+    setInterlocutors((interlocutor) => [...interlocutor,
       {
         firstname: interlocFirstName,
         name: interlocName,
@@ -152,18 +151,18 @@ function NewClient() {
                   value={numberOfEmployees}
                 ></input>
               </div>
-              {!isModalVisible && dropDownInterlocutors.length>0 &&(
+              {dropDownInterlocutors.length>0 &&(
                 <div className={style.interlocutorItemListContainer}>
                   {dropDownInterlocutors}
                   <br/>
-                  {dropDownInterlocutors.length>0 && (
+                  
                     <span
                       onClick={() => handleModalInterlocutor()}
                       className={style.textLink}
                     > 
                       Modifier les interlocuteurs
                     </span>
-                  )}
+                  
                 </div>
               )}
               {isModalVisible && (
