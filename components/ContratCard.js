@@ -26,7 +26,8 @@ function ContratCard(props) {
         <span
           style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.4em" }}
         >
-          {props.client.substring(0, 10)}
+          {/* {props.client.substring(0, 10)} */}
+          {props.client}
         </span>
         <span
           style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.2em" }}
@@ -36,17 +37,17 @@ function ContratCard(props) {
         <span
           style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.0em" }}
         >
-          {props.amount} €
+          {props.type}
         </span>
         <span
           style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.0em" }}
         >
-          {props.creationDate.substring(0, 10)}
+          {/* {props.creationDate.substring(0, 10)} */}
         </span>
         <span
           style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.0em" }}
         >
-          ...
+          {/* ... */}
         </span>
       </div>
     </div>
