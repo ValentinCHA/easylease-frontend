@@ -6,17 +6,21 @@ import { addId } from "../reducers/contrat";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+
 
 function AllContrat() {
   const [inputValue, setInputValue] = useState("");
   const [dataContrat, setDataContrat] = useState([]);
 
   console.log("FETCH Infos All Contrat", dataContrat);
+  const user = useSelector((state) => state.user.value);
 
   useEffect(() => {
-    fetch("http://localhost:3000/contrat/allContrat")
+    fetch(`http://localhost:3000/contrat/allContrat`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         if (data.result) {
           setDataContrat(data.contrat);
         }

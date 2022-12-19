@@ -63,8 +63,7 @@ function NewClient() {
   });
 
   const handleNewInterlocutorSubmit = () => {
-    setInterlocutors((interlocutor) => [
-      ...interlocutor,
+    setInterlocutors((interlocutor) => [...interlocutor,
       {
         firstname: interlocFirstName,
         name: interlocName,
@@ -163,18 +162,18 @@ function NewClient() {
                   value={numberOfEmployees}
                 ></input>
               </div>
-              {dropDownInterlocutors.length > 0 && (
+              {dropDownInterlocutors.length>0 &&(
                 <div className={style.interlocutorItemListContainer}>
                   {dropDownInterlocutors}
-                  <br />
-                  {dropDownInterlocutors.length > 0 && (
+                  <br/>
+                  
                     <span
                       onClick={() => handleModalInterlocutor()}
                       className={style.textLink}
                     >
                       Modifier les interlocuteurs
                     </span>
-                  )}
+                  
                 </div>
               )}
                {isModalVisible && (
