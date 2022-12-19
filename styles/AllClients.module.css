@@ -96,7 +96,7 @@
     cursor: pointer;
     transition-duration: 0.3s;
     transition-timing-function: linear;
-    margin-left: 60%;
+    margin-left: 50%;
 }
 
 .nouveauClient:hover {
