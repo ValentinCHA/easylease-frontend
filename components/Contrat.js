@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { Modal } from "antd";
 import { useSelector } from "react-redux";
 const { ObjectId } = require("mongoose").Types;
+import Header from "./Header";
 
 function Contrat() {
   const BACKEND_ADDRESS = "http://localhost:3000";
@@ -67,7 +68,7 @@ function Contrat() {
         <span className={style.texte}>Nom : {item.name}</span>
         <span className={style.texte}>Prénom : {item.firstname}</span>
         <span className={style.texte}>Poste : {item.poste}</span>
-        <span className={style.texte}>Téléphone : {item.tel}</span>
+        <span className={style.texte}>Téléphone : {item.phone}</span>
         <span className={style.texte}>Mail : {item.email}</span>
       </div>
     );
@@ -182,9 +183,7 @@ function Contrat() {
     <>
       <div className={style.mainContent}>
         <Navbar />
-        <div className={style.header}>
-          <h1 className={style.head}>Contrat : {ContratReducer.name} </h1>
-        </div>
+        <Header name= {`Contrat: ${ContratReducer.name}`} />
         <div className={style.container}>
           <div className={style.SousContainerLeft}>
             <div className={style.boxData + " " + style.boxData1}>

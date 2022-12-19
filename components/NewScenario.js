@@ -147,7 +147,7 @@ function NewScenario() {
         setInterlocFilter([])
       })
     }
-   }, [selectionClient]);
+   }, [selectionClient, deleteBtn]);
 
   console.log("ONE CLIENT =>", oneClient);
 
@@ -429,7 +429,7 @@ let header;
     setAddInterlocutorModal(false);
     setModalSaveInterloc(true);
   };
- let id;
+ 
   const saveInterlocuteur = () => {
     fetch(`${BACKEND_ADDRESS}/client/addInterlocutor`, {
       method: 'POST',
@@ -438,7 +438,7 @@ let header;
         client : selectClientById,
         name: interlocName,
         firstname: interlocFirstName,
-        tel: phoneNumber,
+        phone: phoneNumber,
         poste: interlocJob,
         email: interlocMail,
       })
