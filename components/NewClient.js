@@ -126,8 +126,9 @@ function NewClient() {
       <div className={style.container}>
         <div className={style.form}>
           <div className={style.newClientContainer}>
-            <h2>Création de client</h2>
+            
             <div className={style.formContainer}>
+            <h2>Création de client</h2>
               <label>Nom</label>
               <input
                 className={style.input + " " + style.inputNewClient}
@@ -200,7 +201,6 @@ function NewClient() {
               {newClientAdded && (
                 <div className={style.modal}>
                   <Modal
-                    visible={newClientAdded}
                     closable={false}
                     footer={null}
                     open={newClientAdded}
@@ -267,8 +267,7 @@ function NewClient() {
           </div>
 
           <div className={style.buttonNewClientContainer}></div>
-        </div>
-        {alertInterlocutor && (
+          {alertInterlocutor && (
           <span className={style.alert}>
             {" "}
             Ajoutez d'abord un interlocuteur !
@@ -280,6 +279,8 @@ function NewClient() {
         >
           Création du client
         </button>
+        </div>
+       
       </div>
     </div>
   );
