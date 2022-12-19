@@ -69,7 +69,7 @@ function NewClient() {
         firstname: interlocFirstName,
         name: interlocName,
         poste: interlocJob,
-        tel: phoneNumber,
+        phone: phoneNumber,
         email: interlocMail,
       },
     ]);
