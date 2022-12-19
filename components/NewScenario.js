@@ -6,42 +6,76 @@ import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from "react-redux";
 import { addId } from '../reducers/scenario';
 import Header from './Header';
-import {
-  XYPlot,
-  XAxis,
-  YAxis,
-  VerticalGridLines,
-  HorizontalGridLines,
-  LineMarkSeries,
-  MarkSeries
-} from 'react-vis';
+// import { Line } from 'react-chartjs-2';
 import { removeId } from "../reducers/scenario";
+import { XYPlot, LineMarkSeries, XAxis, YAxis } from 'react-vis';
+import { Format } from 'd3-format';
 
 
-  // return (
-  //   <XYPlot width={300} height={300}>
-  //     <VerticalGridLines />
-  //     <HorizontalGridLines />
-  //     <XAxis />
-  //     <YAxis />
-  //     <LineSeries data={data} />
-  //   </XYPlot>
-  // );
-  // const data = [
-  //   {month: "Janvier", sales: 3500},
-  //   {month: "Février", sales: 3000},
-  //   {month: "Mars", sales: 2500},
-  //   {month: "Avril", sales: 2000},
-  //   {month: "Mai", sales: 1500},
-  //   {month: "Juin", sales: 1000},
-  //   {month: "Juillet", sales: 500},
-  //   {month: "Août", sales: 100}]
-  const dataGraph = [
-    {x: 0, y: 1000, },
-    {x: 12, y: 900, },
-    {x: 24, y: 800, },
+
+//////// REACT VIS
+  const data = [
+    { x: 'Jan', y: 100000 },
+    { x: 'Feb', y: 85000 },
+    { x: 'Mar', y: 73000 },
+    { x: 'Apr', y: 63000 },
+    { x: 'May', y: 54000 },
+    { x: 'Jun', y: 46000 },
+    { x: 'Jul', y: 39000 },
+    { x: 'Aug', y: 33000 },
+    { x: 'Sep', y: 28000 },
+    { x: 'Oct', y: 23000 },
+    { x: 'Nov', y: 19000 },
+    { x: 'Dec', y: 15000 }
   ];
+ //const yTickFormat = Format('.4s');
+  const options = {
+    xType: 'ordinal',
+    yType: 'linear',
+    xDomain: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    yDomain: [15000, 100000]
+  };
 
+
+  //////// CHART JS
+
+  // const data = {
+  //   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  //   datasets: [
+  //     {
+  //       label: 'My First dataset',
+  //       fill: false,
+  //       lineTension: 0.1,
+  //       backgroundColor: 'rgba(75,192,192,0.4)',
+  //       borderColor: 'rgba(75,192,192,1)',
+  //       borderCapStyle: 'butt',
+  //       borderDash: [],
+  //       borderDashOffset: 0.0,
+  //       borderJoinStyle: 'miter',
+  //       pointBorderColor: 'rgba(75,192,192,1)',
+  //       pointBackgroundColor: '#fff',
+  //       pointBorderWidth: 1,
+  //       pointHoverRadius: 5,
+  //       pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+  //       pointHoverBorderColor: 'rgba(220,220,220,1)',
+  //       pointHoverBorderWidth: 2,
+  //       pointRadius: 1,
+  //       pointHitRadius: 10,
+  //       data: [65, 59, 80, 81, 56, 55, 40]
+  //     }
+  //   ]
+  // };
+  
+  // const options = {
+  //   scales: {
+  //     yAxes: [{
+  //       ticks: {
+  //         beginAtZero: true
+  //       }
+  //     }]
+  //   }
+  // };
+  
 
 function NewScenario() {
 
@@ -87,7 +121,7 @@ function NewScenario() {
   const [modalSaveInterloc, setModalSaveInterloc] = useState(false);
   const [interlocFilter, setInterlocFilter] = useState([]);
   const [modalInterlocError, setModalInterlocError] = useState(false);
-  const [addInterlocutorModal, setAddInterlocutorModal] = useState(true);
+  const [addInterlocutorModal, setAddInterlocutorModal] = useState(false);
 
   const [interlocName, setInterlocName] = useState("");
   const [phoneNumber, setPhoneNumer] = useState("");
@@ -113,7 +147,7 @@ function NewScenario() {
         setInterlocFilter([])
       })
     }
-   }, [selectionClient]);
+   }, [selectionClient, deleteBtn]);
 
   console.log("ONE CLIENT =>", oneClient);
 
@@ -270,7 +304,7 @@ function NewScenario() {
       body: JSON.stringify({
         client: selectClientById,
         name: scenarioName,
-        interlocutor: interlocFilter[0].interlocutor._id,
+        interlocutor: interlocFilter[0]._id,
         type: equipementType,
         duration: locationDuration,
         amount: amountFinance,
@@ -360,14 +394,16 @@ let header;
   }
 
   let interlocutorListDeroulante;
+
   if (oneClient) {
-    interlocutorListDeroulante = oneClient.map((data, i) => {
-      if (data.interlocutor) {
+    for (let clients of oneClient) {
+      console.log("ONE CLIENT FOR", clients.interlocutor);
+      interlocutorListDeroulante = clients.interlocutor.map((data, i) => {
         return (
-          <option key={i}>{data.interlocutor.name}</option>
+          <option key={i}>{data.name}</option>
         )
-      }
-    });
+      })
+    }
   };
 
   const handleCancelModalInterloc = () => {
@@ -376,7 +412,7 @@ let header;
   }
 
   useEffect(() => {
-      setInterlocFilter(oneClient.filter(e => e.interlocutor ? e.interlocutor.name === selectionInterlocuteur: null));
+      setInterlocFilter(oneClient[0] ? oneClient[0].interlocutor.filter(e => e.name === selectionInterlocuteur): null);
    },[selectionInterlocuteur])
 
     console.log("INTERLOC FILTER =>", interlocFilter);
@@ -393,11 +429,30 @@ let header;
     setAddInterlocutorModal(false);
     setModalSaveInterloc(true);
   };
-
+ 
   const saveInterlocuteur = () => {
-    
-    setAddInterlocutorSuccess(true);
-    setAddInterlocutorModal(false);
+    fetch(`${BACKEND_ADDRESS}/client/addInterlocutor`, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        client : selectClientById,
+        name: interlocName,
+        firstname: interlocFirstName,
+        phone: phoneNumber,
+        poste: interlocJob,
+        email: interlocMail,
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.result) {
+        setDeleteBtn(!deleteBtn);
+        setAddInterlocutorSuccess(true);
+        setAddInterlocutorModal(false);
+      } else {
+        setAddInterlocutorFailed(true);
+      }
+    })
   }
 
   const closeModalInterlocuteurSuccess = () => {
@@ -526,16 +581,23 @@ let header;
               src="/graphic.png"
               alt="Graphique temporaire"
             /> */}
-            <XYPlot width={750} height={500}>
+            {/* <XYPlot width={750} height={500} yType="ordinal" {...options}>
                   <LineMarkSeries
                     data={dataGraph}
                     xType="time"
                     yType="linear"
-                    size={3}
+                    size={4}
                     color="#007bff"
                   />
                   <XAxis title="Mois" />
                   <YAxis title="Montant" />
+                </XYPlot> */}
+                {/* <canvas id="myChart" width="400" height="400"></canvas> */}
+                {/* <Line data={data} options={options} /> */}
+                <XYPlot width={700} height={500}  {...options}>
+                  <LineMarkSeries data={data} />
+                  <XAxis title="Mois"/>
+                  <YAxis title="Montant"/>
                 </XYPlot>
             </div>
             <div className={style.buttonBottom}>

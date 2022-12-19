@@ -2,6 +2,12 @@
     height: 100vh;
     width: 100vw;
 }
+.container{
+    display: flex;
+    flex-direction: column;
+    height: 92%;
+    width: 81.5%;
+}
 .header{
     display: flex;
     width: 80%;
@@ -10,20 +16,14 @@
 .head{
     margin: 2% 8%;
 }
-.container{
-    display: flex;
-    flex-direction: column;
-    height: 87.5%;
-    width: 81.5%;
-}
 .search{
     display: flex;
     width: 80%;
     margin: 0;
-    height: 11%;
     align-items: center;
     margin-left: 7%;
     padding: 0;
+    height: 100%;
 }
 .select{
     width: 30%;
@@ -68,7 +68,14 @@
     display: flex;
     flex-wrap: wrap;
     overflow: scroll;
-    height: 80%;
+    height: auto;
     justify-content: space-around;
     align-items: center;
+    
+}
+
+.searchContainer {
+    height: 20%;
+    width: 100%;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.331);
 }
