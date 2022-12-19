@@ -63,7 +63,7 @@ function AllClient() {
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}
           <div className={style.search}>
-            <input className={style.input} onChange={(e) => setInputValue(e.target.value)} type="text" placeholder="  Search contrat....." value={inputValue} />
+            <input className={style.input} onChange={(e) => setInputValue(e.target.value)} type="text" placeholder="  Search client....." value={inputValue} />
             <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />
             <button className={style.nouveauClient} onClick={()=>router.push('/newClient')}>Nouveau client</button>
           </div>
