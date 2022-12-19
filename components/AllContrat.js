@@ -2,21 +2,25 @@ import React, { useEffect, useState } from "react";
 import style from "../styles/AllContratPage.module.css";
 import Navbar from "./Navbar";
 import ContratCard from "./ContratCard";
-import { addId } from "../reducers/contrat";
+import Header from "./Header";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+
 
 function AllContrat() {
   const [inputValue, setInputValue] = useState("");
   const [dataContrat, setDataContrat] = useState([]);
 
   console.log("FETCH Infos All Contrat", dataContrat);
+  const user = useSelector((state) => state.user.value);
 
   useEffect(() => {
-    fetch("http://localhost:3000/contrat/allContrat")
+    fetch(`http://localhost:3000/contrat/allContrat`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         if (data.result) {
           setDataContrat(data.contrat);
         }
@@ -44,11 +48,10 @@ function AllContrat() {
         <Navbar
           styleAllContrats={{ backgroundColor: "rgba(0, 217, 255, 0.383)" }}
         />
-        <div className={style.header}>
-          <h1 className={style.head}>Contrat</h1>
-        </div>
+        <Header name ="Contrats"/>
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}
+          <div className={style.searchContainer}>
           <div className={style.search}>
             <input
               className={style.input}
@@ -59,11 +62,12 @@ function AllContrat() {
             />
             <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />
           </div>
+          </div>
           {/* {/ div qui contiendra tout mes coponents contrat Card /} */}
           <div className={style.containerContratCard}>{infoContrat}</div>
         </div>
         {/* span voir plus */}
-        <span
+        {/* <span
           style={{
             display: "flex",
             justifyContent: "center",
@@ -74,7 +78,7 @@ function AllContrat() {
           }}
         >
           voir plus...
-        </span>
+        </span> */}
       </div>
     </>
   );

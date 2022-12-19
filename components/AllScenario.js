@@ -75,7 +75,9 @@ function AllScenario() {
           </div>
 
           {/* {/ div qui contiendra tout mes coponents contrat Card /} */}
-          <div className={style.containerScenarioCard}>{infoContrat}</div>
+          <div className={style.containerScenarioCard}>
+            {infoContrat}
+            </div>
         </div>
         {/* span voir plus */}
         {/* <span

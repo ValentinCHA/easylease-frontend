@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { Modal } from "antd";
 import { useSelector } from "react-redux";
 const { ObjectId } = require("mongoose").Types;
+import Header from "./Header";
 
 function Contrat() {
   const BACKEND_ADDRESS = "http://localhost:3000";
@@ -67,17 +68,16 @@ function Contrat() {
         <span className={style.texte}>Nom : {item.name}</span>
         <span className={style.texte}>Prénom : {item.firstname}</span>
         <span className={style.texte}>Poste : {item.poste}</span>
-        <span className={style.texte}>Téléphone : {item.tel}</span>
+        <span className={style.texte}>Téléphone : {item.phone}</span>
         <span className={style.texte}>Mail : {item.email}</span>
       </div>
     );
   });
-  const objectIdArray = [new ObjectId("1234567890abcdef12345678")];
 
-  [new ObjectId(ContratReducer.client)];
-
-  const saveInterlocutor = () => {
-    fetch(`${BACKEND_ADDRESS}/interlocutor/addInterlocuteur`, {
+  const saveInterlocutor = async () => {
+    // POST DB CLIENT AJOUT D'UN NOUVEL INTERLOCUTEUR => Ce fetch ajoute directement un interlocuteur à la DB Interlocuteur
+    const clientID = [new ObjectId(ContratReducer.client)];
+    const response1 = await fetch(`${BACKEND_ADDRESS}/client/addInterlocutor`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -86,52 +86,56 @@ function Contrat() {
         poste: interlocJob,
         phone: phoneNumber,
         email: interlocMail,
-        client: objectIdArray,
+        client: clientID,
       }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("INTERLOCUTEUR AJOUTÉ EN DB INTERLOCUTEUR =>", data);
-        if (data.result) {
-          setDataInterlocutor([data.newInterlocutor]);
-          setInterlocName("");
-          setPhoneNumer("");
-          setInterlocFirstname("");
-          setInterlocMail("");
-          setInterlocJob("");
-          setShowModalInterlocutor(false);
-        } else {
-          console.log("post new interlocutor failed");
-        }
-      });
-    // fetch(`${BACKEND_ADDRESS}/contrat/update/${ContratReducer._id}`, {
-    //   method: "PUT",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     client: ContratReducer.client,
-    //     name: ContratReducer.name,
-    //     interlocutor: dataInterlocutor._id,
-    //     type: ContratReducer.type,
-    //     duration: ContratReducer.durée,
-    //     amount: ContratReducer.montant,
-    //     creationDate: ContratReducer.creationDate,
-    //     contratStart: ContratReducer.date_de_début,
-    //     contratEnd: ContratReducer.date_de_fin,
-    //     residualValue: ContratReducer.valeur_résiduel,
-    //     links: "TEST",
-    //     marge: ContratReducer.marge,
-    //   }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     if (data.result) {
-    //       // setModalModifierSuccess(true);
-    //       console.log("CONTRAT MODIFIÉ AVEC NOUVEL INTERLOCUTEUR =>", data);
-    //     } else {
-    //       console.log("DATA PUT=>", data);
-    //       // setModalModifierFailed(true);
-    //     }
-    //   });
+    });
+    const data1 = await response1.json();
+    if (data1.result) {
+      console.log("POST DB CLIENT ADD INTERLOCUTEUR =>", data1);
+      setDataInterlocutor([data1.data]);
+    } else {
+      console.log("FAILED POST DB CLIENT ADD INTERLOCUTEUR");
+    }
+
+    // PUT DB CONTRAT AVEC MAJ DE L'INTERLOCUTEUR
+    const newInterlocuteur = dataInterlocutor[0]._id;
+    const interlocFormated = [new ObjectId(newInterlocuteur)];
+    const response2 = await fetch(
+      `${BACKEND_ADDRESS}/contrat/updateInterlocutor/${ContratReducer._id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          client: ContratReducer.client,
+          name: ContratReducer.name,
+          interlocutor: dataInterlocutor[0]._id,
+          type: ContratReducer.type,
+          duration: ContratReducer.durée,
+          amount: ContratReducer.montant,
+          creationDate: ContratReducer.creationDate,
+          contratStart: ContratReducer.date_de_début,
+          contratEnd: ContratReducer.date_de_fin,
+          residualValue: ContratReducer.valeur_résiduel,
+          links: "TEST",
+          marge: ContratReducer.marge,
+        }),
+      }
+    );
+    const data2 = await response2.json();
+    if (data2.result) {
+      console.log("PUT DB CONTRAT AVEC MAJ DE L'INTERLOCUTEUR =>", data2);
+      setInterlocName("");
+      setPhoneNumer("");
+      setInterlocFirstname("");
+      setInterlocMail("");
+      setInterlocJob("");
+      setShowModalInterlocutor(false);
+    } else {
+      console.log(
+        "FAILED PUT DB CONTRAT AVEC MAJ DE L'INTERLOCUTEUR =>",
+        data2
+      );
+    }
   };
 
   const handleChange = (event) => {
@@ -151,6 +155,23 @@ function Contrat() {
     //   });
   };
 
+  const handleModify = () => {};
+
+  const handleDelete = async () => {
+    const response = await fetch(
+      `${BACKEND_ADDRESS}/contrat/${ContratReducer._id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    const data = await response.json();
+    if (data.result) {
+      console.log("DELETE DB CONTRAT =>", data);
+    } else {
+      console.log("FAILED DELETE DB CONTRAT =>", data);
+    }
+  };
+
   const handleCloseModal = () => {
     setShowModalDoc(false);
     setShowModalInterlocutor(false);
@@ -162,9 +183,7 @@ function Contrat() {
     <>
       <div className={style.mainContent}>
         <Navbar />
-        <div className={style.header}>
-          <h1 className={style.head}>Contrat : {ContratReducer.name} </h1>
-        </div>
+        <Header name= {`Contrat: ${ContratReducer.name}`} />
         <div className={style.container}>
           <div className={style.SousContainerLeft}>
             <div className={style.boxData + " " + style.boxData1}>
@@ -193,9 +212,14 @@ function Contrat() {
           <div className={style.SousContainerRight}>
             <div className={style.boxData + " " + style.boxData4}>
               <div className={style.contenuBoxData}>
-                <button className={style.button}>Modifier</button>
-
-                <button className={style.button}>Supprimer</button>
+                <div>
+                  <button
+                    onClick={() => setShowModalDoc(true)}
+                    className={style.button}
+                  >
+                    Ajouter un document
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -220,14 +244,12 @@ function Contrat() {
 
             <div className={style.boxData + " " + style.boxData6}>
               <div className={style.contenuBoxData}>
-                <div>
-                  <button
-                    onClick={() => setShowModalDoc(true)}
-                    className={style.button}
-                  >
-                    Ajouter un document
-                  </button>
-                </div>
+                <button className={style.button} onClick={() => handleModify()}>
+                  Modifier
+                </button>
+                <button className={style.button} onClick={() => handleDelete()}>
+                  Supprimer
+                </button>
               </div>
             </div>
           </div>
