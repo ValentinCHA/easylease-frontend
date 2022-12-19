@@ -320,6 +320,7 @@ function NewScenario() {
       .then((data) => {
         console.log("DATA CONTRAT =>>>>", data);
         if (data.result) {
+          setModalSaveInterloc(false);
           setModalSubmitSuccess(true);
           setOldScenario(false);
           setSelectionClient("");

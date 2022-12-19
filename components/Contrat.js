@@ -6,8 +6,12 @@ import { Modal } from "antd";
 import { useSelector } from "react-redux";
 const { ObjectId } = require("mongoose").Types;
 import Header from "./Header";
+import { useRouter } from "next/router";
 
 function Contrat() {
+
+  const router = useRouter();
+
   const BACKEND_ADDRESS = "http://localhost:3000";
   const ContratReducer = useSelector((state) => state.contrat.value);
   const [dataInterlocutor, setDataInterlocutor] = useState([]);
@@ -22,17 +26,19 @@ function Contrat() {
   const [modalModifierFailed, setModalModifierFailed] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [showModalDoc, setShowModalDoc] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   console.log("ContratReducer", ContratReducer);
   console.log("dataInterlocutor", dataInterlocutor);
 
   useEffect(() => {
-    fetch(`${BACKEND_ADDRESS}/interlocutor/${ContratReducer.interlocutor}`)
+    fetch(`${BACKEND_ADDRESS}/contrat/contrat/${ContratReducer._id}`)
       .then((res) => res.json())
       .then((data) => {
-        setDataInterlocutor([data.contrat]);
+        console.log("comment sonnt les données", data);
+        setDataInterlocutor([data.contrat.interlocutor]);
       });
-  }, []);
+  }, [refresh]);
 
   const contratData = [ContratReducer].map((item, i) => {
     const contratStart = new Date(item.contratStart);
@@ -77,65 +83,68 @@ function Contrat() {
   const saveInterlocutor = async () => {
     // POST DB CLIENT AJOUT D'UN NOUVEL INTERLOCUTEUR => Ce fetch ajoute directement un interlocuteur à la DB Interlocuteur
     const clientID = [new ObjectId(ContratReducer.client)];
-    const response1 = await fetch(`${BACKEND_ADDRESS}/client/addInterlocutor`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: interlocName,
-        firstname: interlocFirstName,
-        poste: interlocJob,
-        phone: phoneNumber,
-        email: interlocMail,
-        client: clientID,
-      }),
-    });
-    const data1 = await response1.json();
-    if (data1.result) {
-      console.log("POST DB CLIENT ADD INTERLOCUTEUR =>", data1);
-      setDataInterlocutor([data1.data]);
-    } else {
-      console.log("FAILED POST DB CLIENT ADD INTERLOCUTEUR");
-    }
-
-    // PUT DB CONTRAT AVEC MAJ DE L'INTERLOCUTEUR
-    const newInterlocuteur = dataInterlocutor[0]._id;
-    const interlocFormated = [new ObjectId(newInterlocuteur)];
-    const response2 = await fetch(
-      `${BACKEND_ADDRESS}/contrat/updateInterlocutor/${ContratReducer._id}`,
+    const response1 = await fetch(
+      `${BACKEND_ADDRESS}/contrat/addInterlocutor/${ContratReducer._id}`,
       {
-        method: "PUT",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          client: ContratReducer.client,
-          name: ContratReducer.name,
-          interlocutor: dataInterlocutor[0]._id,
-          type: ContratReducer.type,
-          duration: ContratReducer.durée,
-          amount: ContratReducer.montant,
-          creationDate: ContratReducer.creationDate,
-          contratStart: ContratReducer.date_de_début,
-          contratEnd: ContratReducer.date_de_fin,
-          residualValue: ContratReducer.valeur_résiduel,
-          links: "TEST",
-          marge: ContratReducer.marge,
+          name: interlocName,
+          firstname: interlocFirstName,
+          poste: interlocJob,
+          phone: phoneNumber,
+          email: interlocMail,
+          client: clientID,
         }),
       }
     );
-    const data2 = await response2.json();
-    if (data2.result) {
-      console.log("PUT DB CONTRAT AVEC MAJ DE L'INTERLOCUTEUR =>", data2);
+    const data1 = await response1.json();
+    if (data1.result) {
+      console.log(
+        "RESULTAT DE LA ROUTE POST (ADD DB CLIENT/INTERLOC + MODIFS CONTRAT) =>",
+        data1.data.interlocutor
+      );
+      // setDataInterlocutor([data1.data.interlocutor]);
+
       setInterlocName("");
       setPhoneNumer("");
       setInterlocFirstname("");
       setInterlocMail("");
       setInterlocJob("");
       setShowModalInterlocutor(false);
+      setRefresh(!refresh);
     } else {
-      console.log(
-        "FAILED PUT DB CONTRAT AVEC MAJ DE L'INTERLOCUTEUR =>",
-        data2
-      );
+      console.log("FAILED ROUTE POST");
     }
+
+    // PUT DB CONTRAT AVEC MAJ DE L'INTERLOCUTEUR
+    //   const newInterlocuteur = dataInterlocutor[0]._id;
+    //   const interlocFormated = [new ObjectId(newInterlocuteur)];
+    //   const response2 = await fetch(
+    //     `${BACKEND_ADDRESS}/contrat/updateInterlocutor/${ContratReducer._id}`,
+    //     {
+    //       method: "PUT",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify({
+    //         interlocutor: dataInterlocutor[0]._id,
+    //       }),
+    //     }
+    //   );
+    //   const data2 = await response2.json();
+    //   if (data2.result) {
+    //     console.log("PUT DB CONTRAT AVEC MAJ DE L'INTERLOCUTEUR =>", data2);
+    //     setInterlocName("");
+    //     setPhoneNumer("");
+    //     setInterlocFirstname("");
+    //     setInterlocMail("");
+    //     setInterlocJob("");
+    //     setShowModalInterlocutor(false);
+    //   } else {
+    //     console.log(
+    //       "FAILED PUT DB CONTRAT AVEC MAJ DE L'INTERLOCUTEUR =>",
+    //       data2
+    //     );
+    //   }
   };
 
   const handleChange = (event) => {
@@ -167,6 +176,7 @@ function Contrat() {
     const data = await response.json();
     if (data.result) {
       console.log("DELETE DB CONTRAT =>", data);
+      router.push('/allContrat')
     } else {
       console.log("FAILED DELETE DB CONTRAT =>", data);
     }
@@ -183,7 +193,7 @@ function Contrat() {
     <>
       <div className={style.mainContent}>
         <Navbar />
-        <Header name= {`Contrat: ${ContratReducer.name}`} />
+        <Header name={`Contrat: ${ContratReducer.name}`} />
         <div className={style.container}>
           <div className={style.SousContainerLeft}>
             <div className={style.boxData + " " + style.boxData1}>

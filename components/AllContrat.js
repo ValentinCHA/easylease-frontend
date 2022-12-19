@@ -20,13 +20,14 @@ function AllContrat() {
     fetch(`http://localhost:3000/contrat/allContrat`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        
         if (data.result) {
           setDataContrat(data.contrat);
         }
       });
   }, []);
 
+  console.log(dataContrat.interlocutor)
   const infoContrat = dataContrat
     .filter((data) => {
       if (inputValue == "") {
@@ -38,7 +39,7 @@ function AllContrat() {
       }
     })
     .map((data, i) => {
-      return <ContratCard key={i} {...data} />;
+      return <ContratCard key={i}  client={data.client.name} name={data.name} type={data.type} _id={data._id} interlocutor={data.interlocutor} />;
     });
 
   return (
