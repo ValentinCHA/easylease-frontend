@@ -6,8 +6,12 @@ import { Modal } from "antd";
 import { useSelector } from "react-redux";
 const { ObjectId } = require("mongoose").Types;
 import Header from "./Header";
+import { useRouter } from "next/router";
 
 function Contrat() {
+
+  const router = useRouter();
+
   const BACKEND_ADDRESS = "http://localhost:3000";
   const ContratReducer = useSelector((state) => state.contrat.value);
   const [dataInterlocutor, setDataInterlocutor] = useState([]);
@@ -172,6 +176,7 @@ function Contrat() {
     const data = await response.json();
     if (data.result) {
       console.log("DELETE DB CONTRAT =>", data);
+      router.push('/allContrat')
     } else {
       console.log("FAILED DELETE DB CONTRAT =>", data);
     }

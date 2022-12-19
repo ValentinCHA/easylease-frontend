@@ -10,6 +10,7 @@ function ContratCard(props) {
   const router = useRouter();
 
   const dispatch = useDispatch();
+  console.log(("JE SUIS LES PROPS =>", props));
 
   const affichePageContrat = () => {
     dispatch(addId(props));
