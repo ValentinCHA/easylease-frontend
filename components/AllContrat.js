@@ -8,26 +8,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 
-
 function AllContrat() {
+  const user = useSelector((state) => state.user.value);
   const [inputValue, setInputValue] = useState("");
   const [dataContrat, setDataContrat] = useState([]);
 
-  console.log("FETCH Infos All Contrat", dataContrat);
-  const user = useSelector((state) => state.user.value);
+  console.log("Console log de l'état", dataContrat);
 
   useEffect(() => {
     fetch(`http://localhost:3000/contrat/allContrat`)
       .then((response) => response.json())
       .then((data) => {
-        
+        // console.log("Console log du fetch directement", data);
         if (data.result) {
           setDataContrat(data.contrat);
         }
       });
   }, []);
 
-  console.log(dataContrat.interlocutor)
   const infoContrat = dataContrat
     .filter((data) => {
       if (inputValue == "") {
@@ -39,7 +37,18 @@ function AllContrat() {
       }
     })
     .map((data, i) => {
-      return <ContratCard key={i}  client={data.client.name} name={data.name} type={data.type} _id={data._id} interlocutor={data.interlocutor} />;
+      // console.log("Console log du MAP sur l'état", data);
+      return (
+        <ContratCard
+          key={i}
+          {...data}
+          // client={data.client.name}
+          // name={data.name}
+          // type={data.type}
+          // _id={data._id}
+          // interlocutor={data.interlocutor}
+        />
+      );
     });
 
   return (
@@ -49,20 +58,23 @@ function AllContrat() {
         <Navbar
           styleAllContrats={{ backgroundColor: "rgba(0, 217, 255, 0.383)" }}
         />
-        <Header name ="Contrats"/>
+        <Header name="Contrats" />
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}
           <div className={style.searchContainer}>
-          <div className={style.search}>
-            <input
-              className={style.input}
-              onChange={(e) => setInputValue(e.target.value)}
-              type="text"
-              placeholder="  Search contrat....."
-              value={inputValue}
-            />
-            <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />
-          </div>
+            <div className={style.search}>
+              <input
+                className={style.input}
+                onChange={(e) => setInputValue(e.target.value)}
+                type="text"
+                placeholder="  Search contrat....."
+                value={inputValue}
+              />
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className={style.icon}
+              />
+            </div>
           </div>
           {/* {/ div qui contiendra tout mes coponents contrat Card /} */}
           <div className={style.containerContratCard}>{infoContrat}</div>
