@@ -84,6 +84,7 @@ function NewScenario() {
   const date = new Date();
 
   const idScenario = useSelector((state) => state.scenario.value);
+  const user = useSelector((state) => state.user.value);
 
   // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
@@ -132,7 +133,7 @@ function NewScenario() {
   const [addInterlocutorSucccess, setAddInterlocutorSuccess] = useState(false);
   const [addInterlocutorFailed, setAddInterlocutorFailed] = useState(false);
 
-  console.log(idScenario)
+  // console.log(idScenario)
   // Check si le scenario est déja enregistrer en BDD//
 
 
@@ -149,7 +150,7 @@ function NewScenario() {
     }
    }, [selectionClient, deleteBtn]);
 
-  console.log("ONE CLIENT =>", oneClient);
+  // console.log("ONE CLIENT =>", oneClient);
 
   useEffect(() => {
     if (!idScenario._id) {
@@ -167,12 +168,12 @@ function NewScenario() {
         .then((data) => {
           console.log("DATA SCENARIO !!!!!!!!!!!", data);
           if (data.result){
-            console.log();
+            // console.log();
             setOldScenario(data.result);
             fetch(`${BACKEND_ADDRESS}/client/id/${data.scenary.client}`)
             .then(response => response.json())
             .then(data => {
-              console.log("DATA 2 EME FETCH", data);
+              // console.log("DATA 2 EME FETCH", data);
              setClientFromCard(data.client.name);
              setOneClient([data.client])
             })
@@ -191,12 +192,12 @@ function NewScenario() {
     }
   }, [deleteBtn]);
   console.log("ID SCENARIO.ID" , idScenario._id);
-  console.log("START DATE =>", startDateLocation);
-  console.log("CLIENT SELECTION =>", selectionClient);
-  console.log("CLIENT LIST", clientList);
+  // console.log("START DATE =>", startDateLocation);
+  // console.log("CLIENT SELECTION =>", selectionClient);
+  // console.log("CLIENT LIST", clientList);
 
   const modification = () => {
-    console.log("Click modification");
+    // console.log("Click modification");
     fetch(`${BACKEND_ADDRESS}/scenary/update/${idScenario._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -219,14 +220,14 @@ function NewScenario() {
         if (data.result) {
           setModalModifierSuccess(true);
         } else {
-          console.log("DATA PUT=>", data);
+          // console.log("DATA PUT=>", data);
           setModalModifierFailed(true);
         }
       });
   };
 
   const deletion = () => {
-    console.log("Click delete");
+    // console.log("Click delete");
     fetch(`${BACKEND_ADDRESS}/scenary/${idScenario._id}`, {
       method: "DELETE",
     })
@@ -247,12 +248,12 @@ function NewScenario() {
         } else {
           setModalDeleteFailed(true);
         }
-        console.log(data);
+        // console.log(data);
       });
   };
 
   const save = () => {
-    console.log("Click enregistrer");
+    // console.log("Click enregistrer");
     fetch(`${BACKEND_ADDRESS}/scenary/new/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -268,6 +269,7 @@ function NewScenario() {
         residualValue: residualValue,
         links: "TEST",
         marge: margeValue,
+        token: user.token,
       }),
     })
       .then((response) => response.json())
@@ -278,16 +280,16 @@ function NewScenario() {
           setOldScenario(true);
           setSelectionClient("")
         } else {
-          console.log("DATA =>", data);
+          // console.log("DATA =>", data);
           setModalSaveFailed(true);
         }
       });
   };
 
-  console.log("ID SCENARIO FROM NEW SCENARIO", idScenario);
-  console.log("SELECT CLIENT BY ID", selectClientById);
-  console.log("SCENARIO NAME +>>>>>>>>>>>>>", scenarioName);
-  console.log("SELECTION INTERLOC", selectionInterlocuteur);
+  // console.log("ID SCENARIO FROM NEW SCENARIO", idScenario);
+  // console.log("SELECT CLIENT BY ID", selectClientById);
+  // console.log("SCENARIO NAME +>>>>>>>>>>>>>", scenarioName);
+  // console.log("SELECTION INTERLOC", selectionInterlocuteur);
 
   const beforeSubmit = () => {
     setModalSaveInterloc(true);
@@ -314,11 +316,12 @@ function NewScenario() {
         residualValue: residualValue,
         links: "TEST",
         marge: margeValue,
+        token: user.token,
       }),
     })
-      .then((response) => response.json())
+      .then((response) =>response.json())
       .then((data) => {
-        console.log("DATA CONTRAT =>>>>", data);
+        console.log(data)
         if (data.result) {
           setModalSaveInterloc(false);
           setModalSubmitSuccess(true);
@@ -343,7 +346,7 @@ function NewScenario() {
             })
           }
         } else {
-          console.log("DATA ERROR ???", data);
+          // console.log("DATA ERROR ???", data);
           setModalSubmitFailed(true);
         }
       });
@@ -384,7 +387,7 @@ let header;
   } else {
     header = "Nouveau Scenario"
   }
-  console.log("SECNARIO NAME", scenarioName);
+  // console.log("SECNARIO NAME", scenarioName);
   let clientsListDeroulante;
   if (clientList) {
    clientsListDeroulante =  clientList.map((data, i) => {
@@ -398,7 +401,7 @@ let header;
 
   if (oneClient) {
     for (let clients of oneClient) {
-      console.log("ONE CLIENT FOR", clients.interlocutor);
+      // console.log("ONE CLIENT FOR", clients.interlocutor);
       interlocutorListDeroulante = clients.interlocutor.map((data, i) => {
         return (
           <option key={i}>{data.name}</option>
@@ -416,10 +419,10 @@ let header;
       setInterlocFilter(oneClient[0] ? oneClient[0].interlocutor.filter(e => e.name === selectionInterlocuteur): null);
    },[selectionInterlocuteur])
 
-    console.log("INTERLOC FILTER =>", interlocFilter);
+  //   console.log("INTERLOC FILTER =>", interlocFilter);
 
-  console.log("creation date", creationDate);
-  console.log("Client selectionné =>", selectionClient);
+  // console.log("creation date", creationDate);
+  // console.log("Client selectionné =>", selectionClient);
 
   const addInterlocutor = () => {
     setModalSaveInterloc(false);
