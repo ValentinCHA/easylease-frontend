@@ -28,7 +28,7 @@ function ContratCard(props) {
           style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.4em" }}
         >
           {/* {props.client.substring(0, 10)} */}
-          {props.client}
+          {props.client.name}
         </span>
         <span
           style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.2em" }}

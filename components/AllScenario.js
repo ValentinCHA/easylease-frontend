@@ -3,7 +3,7 @@ import style from "../styles/AllScenario.module.css";
 import Navbar from "./Navbar";
 import Scenario from "./Scenario";
 import { removeId } from "../reducers/scenario";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import Header  from './Header'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +16,7 @@ function AllScenario() {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
   const [dataScenario, setDataScenario] = useState([]);
+  const user = useSelector((state) => state.user.value);
 
   const afficheNewScenarioPage =()=>{
     dispatch(removeId())
@@ -23,15 +24,15 @@ function AllScenario() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3000/scenary/all")
+    fetch(`http://localhost:3000/scenary/token/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          // console.log('data find',data.contrat)
-          const scenario = data.scenaries.map((data, i) => {
+          console.log('data find',data)
+          const scenario = data.userInfos.scenary.map((data, i) => {
             return {
               _id: data._id,
-              client: data.client,
+              client: data.client.name,
               name: data.name,
               type: data.type,
               durée: data.duration,
@@ -46,7 +47,7 @@ function AllScenario() {
         }
       });
   }, []);
-
+console.log('le data',dataScenario)
   const infoContrat = dataScenario.filter((data) => {
       if (inputValue == "") {
         return data;

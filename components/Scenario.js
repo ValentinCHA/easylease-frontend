@@ -15,6 +15,7 @@ function Scenario(props) {
   const dispatch = useDispatch();
 
   const affichePageScenario = () => {
+    // console.log('the props',props)
      dispatch(addId(props));
      console.log('valeur reducer scenario',idScenario.id)
     router.push("/newScenario");

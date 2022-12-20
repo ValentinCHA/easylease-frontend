@@ -11,23 +11,23 @@ import { useSelector } from "react-redux";
 
 function AllContrat() {
   const [inputValue, setInputValue] = useState("");
+  const [nameClient, setNameClient] = useState("");
   const [dataContrat, setDataContrat] = useState([]);
 
   console.log("FETCH Infos All Contrat", dataContrat);
   const user = useSelector((state) => state.user.value);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/contrat/allContrat`)
+    fetch(`http://localhost:3000/contrat/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
-        
         if (data.result) {
-          setDataContrat(data.contrat);
+          console.log('dataaaaa', data)
+          setDataContrat(data.userInfos.contrats);
         }
       });
   }, []);
 
-  console.log(dataContrat.interlocutor)
   const infoContrat = dataContrat
     .filter((data) => {
       if (inputValue == "") {
@@ -39,7 +39,7 @@ function AllContrat() {
       }
     })
     .map((data, i) => {
-      return <ContratCard key={i}  client={data.client.name} name={data.name} type={data.type} _id={data._id} interlocutor={data.interlocutor} />;
+      return <ContratCard key={i} {...data} />;
     });
 
   return (
