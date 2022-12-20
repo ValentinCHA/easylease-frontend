@@ -8,9 +8,9 @@ import { addId } from "../reducers/contrat";
 
 function ContratCard(props) {
   const router = useRouter();
-
   const dispatch = useDispatch();
-  console.log(("JE SUIS LES PROPS =>", props));
+
+  // console.log(("JE SUIS LES PROPS =>", props));
 
   const affichePageContrat = () => {
     dispatch(addId(props));
@@ -34,11 +34,13 @@ function ContratCard(props) {
           style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.2em" }}
         >
           {props.name}
+          {/* {JSON.stringify(props.name).replace(/\"/g, "")} */}
         </span>
         <span
           style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.0em" }}
         >
           {props.type}
+          {/* {JSON.stringify(props.type).replace(/\"/g, "")} */}
         </span>
         <span
           style={{ fontSize: 23, color: "rgb(51,78,110)", fontSize: "1.0em" }}
