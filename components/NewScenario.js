@@ -190,7 +190,7 @@ function NewScenario() {
         });
     }
   }, [deleteBtn]);
-  console.log("ID SCENARIO.ID" , idScenario._id);
+  // console.log("ID SCENARIO.ID" , idScenario._id);
   // console.log("START DATE =>", startDateLocation);
   // console.log("CLIENT SELECTION =>", selectionClient);
   // console.log("CLIENT LIST", clientList);
@@ -295,10 +295,13 @@ function NewScenario() {
   };
 
   const submit = () => {
-  if (interlocFilter.length <= 0) {
-    setModalInterlocError(true);
-    return
-  }
+    if(interlocFilter) {
+
+      if (interlocFilter.length <= 0) {
+        setModalInterlocError(true);
+        return
+      }
+    }
     fetch(`${BACKEND_ADDRESS}/contrat/addContrat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -457,6 +460,8 @@ let header;
       }
     })
   }
+
+  console.log("ID SCENARIO", idScenario._id);
 
   const closeModalInterlocuteurSuccess = () => {
     setModalSaveInterloc(true);
