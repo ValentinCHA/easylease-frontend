@@ -9,7 +9,6 @@ import Header from './Header';
 // import { Line } from 'react-chartjs-2';
 import { removeId } from "../reducers/scenario";
 import { XYPlot, LineMarkSeries, XAxis, YAxis } from 'react-vis';
-import { Format } from 'd3-format';
 
 
 
@@ -84,6 +83,7 @@ function NewScenario() {
   const date = new Date();
 
   const idScenario = useSelector((state) => state.scenario.value);
+  const user = useSelector((state) => state.user.value);
 
   // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
@@ -142,7 +142,7 @@ function NewScenario() {
       .then(response => response.json())
       .then(data => {
         setOneClient([data.client])
-        setSelectClientById(data.client._id)
+        setSelectClientById(data.client._id);
         setClientNameFromFetch(data.client.name);
         setInterlocFilter([])
       })
@@ -276,7 +276,7 @@ function NewScenario() {
           dispatch(addId(data.infosScenario))
           setModalSaveSuccess(true);
           setOldScenario(true);
-          setSelectionClient("")
+          setSelectionClient("");
         } else {
           console.log("DATA =>", data);
           setModalSaveFailed(true);
@@ -314,6 +314,7 @@ function NewScenario() {
         residualValue: residualValue,
         links: "TEST",
         marge: margeValue,
+        token: user.token,
       }),
     })
       .then((response) => response.json())
@@ -473,7 +474,7 @@ let header;
         <Header name ={header}/>
         <div className={style.container}>
           <div className={style.leftSection}>
-           {oldScenario && <p className={style.nomClient}>Nom du client : {`${clientNameFromFetch} ${clientFromCard}`}</p>}
+           {oldScenario && <p className={style.nomClient}>Nom du client : {clientNameFromFetch !== "" ? `${clientNameFromFetch}` :`${clientFromCard}`}</p>}
           {!oldScenario && <select
               className={style.input}
               onChange={(e) => setSelectionClient(e.target.value)}

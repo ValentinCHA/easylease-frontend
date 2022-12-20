@@ -5,7 +5,7 @@ function DashboardPage() {
   return (
     <>
       <Head>
-        <title>Contrat / EasyLease</title>
+        <title>Dashboard / EasyLease</title>
       </Head>
       <Dashboard />
     </>
