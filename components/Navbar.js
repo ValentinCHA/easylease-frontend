@@ -48,6 +48,9 @@ function Navbar(props) {
     const navDashboard=()=>{
         router.push('/dashboard')
     }
+    const navSettings=()=>{
+        router.push('/settings')
+    }
 
   return (
     // toute ma navbar 
@@ -82,7 +85,7 @@ function Navbar(props) {
             </div>
             {/* taille de ma 2e navBar */}
             <div className={style.secondNav}>
-                <div className={style.BoxSpan}>
+                <div className={style.BoxSpan} onClick={()=>navSettings()}>
                     <span><FontAwesomeIcon icon={faEllipsis} className={style.spaceIconSpan} />Settings</span>
                 </div>
                 <div className={style.footerNav}>
