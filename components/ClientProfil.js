@@ -8,7 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import client from '../reducers/client';
 import { useRouter } from 'next/router'
 import { Modal } from "antd";
-
+import Header from "./Header";
+Header
 
 function ClientProfil() {
     const router = useRouter()

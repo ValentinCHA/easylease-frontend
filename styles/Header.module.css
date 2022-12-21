@@ -3,7 +3,9 @@
     align-items: center;
     justify-content: center;
     height: 8%;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.462);
+    margin-left: 260px;
+    background-color: #fff;
+    margin-bottom: 2%;
 }
 
 .text {
@@ -13,5 +15,5 @@
     width: auto;
     height: auto;
     font-weight: 600;
-    color: rgba(4, 0, 255, 0.621);
+    color: #2A9C90;
 }

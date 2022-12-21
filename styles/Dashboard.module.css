@@ -7,8 +7,19 @@
     display: flex;
     width: 80%;
     border-bottom: 2px solid rgb(235,239,242);
+
 }
+
+.maincontainer {
+    height: 100vh;
+    width: 100vw;
+    background-color: #F3F3F3;
+    position: fixed;
+    
+  }
+
 .head{
+    
     margin: 2% 8%;
 }
 .container{

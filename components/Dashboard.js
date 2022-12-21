@@ -35,7 +35,6 @@ function Dashboard() {
     }
   }
 
-  
 const dataMarge = {
   labels: [`Objectif marge : ${objMarge}€`, `Marge réalisée : ${margeRea.toFixed(2)}€`],
   datasets: [
@@ -121,7 +120,7 @@ const dataCA = {
     </div>
     </div>
     </>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

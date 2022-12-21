@@ -1,50 +1,43 @@
 .container{
     float: left;
     height: 100vh;
-    width: 18.5%;
-    background-color: #fff;
+    width: 260px;
+    background-color: #326D9C;
     display: flex;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    border-radius: 10px;
     flex-direction: column;
+    position: fixed;
 }
 .firstNavbar{
-    height: 50vh;
+    
+    height: 100%;
     width: 100%;
     
 }
 .logo{
-    height: auto;
-    width: 30%;
+    height: 60px;
     margin-bottom: 10%;
+    margin: 12px;
 
 }
 .accountBox{
-    height: 16%;
+    height: 10%;
     width: 100%;
     display: flex;
     align-items: center;
     flex-direction: row;
     margin-bottom: 5%;
-    border-bottom: 1px solid rgba(86, 86, 90, 0.24);
+    background-color: #2A9C90;
     
 }
 
-.accountBox:hover{
-    height: 16%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    cursor: pointer;
-}
+
 .avatar{
-    height: 60%;
+    height: 50px;
     width: auto;
     padding: 3%;
     border-radius: 27px;
-    margin: 5%;
-    color: #645cffcc;
+    margin: 10%;
+    color: #fff;
 }
 .infoUser{
     display: flex;
@@ -57,59 +50,67 @@
 .emailSize{
     font-size: 16px;
     padding: 1%;
-    color: #645cffcc;
+    color: #FFFFFF;
 }
 .navigationPage{
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    font-weight: bold;
 }
 .BoxSpan{
-    padding: 8% 0%;
-    transition-duration: 0.3s;
-    transition-timing-function: linear;
-    border-radius: 10px;
-    margin: 1% 2%;
+    padding: 6% 0%;
+    border-radius: 15px;
+    font-size: 14px;
+    color: #FFFFFF;
+    width: 85%;
+    margin-left: 5%;
+    margin: 3%;
+    line-height: normal;
+    height: 45px;
 }
 .BoxSpan:hover{
     cursor: pointer;
-    background-color: rgb(110, 231, 255);
-    color: #635CFF;
+    background-color: #2A9C90 ;
+
+    
 }
 .boxSpan{
     margin-top: 3%;
     cursor: pointer;
     padding-right:10%;
     cursor: pointer;
-    font-size: 90%;
+    font-size: 14px;
     transition-duration: 0.3s;
     transition-timing-function: linear;
+
+    color: #FFFFFF;
 }
 .boxSpan:hover{
-    background-color: #add8e6;
-    color: white;
+    background-color: #E6F9FF;
+
     cursor: pointer;
 }
 .spaceIconSpan{
     margin: 0% 10%;
-    color: rgba(0, 42, 255, 0.851);
+
 }
 .spaceIconLogout{
     margin: 0% 9%;
-    color: rgba(0, 42, 255, 0.851);
+
 }
 .textStyle{
-    font-size: 18px;
-    font-weight: 400;
-    color: rgba(4, 0, 255, 0.802);
+    font-size: 14px;
+    
+    
 }
 .secondNav{
-    height: auto;
+    height: 50%;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     border-top: 2px solid rgb(235,239,242);
 }
 .footerNav{
@@ -120,8 +121,9 @@
     justify-content: space-between;
 }
 .boxSpan{
-    font-size: 90%;
+    font-size: 14px;
     margin-top: 3%;
+
 }
 .header{
     width: 100vw;
