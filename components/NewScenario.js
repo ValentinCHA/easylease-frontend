@@ -90,9 +90,7 @@ function NewScenario() {
   let BACKEND_ADDRESS = "http://localhost:3000";
   const [selectionClient, setSelectionClient] = useState("");
   const [clientFromCard, setClientFromCard] = useState("")
-  const [creationDate, setCreationDate] = useState(
-    date.toISOString().substring(0, 10)
-  );
+  const [creationDate, setCreationDate] = useState(date.toISOString().substring(0, 10));
   const [scenarioName, setScenarioName] = useState("");
   const [equipementType, setEquipementType] = useState("");
   const [locationDuration, setLocationDuration] = useState("");
