@@ -29,21 +29,7 @@ function AllScenario() {
       .then((data) => {
         if (data.result) {
           console.log('data find',data)
-          const scenario = data.userInfos.scenary.map((data, i) => {
-            return {
-              _id: data._id,
-              client: data.client.name,
-              name: data.name,
-              type: data.type,
-              durée: data.duration,
-              montant: data.amount,
-              creationDate: data.creationDate,
-              date_de_début: data.contratStart,
-              date_de_fin: data.contratEnd,
-              valeur_résiduel: data.residualValue,
-            };
-          });
-          setDataScenario(scenario);
+          setDataScenario(data.userInfos.scenary)
         }
       });
   }, []);
