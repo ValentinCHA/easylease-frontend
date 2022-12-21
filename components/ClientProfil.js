@@ -118,11 +118,11 @@ function ClientProfil() {
 
     };
 
-    const interlocutorData = interlocutor.map((data,i)=>{
+    // const interlocutorData = interlocutor.map((data,i)=>{
 
-    return <li>Interlocuteur : {data.name} </li>
+    // return <li>Interlocuteur : {data.name} </li>
 
-    })
+    // })
 
     return (
         <>
@@ -142,7 +142,7 @@ function ClientProfil() {
                                     <li>Adresse : {address} </li>
                                     <li>Nombre de salariés : {numberOfEmployees} </li>
                                     <li>Chiffre d'affaires : {chiffre} </li>
-                                    {interlocutorData}
+                                    {/* {interlocutorData} */}
                                 </ul>
                             </div>
                             <div className={style.docsContainer}>
