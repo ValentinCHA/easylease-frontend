@@ -30,6 +30,7 @@ function ClientProfil() {
   // ajouter document******
   // modifier le modele du client en ajoutant un link comme dans le modele contrat
 
+<<<<<<< HEAD
   const handleModal = () => {
     setaddDocModal(false);
   };
@@ -75,6 +76,83 @@ function ClientProfil() {
                   Ajouter un document
                 </button>
               </div>
+=======
+
+
+    // function handleSubmit(params) {
+    //    fetch.........qui va PUT les modif dans le back pour client**********
+    // }
+    // faire route delete*****
+    // ajouter document******
+    // modifier le modele du client en ajoutant un link comme dans le modele contrat
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/client/clientId/${user.token}`)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.result) {
+              // console.log('data find',data.contrat)
+              console.log("DATA", data);
+              const client = data.clientsInfos.clients.map((data, i) => {
+                return {
+                  _id: data._id,
+                  name: data.name,
+                  address: data.address,
+                  numberOfEmployees: data.numberOfEmployees,
+                  clientBirth: data.clientBirth,
+                  chiffre: data.chiffre,
+                  interlocutor: data.interlocutor,
+                };
+              });
+              setDataClient(client);
+            } else {
+              console.log("DATA ELSE", data);
+    
+            }
+          });
+      }, []);
+      console.log(client)
+
+    const handleModal = () => {
+        setaddDocModal(false);
+    };
+    return (
+        <>
+            <div className={style.mainContainer}>
+                <Navbar />
+                <div className={style.header}>
+                    <h1 className={style.head} >Profil client : {router.query.name}</h1>
+                </div>
+                <div className={style.container}>
+                    <div className={style.GridParent}>
+                        <div className={style.GridContent}>
+                            <div className={style.Infosclient}>
+                                <h2>Informations client : </h2>
+                                <ul>
+                                    <li>Nom entreprise : {router.query.name}</li>
+                                    <li>Client depuis le : {router.query.clientBirth}</li>
+                                    <li>Adresse : {router.query.address}</li>
+                                    <li>Nombre de salariés : {router.query.numberOfEmployees} </li>
+                                    <li>Chiffre d'affaires : {router.query.chiffre} </li>
+                                    <li>Interlocuteur : {router.query.interlocutor} </li>
+                                </ul>
+                            </div>
+                            <div className={style.docsContainer}>
+                                <h3>Documents joints : </h3>
+                            </div>
+                        </div>
+                        <div className={style.ButtonContainer}>
+                            <button className={style.buttonmodifier} onClick={() => setaddDocModal(true)}>Modifier</button>
+                            {/* bouton supprimer prevu pour le client */}
+                            <button className={style.buttonsupprimer} onClick={() => SupprimClient()}>Supprimer</button>
+                            <button className={style.buttonModal} onClick={() => modifClient()}>
+                                Ajouter un document
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+>>>>>>> 9068ccdef19bb80f577a65d6ca52cf50cc4a43c5
             </div>
             <div className={style.ButtonContainer}></div>
           </div>

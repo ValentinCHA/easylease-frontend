@@ -1,3 +1,8 @@
+.mainContainer {
+    height: 100vh;
+    width: 100vw;
+}
+
 .header{
     display: flex;
     width: 80%;
@@ -18,6 +23,7 @@
     margin: 2% 8%;
 }
 .container{
+<<<<<<< HEAD
     width: auto;
     height: auto;
     margin-left: 260px;
@@ -30,4 +36,47 @@
     display: flex;
     justify-content: center;
     align-items: center;
+=======
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: 92%;
+    justify-content: center;
+    align-items: center;
+}
+
+.allGraphics {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+
+.pourcentageDiag {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: auto;
+    margin-top: 1%;
+    width: 100%;
+}
+
+.left {
+    margin-left: 6%;
+}
+
+.right {
+    margin-right: 7%;
+}
+
+.pourcentage {
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.graphic {
+    height: 100%;
+>>>>>>> 9068ccdef19bb80f577a65d6ca52cf50cc4a43c5
 }
