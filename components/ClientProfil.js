@@ -30,6 +30,33 @@ function ClientProfil() {
     // ajouter document******
     // modifier le modele du client en ajoutant un link comme dans le modele contrat
 
+    useEffect(() => {
+        fetch(`http://localhost:3000/client/clientId/${user.token}`)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.result) {
+              // console.log('data find',data.contrat)
+              console.log("DATA", data);
+              const client = data.clientsInfos.clients.map((data, i) => {
+                return {
+                  _id: data._id,
+                  name: data.name,
+                  address: data.address,
+                  numberOfEmployees: data.numberOfEmployees,
+                  clientBirth: data.clientBirth,
+                  chiffre: data.chiffre,
+                  interlocutor: data.interlocutor,
+                };
+              });
+              setDataClient(client);
+            } else {
+              console.log("DATA ELSE", data);
+    
+            }
+          });
+      }, []);
+      console.log(client)
+
     const handleModal = () => {
         setaddDocModal(false);
     };
