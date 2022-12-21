@@ -9,7 +9,6 @@ import Header from './Header';
 // import { Line } from 'react-chartjs-2';
 import { removeId } from "../reducers/scenario";
 import { XYPlot, LineMarkSeries, XAxis, YAxis } from 'react-vis';
-import { Format } from 'd3-format';
 
 
 
@@ -141,7 +140,7 @@ function NewScenario() {
       .then(response => response.json())
       .then(data => {
         setOneClient([data.client])
-        setSelectClientById(data.client._id)
+        setSelectClientById(data.client._id);
         setClientNameFromFetch(data.client.name);
         setInterlocFilter([])
       })
@@ -189,7 +188,7 @@ function NewScenario() {
         });
     }
   }, [deleteBtn]);
-  console.log("ID SCENARIO.ID" , idScenario._id);
+  // console.log("ID SCENARIO.ID" , idScenario._id);
   // console.log("START DATE =>", startDateLocation);
   // console.log("CLIENT SELECTION =>", selectionClient);
   // console.log("CLIENT LIST", clientList);
@@ -276,7 +275,7 @@ function NewScenario() {
           dispatch(addId(data.infosScenario))
           setModalSaveSuccess(true);
           setOldScenario(true);
-          setSelectionClient("")
+          setSelectionClient("");
         } else {
           // console.log("DATA =>", data);
           setModalSaveFailed(true);
@@ -294,10 +293,13 @@ function NewScenario() {
   };
 
   const submit = () => {
-  if (interlocFilter.length <= 0) {
-    setModalInterlocError(true);
-    return
-  }
+    if(interlocFilter) {
+
+      if (interlocFilter.length <= 0) {
+        setModalInterlocError(true);
+        return
+      }
+    }
     fetch(`${BACKEND_ADDRESS}/contrat/addContrat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -457,6 +459,8 @@ let header;
     })
   }
 
+  console.log("ID SCENARIO", idScenario._id);
+
   const closeModalInterlocuteurSuccess = () => {
     setModalSaveInterloc(true);
     setAddInterlocutorSuccess(false);
@@ -474,7 +478,7 @@ let header;
         <Header name ={header}/>
         <div className={style.container}>
           <div className={style.leftSection}>
-           {oldScenario && <p className={style.nomClient}>Nom du client : {`${clientNameFromFetch} ${clientFromCard}`}</p>}
+           {oldScenario && <p className={style.nomClient}>Nom du client : {clientNameFromFetch !== "" ? `${clientNameFromFetch}` :`${clientFromCard}`}</p>}
           {!oldScenario && <select
               className={style.input}
               onChange={(e) => setSelectionClient(e.target.value)}

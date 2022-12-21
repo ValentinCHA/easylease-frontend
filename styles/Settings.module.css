@@ -1,0 +1,103 @@
+.header{
+  display: flex;
+  width: 80%;
+  border-bottom: 2px solid rgb(235,239,242);
+}
+.head{
+  margin: 2% 8%;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 81.5%;
+  height: 72vh;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 50%;
+justify-content: space-evenly;
+  padding: 20px;
+}
+
+.form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1);
+  font-family: 'Roboto', sans-serif;
+}
+
+.form input:hover,
+.form input:focus {
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+.form input:active {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.input {
+  width: 60%;
+  height: 48px;
+  background: #ffffff;
+  padding: 0 16px;
+  outline: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 20px;
+  font-family: 'Roboto', sans-serif; /* Remplacer la police de caractères par une police plus futuriste */
+}
+
+.button {
+  display: inline-block;
+  width: 20%;
+  min-width: 150px;
+  height: 36px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 36px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: #3498db; /* Remplacer la couleur blanche par une couleur plus moderne */
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif; /* Remplacer la police de caractères par une police plus futuriste */
+}
+.button:hover,
+.button:focus {
+  background-color: #2980b9;
+}
+
+.button:active {
+  background-color: #3498db;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  user-select: none;
+}
+
+.modalContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 4px;
+}
