@@ -39,7 +39,7 @@ function AllClient() {
     }
   })
     .map((data, i) => {
-      return <ClientCard key={i} {...data} id={data._id} />;
+      return <ClientCard key={i} {...data} />;
     });
 
   return (

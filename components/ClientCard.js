@@ -12,10 +12,8 @@ function ClientCard(props) {
   const dispatch = useDispatch();
 
   const affichePageClient = () => {
-    router.push({
-      pathname : "/clientProfil",
-      query: props
-    });
+    console.log('propsssss',props)
+    dispatch(addId(props))
   };
 
   return (
@@ -27,6 +25,7 @@ function ClientCard(props) {
       <div className={style.infoContrat}>
         <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.4em'}}>{props.name.substring(0,15)}</span>
         <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.2em'}}>{props.address}</span>
+        <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.2em'}}>{props.chiffre}€</span>
         <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>...</span>
       </div>
     </div>

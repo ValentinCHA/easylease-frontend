@@ -165,7 +165,7 @@ function NewScenario() {
         .then((data) => {
           console.log("DATA SCENARIO !!!!!!!!!!!", data);
           if (data.result){
-            // console.log();
+            console.log(data);
             setOldScenario(data.result);
             fetch(`${BACKEND_ADDRESS}/client/id/${data.scenary.client}`)
             .then(response => response.json())
@@ -459,7 +459,7 @@ let header;
     })
   }
 
-  console.log("ID SCENARIO", idScenario._id);
+  // console.log("ID SCENARIO", idScenario._id);
 
   const closeModalInterlocuteurSuccess = () => {
     setModalSaveInterloc(true);
@@ -502,13 +502,15 @@ let header;
               value={scenarioName}
               placeholder="Nom du scénario"
             />
-            <input
-              type="text"
-              className={style.input}
+
+            <select className={style.input}
               onChange={(e) => setEquipementType(e.target.value)}
-              value={equipementType}
-              placeholder="Type d'équipement"
-            />
+              value={equipementType}>
+                <option value="" disabled selected hidden>Choisisez un equipement</option>
+              <option>Luminaires</option>
+              <option>Informatique</option>
+              <option>Automobile</option>
+            </select>
             <p className={style.para + " " + style.trois}>Durée (mois) :</p>
             <select
               className={style.input}
