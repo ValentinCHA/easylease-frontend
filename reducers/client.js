@@ -4,7 +4,7 @@ const initialState = {
   value: {},
 };
 
-export const contratSlice = createSlice({
+export const clientSlice = createSlice({
   name: "client",
   initialState,
   reducers: {
@@ -14,5 +14,5 @@ export const contratSlice = createSlice({
   },
 });
 
-export const { addId } = contratSlice.actions;
-export default contratSlice.reducer;
+export const { addId } = clientSlice.actions;
+export default clientSlice.reducer;

@@ -45,6 +45,7 @@ function Contrat() {
   const [inputValue, setInputValue] = useState("");
   const [showModalDoc, setShowModalDoc] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [modalDeleteContrat, setModalDeleteContrat] = useState(false);
 
   console.log("ContratReducer", ContratReducer);
   console.log("dataInterlocutor", dataInterlocutor);
@@ -64,6 +65,7 @@ function Contrat() {
     const contratEndFormattedDate = contratEnd.toLocaleDateString();
     return (
       <div className={style.data} key={i}>
+        <span className={style.texte}>Nom du client : {item.client.name}</span>
         <span className={style.texte}>Type d'équipements : {item.type}</span>
         <span className={style.texte}>Montant financé : {item.amount} €</span>
         <span className={style.texte}>Marge : {item.marge} %</span>
@@ -121,7 +123,6 @@ function Contrat() {
       console.log("FAILED ROUTE PUT CONTRAT");
     }
   };
-  console.log("id reduceur contrat", ContratReducer._id);
   const saveInterlocutor = async () => {
     // PUT DB CLIENT AJOUT D'UN NOUVEL INTERLOCUTEUR => Ce fetch ajoute directement un interlocuteur à la DB Interlocuteur
     // const clientID = [new ObjectId(ContratReducer.client)];
@@ -159,24 +160,90 @@ function Contrat() {
     setInputValue(event.target.value);
   };
 
-  const handleSubmit = async () => {
-    // requete PUT qui enregistre le PDF dans la DB du contrat du client
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   // Create FormData object
+  //   const formData = new FormData();
+  //   // Add the file to the form data
+  //   formData.append("file", inputValue);
+
+  //   try {
+  //     // Send the POST request to the server to upload the file to Cloudinary
+  //     const response = await fetch(`${BACKEND_ADDRESS}/cloudinary/upload`, {
+  //       method: "POST",
+  //       body: formData,
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     });
+
+  //     console.log(response);
+  //     // Update the link field in the database
+  //     const updateResponse = await fetch(
+  //       `${BACKEND_ADDRESS}/contrat/updateLink/${ContratReducer._id}`,
+  //       {
+  //         method: "PUT",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({
+  //           links: response.secure_url,
+  //         }),
+  //       }
+  //     );
+
+  //     const data = await updateResponse.json();
+  //     if (data.result) {
+  //       console.log("ROUTE PUT LINK =>", data.contrat);
+  //     } else {
+  //       console.log("FAILED ROUTE PUT LINK");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const NICO_UPPLOAD = "your_upload_preset";
+  const NICO_CLOUD_NAME = "dhzujvrdr";
+
+  const handleSubmit = async (event) => {
+    // event.preventDefault();
+
+    // Envoi du fichier à Cloudinary
+    const formData = new FormData();
+    formData.append("file", inputValue);
+    formData.append("upload_preset", NICO_UPPLOAD);
+    formData.append("cloud_name", NICO_CLOUD_NAME);
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dhzujvrdr/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    const file = await res.json();
+    console.log(file);
+
+    // Mise à jour du lien dans la base de données
+    const data = {
+      links: file.secure_url,
+    };
     const response = await fetch(
       `${BACKEND_ADDRESS}/contrat/updateLink/${ContratReducer._id}`,
       {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          links: inputValue,
-        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       }
     );
-    const data = await response.json();
-    if (data.result) {
-      console.log("ROUTE PUT LINK =>", data.contrat);
-    } else {
-      console.log("FAILED ROUTE PUT LINK");
-    }
+    const updatedContrat = await response.json();
+    console.log(updatedContrat);
+
+    // Mise à jour de l'état du composant
+    // setRefresh(!refresh);
+    setShowModalDoc(false);
+    setInputValue("");
   };
 
   const handleDelete = async () => {
@@ -201,13 +268,14 @@ function Contrat() {
     setModalModifierFailed(false);
     setShowModalDoc(false);
     setModalModifierSuccess(false);
+    setModalDeleteContrat(false);
   };
 
   return (
     <>
       <div className={style.mainContent}>
         <Navbar />
-        <Header name={`Contrat: ${ContratReducer.name}`} />
+        <Header name={`${ContratReducer.name}`} />
         <div className={style.container}>
           <div className={style.SousContainerLeft}>
             <div className={style.boxData + " " + style.boxData1}>
@@ -216,7 +284,7 @@ function Contrat() {
               </span>
               <div className={style.contenuBoxData}>{contratData}</div>
             </div>
-            <div className={style.boxData + " " + style.boxData3}>
+            <div className={style.boxData + " " + style.boxData2}>
               <div className={style.contenuBoxData}>
                 <button
                   className={style.button}
@@ -226,13 +294,13 @@ function Contrat() {
                 </button>
               </div>
             </div>
-            <div className={style.boxData + " " + style.boxData}>
+            <div className={style.boxData + " " + style.boxData3}>
               <span className={style.titreBoxData}>
                 Interlocuteur du contrat :
               </span>
               <div className={style.contenuBoxData}>{interlocutorData}</div>
             </div>
-            <div className={style.boxData + " " + style.boxData3}>
+            <div className={style.boxData + " " + style.boxData4}>
               <div className={style.contenuBoxData}>
                 <button
                   className={style.button}
@@ -244,28 +312,16 @@ function Contrat() {
             </div>
           </div>
           <div className={style.SousContainerRight}>
-            <div className={style.boxData + " " + style.boxData}>
+            <div className={style.boxData + " " + style.boxData5}>
               <span className={style.titreBoxData}>Documents joints :</span>
             </div>
-            <div className={style.boxData + " " + style.boxData5}>
+            <div className={style.boxData + " " + style.boxData6}>
               <div className={style.contenuBoxData}>
-                <img
-                  src="/faux-contrat.webp"
-                  alt="Image contrat"
-                  width="200px"
-                  height="200px"
-                />
+                <iframe src={ContratReducer.link} width="100%" height="100%" />
               </div>
-
-              {/* <iframe
-                src={`${testPdf}#view=fitH`}
-                title="testPdf"
-                height="100%"
-                width="100%"
-              /> */}
             </div>
 
-            <div className={style.boxData + " " + style.boxData4}>
+            <div className={style.boxData + " " + style.boxData7}>
               <div className={style.contenuBoxData}>
                 <div>
                   <button
@@ -278,9 +334,12 @@ function Contrat() {
               </div>
             </div>
 
-            <div className={style.boxData + " " + style.boxData6}>
+            <div className={style.boxData + " " + style.boxData8}>
               <div className={style.contenuBoxData}>
-                <button className={style.button} onClick={() => handleDelete()}>
+                <button
+                  className={style.button}
+                  onClick={() => setModalDeleteContrat(!modalDeleteContrat)}
+                >
                   Supprimer le contrat
                 </button>
               </div>
@@ -457,7 +516,7 @@ function Contrat() {
             footer={null}
           >
             <div className={style.form}>
-              <form>
+              <div>
                 <label
                   htmlFor="filePicker"
                   className={style.customFileUpload + " " + style.button}
@@ -475,13 +534,13 @@ function Contrat() {
                 />
                 <br />
                 <button
-                  type="submit"
+                  // type="submit"
                   className={style.customFileUpload + " " + style.button}
                   onClick={() => handleSubmit()}
                 >
                   Ajouter
                 </button>
-              </form>
+              </div>
             </div>
           </Modal>
           <Modal
@@ -501,6 +560,22 @@ function Contrat() {
             <p style={{ fontSize: 18, textAlign: "center" }}>
               ❌ Interlocutor non modifié ! ❌
             </p>
+          </Modal>
+          <Modal
+            onCancel={() => handleCloseModal()}
+            open={modalDeleteContrat}
+            footer={null}
+          >
+            <p style={{ fontSize: 18, textAlign: "center" }}>
+              ❌ Êtes-vous sur de vouloir supprimer ce contrat ? ❌
+            </p>
+            <button
+              // type="submit"
+              className={style.customFileUpload + " " + style.button}
+              onClick={() => handleDelete()}
+            >
+              Supprimer
+            </button>
           </Modal>
         </div>
       </div>

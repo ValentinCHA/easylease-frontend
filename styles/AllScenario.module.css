@@ -1,6 +1,7 @@
 .main{
     height: 100vh;
     width: 100vw;
+    background-color: #F3F3F3;
 }
 .header{
     display: flex;
@@ -15,9 +16,12 @@
     flex-direction: column;
     height: 92%;
     width: 81.5%;
+    margin-left: 300px;
+    background-color: #fff;
 }
 .search{
     display: flex;
+    flex-direction: row;
     width: 80%;
     margin: 0;
     height: 11%;
@@ -34,15 +38,13 @@
     background-color: rgb(245,248,250);
 }
 .input{
-    padding-left: 10px;
-    border: 1px solid #fff;
-    border-bottom: 1px solid rgb(147,151,157);
-    transition-duration: 0.3s;
-    transition-timing-function: linear;
-    font-size: 90%;
-    padding: 1% 10% 1% 0%;
-    margin: 0;
-
+    background: #FFFFFF;
+    border: 1px solid #326E9C;
+    border-radius: 6px;
+    padding: 2%;
+    outline: none;
+    width: 90%;
+    height: 5%;
 }
 .boxInput{
     display: flex;
@@ -52,19 +54,8 @@
     margin: 0;
     height: 100%;
     align-items: center;
-    margin-left: 2%;
-    margin-top: 3%;
 }
-.input:hover{
-    padding: 1.2% 15% 1.2% 0%;
-    font-size: 100%;
-    border: 1px solid #fff;
-    border-bottom: 1px solid rgb(147,151,157);
-    background-color: rgb(255, 255, 255);
-    transition-duration: 0.3s;
-    transition-timing-function: linear;
-    
-}
+
 .input::placeholder{
     color: rgb(147,151,157);
     font-size: 110%;
@@ -72,11 +63,11 @@
 .input:focus{
     outline: none;
 }
+
 .icon{
-    transition-duration: 0.3s;
-    transition-timing-function: linear;
-    padding: 1%;
-    height: 20px;
+
+    padding: 10px;
+
     cursor: pointer;
 }
 
@@ -93,18 +84,16 @@
 .nouveauContrat{
     padding: 1.3% 3%;
     gap: 10px;
-    width: 20%;
-    background: #635CFF;
+    width: 200px;
+    background: #3A3E9C;
     border-radius: 5px;
     border: none;
     color: white;
-    font-size: 99%;
     cursor: pointer;
     transition-duration: 0.3s;
     transition-timing-function: linear;
 }
 
-.nouveauContrat:hover {
-    cursor: pointer;
-    background-color: rgb(110, 231, 255);
+.nouveauContrat:hover,.nouveauContrat:focus,.nouveauContrat:active {
+    background-color: #2980b9;
 }

@@ -45,14 +45,13 @@ const Settings = () => {
       });
   };
   return (
-    <>
+    <div className={style.main}>
       <Navbar
-        styleDashboard={{ backgroundColor: "rgba(0, 217, 255, 0.383)" }}
+        styleSettings={{ backgroundColor: "#2A9C90"}}
       />
       <Header name="Settings" />
 
       <div className={style.container}>
-        <h1>Paramètres du compte</h1>
         <div className={style.form}>
           <label>Adresse email</label>
           <input
@@ -118,7 +117,7 @@ const Settings = () => {
           )}
         </div>
       </div>
-    </>
+      </div>
   );
 };
 

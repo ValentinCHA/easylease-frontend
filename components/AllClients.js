@@ -22,13 +22,26 @@ function AllClient() {
       .then((data) => {
         if (data.result) {
           // console.log('data find',data.contrat)
-          setDataClient(data.clientsInfos.clients)
+          console.log("DATA", data);
+          const client = data.clientsInfos.clients.map((data, i) => {
+            return {
+              _id: data._id,
+              name: data.name,
+              address: data.address,
+              numberOfEmployees: data.numberOfEmployees,
+              clientBirth: data.clientBirth,
+              chiffre: data.chiffre,
+              interlocutor: data.interlocutor.length > 0? data.interlocutor[0].name : null,
+            };
+          });
+          setDataClient(client);
         } else {
-          console.log("DATA ELSE" , data);
+          console.log("DATA ELSE", data);
+
         }
       });
   }, []);
-
+  console.log(dataClient)
   const infoClient = dataClient.filter((data) => {
     if (inputValue == "") {
       return data;
@@ -46,14 +59,14 @@ function AllClient() {
     <>
       {/* {/* navbar et header /} */}
       <div className={style.main}>
-      <Navbar styleAllClients={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
+      <Navbar styleAllClients={{ backgroundColor: "#2A9C90" }}/>
       <Header name ="Clients"/>
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}
           <div className={style.search}>
             <input className={style.input} onChange={(e) => setInputValue(e.target.value)} type="text" placeholder="  Search client....." value={inputValue} />
             <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />
-            <button className={style.nouveauClient} onClick={()=>router.push('/newClient')}>Nouveau client</button>
+            <button className={style.nouveauClient} onClick={() => router.push('/newClient')}>Nouveau client</button>
           </div>
           {/* {/ span qui affiche le nom du client /} */}
           <span

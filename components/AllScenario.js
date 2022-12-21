@@ -3,13 +3,12 @@ import style from "../styles/AllScenario.module.css";
 import Navbar from "./Navbar";
 import Scenario from "./Scenario";
 import { removeId } from "../reducers/scenario";
-import { useDispatch, useSelector} from "react-redux";
-import Header  from './Header'
+import { useDispatch, useSelector } from "react-redux";
+import Header from "./Header";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
-
 
 function AllScenario() {
   const router = useRouter();
@@ -18,26 +17,43 @@ function AllScenario() {
   const [dataScenario, setDataScenario] = useState([]);
   const user = useSelector((state) => state.user.value);
 
-  const afficheNewScenarioPage =()=>{
-    dispatch(removeId())
-    router.push('/newScenario')
-  }
+  const afficheNewScenarioPage = () => {
+    dispatch(removeId());
+    router.push("/newScenario");
+  };
 
   useEffect(() => {
     fetch(`http://localhost:3000/scenary/token/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log('data find',data)
-          setDataScenario(data.userInfos.scenary)
+          console.log("data find", data);
+          const scenario = data.userInfos.scenary.map((data, i) => {
+            return {
+              _id: data._id,
+              client: data.client.name,
+              name: data.name,
+              type: data.type,
+              durée: data.duration,
+              montant: data.amount,
+              creationDate: data.creationDate,
+              date_de_début: data.contratStart,
+              date_de_fin: data.contratEnd,
+              valeur_résiduel: data.residualValue,
+            };
+          });
+          setDataScenario(scenario);
         }
       });
   }, []);
-console.log('le data',dataScenario)
-  const infoContrat = dataScenario.filter((data) => {
+  console.log("le data", dataScenario);
+  const infoContrat = dataScenario
+    .filter((data) => {
       if (inputValue == "") {
         return data;
-      } else if (data.name.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())) {
+      } else if (
+        data.name.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())
+      ) {
         return data;
       }
     })
@@ -49,22 +65,29 @@ console.log('le data',dataScenario)
     <>
       {/* {/* navbar et header /} */}
       <div className={style.main}>
-        <Navbar styleScenario={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
-          <Header name="Scenarios"/>
+        <Navbar styleScenario={{ backgroundColor: "" }} />
+        <Header name="Scenarios" />
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}
           <div className={style.search}>
-            <div className={style.boxInput}>
-            <input className={style.input}onChange={(e) => setInputValue(e.target.value)}type="text" placeholder="  Search scenario....." value={inputValue}/>
+            <input
+              className={style.input}
+              onChange={(e) => setInputValue(e.target.value)}
+              type="text"
+              placeholder="  Search scenario....."
+              value={inputValue}
+            />
             <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />
-            </div>
-            <button className={style.nouveauContrat} onClick={()=>afficheNewScenarioPage()}>Nouveau scenario</button>
-          </div>
 
+            <button
+              className={style.nouveauContrat}
+              onClick={() => afficheNewScenarioPage()}
+            >
+              Nouveau scenario
+            </button>
+          </div>
           {/* {/ div qui contiendra tout mes coponents contrat Card /} */}
-          <div className={style.containerScenarioCard}>
-            {infoContrat}
-            </div>
+          <div className={style.containerScenarioCard}>{infoContrat}</div>
         </div>
         {/* span voir plus */}
         {/* <span

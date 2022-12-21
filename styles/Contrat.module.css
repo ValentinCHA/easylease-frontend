@@ -40,7 +40,6 @@
   flex-direction: column;
   /* border: 2px solid rgb(235, 239, 242); */
   width: 80%;
-  margin-top: 5%;
   justify-content: center;
 }
 
@@ -61,7 +60,7 @@
   border: 2px solid rgb(235, 239, 242);
   width: 80%;
   margin: 3%;
-  padding: 5%;
+  padding: 3%;
   background: #faf9f9;
   border: 1px solid #dddddf;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -168,15 +167,16 @@
 }
 
 .boxData1 {
-  height: 45%;
+  height: 40%;
+  margin-top: 5%;
 }
 
 .boxData2 {
-  height: 45%;
+  height: 10%;
 }
 
 .boxData3 {
-  height: 20%;
+  height: 40%;
 }
 
 .boxData4 {
@@ -184,10 +184,18 @@
 }
 
 .boxData5 {
+  height: 10%;
+}
+
+.boxData6 {
   height: 70%;
   border: 2px solid rgb(235, 239, 242);
 }
 
-.boxData6 {
-  height: 20%;
+.boxData7 {
+  height: 10%;
+}
+
+.boxData8 {
+  height: 10%;
 }

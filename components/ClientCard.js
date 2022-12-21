@@ -12,8 +12,11 @@ function ClientCard(props) {
   const dispatch = useDispatch();
 
   const affichePageClient = () => {
-    console.log('propsssss',props)
+
+    console.log(props)
     dispatch(addId(props))
+    router.push("/clientProfil");
+    
   };
 
   return (
