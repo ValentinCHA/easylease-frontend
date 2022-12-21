@@ -21,7 +21,6 @@ function AllContrat() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log('dataaaaa', data)
           setDataContrat(data.userInfos.contrats);
         }
       });
