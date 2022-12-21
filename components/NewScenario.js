@@ -6,74 +6,66 @@ import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from "react-redux";
 import { addId } from '../reducers/scenario';
 import Header from './Header';
-// import { Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import { removeId } from "../reducers/scenario";
-import { XYPlot, LineMarkSeries, XAxis, YAxis } from 'react-vis';
+
+const dataGraphique = {
+  labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre', 'Janvier', 'Février', 'Mars'],
+  datasets: [
+    {
+      label: 'Valeur en euros',
+      data: [100000, 85000, 72250, 61962.5, 53165.625, 45641.40625, 39312.203125, 33866.671875, 29148.9453125, 25079.21875, 21491.171875, 18368.5478515625, 10000, 5000, 0],
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderColor: 'rgba(255, 99, 132, 1)',
+      borderWidth: 1,
+      pointBackgroundColor: '#fff',
+      pointBorderColor: 'rgba(255, 99, 132, 1)',
+      pointHoverBackgroundColor: 'rgba(255, 99, 132, 1)',
+      pointHoverBorderColor: 'rgba(255, 99, 132, 1)',
+    },
+    {
+      label: 'Ligne horizontale',
+      data: [80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000],
+      borderColor: 'green',
+      borderWidth: 2,
+      pointRadius: 0,
+      fill: false,
+    },
+  ],
+};
+
+
+const optionsGraphique = {
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    xAxes: [{
+      type: 'time',
+      time: {
+        unit: 'month',
+      },
+    }],
+    yAxes: [{
+      ticks: {
+        beginAtZero: true,
+      },
+      gridLines: {
+        drawOnChartArea: false,
+      },
+      scaleLabel: {
+        display: true,
+        labelString: 'Valeur en euros',
+      },
+      scaleOverride: true,
+      scaleSteps: 8,
+      scaleStepWidth: 10000,
+      scaleStartValue: 0,
+    }],
+  },
+};
 
 
 
-//////// REACT VIS
-  const data = [
-    { x: 'Jan', y: 100000 },
-    { x: 'Feb', y: 85000 },
-    { x: 'Mar', y: 73000 },
-    { x: 'Apr', y: 63000 },
-    { x: 'May', y: 54000 },
-    { x: 'Jun', y: 46000 },
-    { x: 'Jul', y: 39000 },
-    { x: 'Aug', y: 33000 },
-    { x: 'Sep', y: 28000 },
-    { x: 'Oct', y: 23000 },
-    { x: 'Nov', y: 19000 },
-    { x: 'Dec', y: 15000 }
-  ];
- //const yTickFormat = Format('.4s');
-  const options = {
-    xType: 'ordinal',
-    yType: 'linear',
-    xDomain: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    yDomain: [15000, 100000]
-  };
-
-
-  //////// CHART JS
-
-  // const data = {
-  //   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  //   datasets: [
-  //     {
-  //       label: 'My First dataset',
-  //       fill: false,
-  //       lineTension: 0.1,
-  //       backgroundColor: 'rgba(75,192,192,0.4)',
-  //       borderColor: 'rgba(75,192,192,1)',
-  //       borderCapStyle: 'butt',
-  //       borderDash: [],
-  //       borderDashOffset: 0.0,
-  //       borderJoinStyle: 'miter',
-  //       pointBorderColor: 'rgba(75,192,192,1)',
-  //       pointBackgroundColor: '#fff',
-  //       pointBorderWidth: 1,
-  //       pointHoverRadius: 5,
-  //       pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-  //       pointHoverBorderColor: 'rgba(220,220,220,1)',
-  //       pointHoverBorderWidth: 2,
-  //       pointRadius: 1,
-  //       pointHitRadius: 10,
-  //       data: [65, 59, 80, 81, 56, 55, 40]
-  //     }
-  //   ]
-  // };
-  
-  // const options = {
-  //   scales: {
-  //     yAxes: [{
-  //       ticks: {
-  //         beginAtZero: true
-  //       }
-  //     }]
-  //   }
-  // };
   
 
 function NewScenario() {
@@ -516,9 +508,14 @@ let header;
               value={locationDuration}
             >
               <option value="" disabled selected hidden>Choisisez une durée de location</option>
-              <option>6</option>
               <option>12</option>
               <option>24</option>
+              <option>36</option>
+              <option>48</option>
+              <option>60</option>
+              <option>72</option>
+              <option>84</option>
+              <option>96</option>
             </select>
             <input
               type="text"
@@ -555,12 +552,12 @@ let header;
               value={residualValue}
             >
               <option value="" disabled selected hidden>Choisisez une valeur résiduelle</option>
-              <option>0..05</option>
-              <option>0.10</option>
-              <option>0.15</option>
-              <option>0.20</option>
-              <option>0.25</option>
-              <option>0.30</option>
+              <option>5</option>
+              <option>10</option>
+              <option>15</option>
+              <option>20</option>
+              <option>25</option>
+              <option>30</option>
             </select>
           </div>
           <div className={style.rightSection}>
@@ -582,29 +579,14 @@ let header;
               )}
             </div>
             <div className={style.graphic}>
-            {/* <img
-              className={style.img}
-              src="/graphic.png"
-              alt="Graphique temporaire"
-            /> */}
-            {/* <XYPlot width={750} height={500} yType="ordinal" {...options}>
-                  <LineMarkSeries
-                    data={dataGraph}
-                    xType="time"
-                    yType="linear"
-                    size={4}
-                    color="#007bff"
-                  />
-                  <XAxis title="Mois" />
-                  <YAxis title="Montant" />
-                </XYPlot> */}
-                {/* <canvas id="myChart" width="400" height="400"></canvas> */}
-                {/* <Line data={data} options={options} /> */}
-                <XYPlot width={700} height={500}  {...options}>
-                  <LineMarkSeries data={data} />
-                  <XAxis title="Mois"/>
-                  <YAxis title="Montant"/>
-                </XYPlot>
+                 {/* <Line data={dataGraphique} options={optionsGraphique} /> */}
+
+
+
+
+
+
+                 
             </div>
             <div className={style.buttonBottom}>
               <button
