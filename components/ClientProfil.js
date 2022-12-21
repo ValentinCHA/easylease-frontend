@@ -1,3 +1,4 @@
+
 import React from 'react'
 import Navbar from './Navbar';
 import style from '../styles/ClientProfil.module.css'
@@ -13,72 +14,134 @@ function ClientProfil() {
     const router = useRouter()
     console.log('log du query', router.query);
     const [addDocModal, setaddDocModal] = useState(false);
-    const [name, setname] = useState(router.query.name);
-    const [clientBirth, setclientBirth] = useState(router.query.clientBirth);
-    const [address, setaddress] = useState(router.query.address);
-    const [numberOfEmployees, setnumberOfEmployees] = useState(router.query.numberOfEmployees);
-    const [chiffre, setchiffre] = useState(router.query.chiffre);
-    const [interlocutor, setinterlocutor] = useState(router.query.interlocutor);
+    const [successModifModal, setSuccesModifModal] = useState(false);
+    const [errorModifModal, setErrorModifModal] = useState(false);
+    const [successDeleteModal, setSuccesDeleteModal] = useState(false);
+    const [errorDeleteModal, setErrorDeleteModal] = useState(false);
+    const [name, setname] = useState("");
+    const [clientBirth, setclientBirth] = useState("");
+    const [address, setaddress] = useState("");
+    const [numberOfEmployees, setnumberOfEmployees] = useState("");
+    const [chiffre, setchiffre] = useState("");
+    const [interlocutor, setinterlocutor] = useState("");
+    const backend_adress = "http://localhost:3000"
 
-
-
-
-    // function handleSubmit(params) {
-    //    fetch.........qui va PUT les modif dans le back pour client**********
-    // }
-    // faire route delete*****
-    // ajouter document******
-    // modifier le modele du client en ajoutant un link comme dans le modele contrat
+    const idClient = useSelector((state) => state.client.value)
 
     useEffect(() => {
-        fetch(`http://localhost:3000/client/clientId/${user.token}`)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.result) {
-              // console.log('data find',data.contrat)
-              console.log("DATA", data);
-              const client = data.clientsInfos.clients.map((data, i) => {
-                return {
-                  _id: data._id,
-                  name: data.name,
-                  address: data.address,
-                  numberOfEmployees: data.numberOfEmployees,
-                  clientBirth: data.clientBirth,
-                  chiffre: data.chiffre,
-                  interlocutor: data.interlocutor,
-                };
-              });
-              setDataClient(client);
-            } else {
-              console.log("DATA ELSE", data);
-    
-            }
-          });
-      }, []);
-      console.log(client)
+
+        fetch(`${backend_adress}/client/id/${idClient._id}`)
+            .then(res => res.json())
+            .then((data) => {
+
+                if (data.result) {
+
+                    setname(data.client.name)
+                    setaddress(data.client.address)
+                    setnumberOfEmployees(data.client.numberOfEmployees)
+                    setclientBirth(data.client.clientBirth)
+                    setchiffre(data.client.chiffre)
+                    setinterlocutor(data.client.interlocutor)
+                    console.log(data)
+                }
+            })
+    }, [])
+
+    const handleSubmit = () => {
+        fetch(`${backend_adress}/client/update/${idClient._id}`, {
+
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+
+                name: name,
+                address: address,
+                numberOfEmployees: numberOfEmployees,
+                clientBirth: clientBirth,
+                chiffre: chiffre,
+
+            })
+        }).then(res => res.json())
+            .then(data => {
+                console.log("data", data)
+
+                if (data.result) {
+                    setname(data.client.name)
+                    setaddress(data.client.address)
+                    setnumberOfEmployees(data.client.numberOfEmployees)
+                    setclientBirth(data.client.clientBirth)
+                    setchiffre(data.client.chiffre)
+
+                    setSuccesModifModal(true);
+
+                } else {
+
+                    setErrorModifModal(false);
+
+                }
+            })
+    }
+
+    const SupprimClient = () => {
+
+        fetch(`${backend_adress}/client/delete/${idClient._id}`, {
+
+            method: "DELETE"
+        }).then(res => res.json())
+            .then(data => {
+                if (data.result) {
+
+                    setSuccesDeleteModal(true);
+
+                } else {
+                    console.log("echec")
+                    setErrorDeleteModal(false);
+                }
+            })
+    }
 
     const handleModal = () => {
         setaddDocModal(false);
+
     };
+
+    const handleDeleteModal = () => {
+        setSuccesDeleteModal(false);
+        router.push("/allClients")
+
+    };
+
+    const handleCloseModal = () => {
+        setSuccesModifModal(false);
+        setaddDocModal(false);
+
+    };
+
+    const interlocutorData = interlocutor.map((data,i)=>{
+
+    return <li>Interlocuteur : {data.name} </li>
+
+    })
+
     return (
         <>
             <div className={style.mainContainer}>
                 <Navbar />
                 <div className={style.header}>
-                    <h1 className={style.head} >Profil client : {router.query.name}</h1>
+                    <h1 className={style.head} >Profil client : {name} </h1>
                 </div>
                 <div className={style.container}>
                     <div className={style.GridParent}>
                         <div className={style.GridContent}>
                             <div className={style.Infosclient}>
-                                <h2>Informations client : </h2>
+                                <h2>Informations client :</h2>
                                 <ul>
-                                    <li>Nom entreprise : {router.query.name}</li>
-                                    <li>Client depuis le : {router.query.clientBirth}</li>
-                                    <li>Adresse : {router.query.address}</li>
-                                    <li>Nombre de salariés : {router.query.numberOfEmployees} </li>
-                                    <li>Chiffre d'affaires : {router.query.chiffre} </li>
-                                    <li>Interlocuteur : {router.query.interlocutor} </li>
+                                    <li>Nom entreprise : {name} </li>
+                                    <li>Client depuis le : {clientBirth} </li>
+                                    <li>Adresse : {address} </li>
+                                    <li>Nombre de salariés : {numberOfEmployees} </li>
+                                    <li>Chiffre d'affaires : {chiffre} </li>
+                                    {interlocutorData}
                                 </ul>
                             </div>
                             <div className={style.docsContainer}>
@@ -87,9 +150,8 @@ function ClientProfil() {
                         </div>
                         <div className={style.ButtonContainer}>
                             <button className={style.buttonmodifier} onClick={() => setaddDocModal(true)}>Modifier</button>
-                            {/* bouton supprimer prevu pour le client */}
                             <button className={style.buttonsupprimer} onClick={() => SupprimClient()}>Supprimer</button>
-                            <button className={style.buttonModal} onClick={() => modifClient()}>
+                            <button className={style.buttonModal} onClick={() => handleCloseModal()}>
                                 Ajouter un document
                             </button>
 
@@ -98,43 +160,76 @@ function ClientProfil() {
                 </div>
             </div>
             <Modal onCancel={() => handleModal()} open={addDocModal} footer={null}>
-                <form>
+                <div>
                     <div className="modal-modifier">
-                        <input type="text" placeholder="Nom entreprise" value={name} onChange={(e)=> setname(e.target.value)}/>
+                        <input type="text" placeholder="Nom entreprise" value={name} onChange={(e) => setname(e.target.value)} />
                     </div>
                     <div className="modal-modifier">
-                        <input type="text" placeholder="ancienneté"value={clientBirth} onChange={(e)=> setclientBirth(e.target.value)} />
+                        <input type="text" placeholder="ancienneté" value={clientBirth} onChange={(e) => setclientBirth(e.target.value)} />
                     </div>
                     <div className="modal-modifier">
-                        <input type="text" placeholder="addresse"value={address} onChange={(e)=> setaddress(e.target.value)}/>
+                        <input type="text" placeholder="addresse" value={address} onChange={(e) => setaddress(e.target.value)} />
                     </div>
                     <div className="modal-modifier">
-                        <input type="text" placeholder="nombre d'employés"value={numberOfEmployees} onChange={(e)=> setnumberOfEmployees(e.target.value)} />
+                        <input type="text" placeholder="nombre d'employés" value={numberOfEmployees} onChange={(e) => setnumberOfEmployees(e.target.value)} />
                     </div>
                     <div className="modal-modifier">
-                        <input type="text" placeholder="CA"value={chiffre} onChange={(e)=> setchiffre(e.target.value)} />
+                        <input type="text" placeholder="CA" value={chiffre} onChange={(e) => setchiffre(e.target.value)} />
                     </div>
-                    <div className="modal-modifier">
-                        <input type="text" placeholder="interlocuteur"value={interlocutor} onChange={(e)=> setinterlocutor(e.target.value)} />
-                    </div>
-                </form>
+                </div>
                 <div className={style.form}>
-                    <form>
+                    <div>
                         <label
                             htmlFor="filePicker"
                             className={style.customFileUpload + " " + style.button}>
                         </label>
                         <br />
                         <button
-                            type="submit"
                             className={style.buttonModif} onClick={() => handleSubmit()}>
                             Modifier
                         </button>
-                    </form>
+                    </div>
                 </div>
+            </Modal>
+            <Modal
+                onCancel={() => handleCloseModal()}
+                open={successModifModal}
+                footer={null}
+            >
+                <p style={{ fontSize: 18, textAlign: "center" }}>
+                    ✅ client modifié ! ✅
+                </p>
+            </Modal>
+            <Modal
+                onCancel={() => handleCloseModal()}
+                open={errorModifModal}
+                footer={null}
+            >
+                <p style={{ fontSize: 18, textAlign: "center" }}>
+                    ❌ erreur client non modifié ! ❌
+                </p>
+            </Modal>
+            <Modal
+                onCancel={() => handleDeleteModal()}
+                open={successDeleteModal}
+                footer={null}
+            >
+                <p style={{ fontSize: 18, textAlign: "center" }}>
+                    ✅ client supprimé ! ✅
+                </p>
+            </Modal>
+            <Modal
+                onCancel={() => handleCloseModal()}
+                open={errorDeleteModal}
+                footer={null}
+            >
+                <p style={{ fontSize: 18, textAlign: "center" }}>
+                    ❌ erreur client non suprimé ! ❌
+                </p>
             </Modal>
         </>
     )
 }
 
 export default ClientProfil;
+

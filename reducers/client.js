@@ -1,22 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-	value: [],
+  value: {},
 };
 
 export const clientSlice = createSlice({
-	name: 'clients',
-	initialState,
-	reducers: {
-		addClient: (state, action) => {
-			state.value.push(action.payload);
-		},
-		removeClient: (state, action) => {
-			state.value = state.value.filter(client => client.name !== action.payload.name);
-		},
-
-	},
+  name: "client",
+  initialState,
+  reducers: {
+    addId: (state, action) => {
+      state.value = action.payload;
+    },
+  },
 });
 
-export const { addClient, removeClient } = clientSlice.actions;
+export const { addId } = clientSlice.actions;
 export default clientSlice.reducer;

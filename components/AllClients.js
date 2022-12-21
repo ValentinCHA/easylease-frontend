@@ -31,7 +31,7 @@ function AllClient() {
               numberOfEmployees: data.numberOfEmployees,
               clientBirth: data.clientBirth,
               chiffre: data.chiffre,
-              interlocutor: data.interlocutor,
+              interlocutor: data.interlocutor.length > 0? data.interlocutor[0].name : null,
             };
           });
           setDataClient(client);
