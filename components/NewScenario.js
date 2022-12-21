@@ -472,7 +472,7 @@ let header;
   return (
     <>
       <div className={style.mainContainer}>
-        <Navbar styleScenario={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
+        <Navbar styleScenario={{backgroundColor: "#2A9C90"}}/>
         <Header name ={header}/>
         <div className={style.container}>
           <div className={style.leftSection}>

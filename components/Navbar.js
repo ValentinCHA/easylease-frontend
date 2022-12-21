@@ -5,15 +5,16 @@ import { useSelector } from 'react-redux';
 
 //import des icon de la navbar
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { faUserTie } from '@fortawesome/free-solid-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { faChartSimple } from '@fortawesome/free-solid-svg-icons'
-import { faDiagramNext } from '@fortawesome/free-solid-svg-icons'
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
-
+import { faGear } from '@fortawesome/free-solid-svg-icons';
+import {faFileInvoiceDollar} from '@fortawesome/free-solid-svg-icons';
+import {faHistory} from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 //import {use router} qui permet de changer de router 
 import {useRouter} from 'next/router'
 //import dispatch qui permet de d'activer les fonctions de mon reducer
@@ -58,10 +59,10 @@ function Navbar(props) {
         {/* taille de ma 1er navBar */}
       <div className={style.firstNavbar}>
         {/* logo navbar */}
-        <img src='logo.png' className={style.logo}/>
+        <img src='logov2transparent.png' className={style.logo}/>
         {/* boite avec les infos du users */}
             <div className={style.accountBox} >
-                <FontAwesomeIcon icon={faUserTie} className={style.avatar} />
+                <img src='freckled-profile-908x1024.png' className={style.logo}/>
                     <div className={style.infoUser}>
                         <span className={style.name} >{user.name}</span>
                         <span className={style.emailSize}>{user.email}</span>
@@ -74,23 +75,22 @@ function Navbar(props) {
                     <span className={style.textStyle}><FontAwesomeIcon icon={faChartSimple} className={style.spaceIconSpan} />Dashboard</span> {/* espace entre l'icon et le text */}
                 </div>
                 <div className={style.BoxSpan } style={props.styleScenario} onClick={()=>navScenario()} >
-                    <span className={style.textStyle}><FontAwesomeIcon icon={faDiagramNext} className={style.spaceIconSpan} />Scénarios</span>
+                    <span className={style.textStyle}><FontAwesomeIcon icon={faHistory} className={style.spaceIconSpan} />Scénarios</span>
                 </div>
                 <div className={style.BoxSpan} style={props.styleAllClients} onClick={()=>navClient()}>
                     <span className={style.textStyle}><FontAwesomeIcon icon={faEnvelope} className={style.spaceIconSpan} />Clients</span>
                 </div>
                 <div className={style.BoxSpan} style={props.styleAllContrats} onClick={()=>navContrat()} >
-                    <span className={style.textStyle}><FontAwesomeIcon icon={faUser} className={style.spaceIconSpan} />Contrats</span>
+                    <span className={style.textStyle}><FontAwesomeIcon icon={faFileInvoiceDollar} className={style.spaceIconSpan} />Contrats</span>
                 </div>
             </div>
             {/* taille de ma 2e navBar */}
             <div className={style.secondNav}>
-                <div className={style.BoxSpan} onClick={()=>navSettings()}>
-                    <span><FontAwesomeIcon icon={faEllipsis} className={style.spaceIconSpan} />Settings</span>
+                <div className={style.BoxSpan} style={props.styleSettings} onClick={()=>navSettings()}>
+                    <span><FontAwesomeIcon icon={faGear} className={style.spaceIconSpan} />Settings</span>
                 </div>
-                <div className={style.footerNav}>
-                    <span onClick={()=>handleLogout()} className={style.boxSpan} ><FontAwesomeIcon icon={faXmark} className={style.spaceIconSpan} />Logout</span>
-                    <span className={style.boxSpan}><FontAwesomeIcon icon={faArrowLeft} className={style.spaceIconLogout} />Toogle SideBar</span>
+                <div className={style.BoxSpan}>
+                    <span onClick={()=>handleLogout()} className={style.boxSpan} ><FontAwesomeIcon icon={faSignOutAlt} className={style.spaceIconSpan} />Logout</span>
                 </div>
             </div>
       </div>

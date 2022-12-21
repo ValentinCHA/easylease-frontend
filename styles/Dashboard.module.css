@@ -2,18 +2,32 @@
     display: flex;
     width: 80%;
     border-bottom: 2px solid rgb(235,239,242);
+
 }
+
+.maincontainer {
+    height: 100vh;
+    width: 100vw;
+    background-color: #F3F3F3;
+    position: fixed;
+    
+  }
+
 .head{
+    
     margin: 2% 8%;
 }
 .container{
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
+    margin-left: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .graphic {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 5%;
 }
