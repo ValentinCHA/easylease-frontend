@@ -4,8 +4,6 @@ import Navbar from './Navbar';
 import Header from './Header';
 
 import { Doughnut } from 'react-chartjs-2';
-import Chart from 'chart.js/auto';
-// import 'chart.js/dist/Chart.css';
 
 
 function Dashboard() {

@@ -23,20 +23,6 @@
     margin: 2% 8%;
 }
 .container{
-<<<<<<< HEAD
-    width: auto;
-    height: auto;
-    margin-left: 260px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.graphic {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-=======
     display: flex;
     flex-direction: column;
     width: auto;
@@ -78,5 +64,4 @@
 
 .graphic {
     height: 100%;
->>>>>>> 9068ccdef19bb80f577a65d6ca52cf50cc4a43c5
 }
