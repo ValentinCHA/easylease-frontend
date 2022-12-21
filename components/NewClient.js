@@ -134,7 +134,6 @@ function NewClient() {
         <div className={style.form}>
           <div className={style.newClientContainer}>
             <div className={style.formContainer}>
-              <h2>Création de client</h2>
               <label>Nom</label>
               <input
                 className={style.input + " " + style.inputNewClient}

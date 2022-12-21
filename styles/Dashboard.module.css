@@ -7,11 +7,36 @@
     display: flex;
     width: 80%;
     border-bottom: 2px solid rgb(235,239,242);
+
 }
+
+.maincontainer {
+    height: 100vh;
+    width: 100vw;
+    background-color: #F3F3F3;
+    position: fixed;
+    
+  }
+
 .head{
+    
     margin: 2% 8%;
 }
 .container{
+<<<<<<< HEAD
+    width: auto;
+    height: auto;
+    margin-left: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.graphic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+=======
     display: flex;
     flex-direction: column;
     width: auto;
@@ -53,4 +78,5 @@
 
 .graphic {
     height: 100%;
+>>>>>>> 9068ccdef19bb80f577a65d6ca52cf50cc4a43c5
 }

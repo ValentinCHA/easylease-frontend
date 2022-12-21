@@ -30,11 +30,21 @@ function Scenario(props) {
       <FontAwesomeIcon icon={faFileSignature} className={style.userIcon} />
       {/ info du scenario */}
       <div className={style.infoContrat}>
+<<<<<<< HEAD
+        <span style={{fontSize:23, color:'white',fontSize:'1.4em', fontWeight:'bold'}}>{props.client.substring(0,10)}</span>
+        <span style={{fontSize:23, color:'white',fontSize:'1.2em'}}>{props.name}</span>
+        <div style={{backgroundColor:'white', width: "50%"}}>
+        <span style={{paddingLeft:"2px",fontSize:23, color:'#3A3E9C',fontSize:'1.0em', }}>{props.montant}€</span>
+        </div>
+        <span style={{fontSize:23, color:'white',fontSize:'1.0em',fontWeight:'lighter'}}>{props.creationDate.substring(0,10)}</span>
+        <span style={{fontSize:23, color:'white',fontSize:'1.0em'}}>...</span>
+=======
         <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.4em'}}>{props.client.name.substring(0,10)}</span>
         <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.2em'}}>{props.name}</span>
         <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>{props.montant} €</span>
         <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>{props.creationDate.substring(0,10)}</span>
         <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>...</span>
+>>>>>>> 9068ccdef19bb80f577a65d6ca52cf50cc4a43c5
       </div>
     </div>
   );

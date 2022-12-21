@@ -21,7 +21,10 @@ function AllContrat() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log('dataaaaa', data)
+<<<<<<< HEAD
+          console.log("dataaaaa", data);
+=======
+>>>>>>> 9068ccdef19bb80f577a65d6ca52cf50cc4a43c5
           setDataContrat(data.userInfos.contrats);
         }
       });
@@ -45,26 +48,20 @@ function AllContrat() {
     <>
       {/* {/* navbar et header /} */}
       <div className={style.main}>
-        <Navbar
-          styleAllContrats={{ backgroundColor: "rgba(0, 217, 255, 0.383)" }}
-        />
+        <Navbar styleAllContrats={{ backgroundColor: "#2A9C90" }} />
         <Header name="Contrats" />
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}
-          <div className={style.searchContainer}>
-            <div className={style.search}>
-              <input
-                className={style.input}
-                onChange={(e) => setInputValue(e.target.value)}
-                type="text"
-                placeholder="  Search contrat....."
-                value={inputValue}
-              />
-              <FontAwesomeIcon
-                icon={faMagnifyingGlass}
-                className={style.icon}
-              />
-            </div>
+          <div className={style.search}>
+            <input
+              className={style.input}
+              onChange={(e) => setInputValue(e.target.value)}
+              type="text"
+              placeholder="  Search contrat....."
+              value={inputValue}
+            />
+            <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />
+            
           </div>
           {/* {/ div qui contiendra tout mes coponents contrat Card /} */}
           <div className={style.containerContratCard}>{infoContrat}</div>

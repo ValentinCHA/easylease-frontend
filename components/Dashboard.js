@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+import React from "react";
+import style from "../styles/Dashboard.module.css";
+import Navbar from "./Navbar";
+import Header from "./Header";
+=======
 import React, {useState, useEffect} from 'react';
 import styles from '../styles/Dashboard.module.css'
 import Navbar from './Navbar';
@@ -7,6 +13,7 @@ import { Doughnut } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 // import 'chart.js/dist/Chart.css';
 
+>>>>>>> 9068ccdef19bb80f577a65d6ca52cf50cc4a43c5
 
 function Dashboard() {
 
@@ -62,6 +69,19 @@ const dataCA = {
   console.log("OBJ marge", objMarge);
 
   return (
+<<<<<<< HEAD
+    <div className={style.maincontainer}>
+      <Navbar styleDashboard={{ backgroundColor: "#2A9C90" }} />
+      <Header name="Dashboard" />
+      <div className={style.container}>
+        <div className={style.graphic}>
+          <img
+            className={style.img}
+            src="/graphic.png"
+            alt="Graphique temporaire"
+          />
+        </div>
+=======
     <>
     <div className={styles.mainContainer}>
     <Navbar styleDashboard={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
@@ -87,6 +107,7 @@ const dataCA = {
           }
         }}
       />
+>>>>>>> 9068ccdef19bb80f577a65d6ca52cf50cc4a43c5
       </div>
       <div className={styles.graphic}>
       <Doughnut
@@ -119,8 +140,7 @@ const dataCA = {
       </div>
     </div>
     </div>
-    </>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

@@ -47,8 +47,13 @@ function AllClient() {
     <>
       {/* {/* navbar et header /} */}
       <div className={style.main}>
+<<<<<<< HEAD
+      <Navbar styleAllClients={{ backgroundColor: "#2A9C90" }}/>
+      <Header name ="Clients"/>
+=======
         <Navbar styleAllClients={{ backgroundColor: "rgba(0, 217, 255, 0.383)" }} />
         <Header name="Clients" />
+>>>>>>> 9068ccdef19bb80f577a65d6ca52cf50cc4a43c5
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}
           <div className={style.search}>
