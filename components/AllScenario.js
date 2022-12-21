@@ -27,7 +27,6 @@ function AllScenario() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-<<<<<<< HEAD
           console.log("data find", data);
           const scenario = data.userInfos.scenary.map((data, i) => {
             return {
@@ -44,10 +43,6 @@ function AllScenario() {
             };
           });
           setDataScenario(scenario);
-=======
-          console.log('data find',data)
-          setDataScenario(data.userInfos.scenary)
->>>>>>> 9068ccdef19bb80f577a65d6ca52cf50cc4a43c5
         }
       });
   }, []);

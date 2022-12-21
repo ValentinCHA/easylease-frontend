@@ -21,10 +21,6 @@ function AllContrat() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-<<<<<<< HEAD
-          console.log("dataaaaa", data);
-=======
->>>>>>> 9068ccdef19bb80f577a65d6ca52cf50cc4a43c5
           setDataContrat(data.userInfos.contrats);
         }
       });

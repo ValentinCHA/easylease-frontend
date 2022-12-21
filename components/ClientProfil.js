@@ -30,53 +30,6 @@ function ClientProfil() {
   // ajouter document******
   // modifier le modele du client en ajoutant un link comme dans le modele contrat
 
-<<<<<<< HEAD
-  const handleModal = () => {
-    setaddDocModal(false);
-  };
-  return (
-    <>
-      <div className={style.mainContainer}>
-        <Navbar />
-        <Header name="Profil Client"/>
-        <div className={style.container}>
-          <div className={style.GridParent}>
-            <div className={style.GridContent}>
-              <div className={style.Infosclient}>
-                <h2>Informations client : </h2>
-                <ul>
-                  <li>Nom entreprise : {router.query.name}</li>
-                  <li>Client depuis le : {router.query.clientBirth}</li>
-                  <li>Adresse : {router.query.address}</li>
-                  <li>
-                    Nombre de salariés : {router.query.numberOfEmployees}{" "}
-                  </li>
-                  <li>Chiffre d'affaires : {router.query.chiffre} </li>
-                  <li>Interlocuteur : {router.query.interlocutor} </li>
-                </ul>
-                <button
-                  className={style.buttonmodifier}
-                  onClick={() => setaddDocModal(true)}
-                >
-                  Modifier
-                </button>
-                <button
-                  className={style.buttonsupprimer}
-                  onClick={() => SupprimClient()}
-                >
-                  Supprimer
-                </button>
-              </div>
-              <div className={style.docsContainer}>
-                <h3>Documents joints : </h3>
-                <button
-                  className={style.buttonModal}
-                  onClick={() => modifClient()}
-                >
-                  Ajouter un document
-                </button>
-              </div>
-=======
 
 
     // function handleSubmit(params) {
@@ -152,12 +105,7 @@ function ClientProfil() {
                         </div>
                     </div>
                 </div>
->>>>>>> 9068ccdef19bb80f577a65d6ca52cf50cc4a43c5
             </div>
-            <div className={style.ButtonContainer}></div>
-          </div>
-        </div>
-      </div>
       <Modal onCancel={() => handleModal()} open={addDocModal} footer={null}>
         <form>
           <div className="modal-modifier">

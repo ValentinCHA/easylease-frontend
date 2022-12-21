@@ -4,6 +4,8 @@ import Navbar from './Navbar';
 import Header from './Header';
 
 import { Doughnut } from 'react-chartjs-2';
+import Chart from 'chart.js/auto';
+// import 'chart.js/dist/Chart.css';
 
 
 function Dashboard() {
@@ -60,6 +62,7 @@ const dataCA = {
   console.log("OBJ marge", objMarge);
 
   return (
+    <>
     <div className={styles.mainContainer}>
     <Navbar styleDashboard={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
     <Header name ="Dashboard"/>
@@ -116,6 +119,7 @@ const dataCA = {
       </div>
     </div>
     </div>
+    </>
   );
 }
 

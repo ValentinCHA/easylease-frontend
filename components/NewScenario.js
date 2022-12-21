@@ -25,7 +25,7 @@ const dataGraphique = {
     },
     {
       label: 'Ligne horizontale',
-      data: [80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000],
+      data: [20000, 20000, 20000, 20000, 20000, 20000, 20000, 20000, 20000, 20000, 20000, 20000, 20000, 20000, 20000],
       borderColor: 'green',
       borderWidth: 2,
       pointRadius: 0,
@@ -579,14 +579,7 @@ let header;
               )}
             </div>
             <div className={style.graphic}>
-                 {/* <Line data={dataGraphique} options={optionsGraphique} /> */}
-
-
-
-
-
-
-                 
+                 <Line data={dataGraphique} options={optionsGraphique} />
             </div>
             <div className={style.buttonBottom}>
               <button
