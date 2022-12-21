@@ -9,18 +9,36 @@ import Header from "./Header";
 import { useRouter } from "next/router";
 
 function Contrat() {
-
   const router = useRouter();
 
   const BACKEND_ADDRESS = "http://localhost:3000";
   const ContratReducer = useSelector((state) => state.contrat.value);
   const [dataInterlocutor, setDataInterlocutor] = useState([]);
 
+  const [typeContrat, setTypeContrat] = useState(`${ContratReducer.type}`);
+  const [montantContrat, setMontantContrat] = useState(
+    `${ContratReducer.amount}`
+  );
+  const [margeContrat, setMargeContrat] = useState(`${ContratReducer.marge}`);
+  const [dureeContrat, setDureeContrat] = useState(
+    `${ContratReducer.duration}`
+  );
+  const [startContrat, setStartContrat] = useState(
+    `${ContratReducer.contratStart.substring(0, 10)}`
+  );
+
+  // toISOString().substring(0, 10);
+  const [endContrat, setEndContrat] = useState(
+    `${ContratReducer.contratEnd.substring(0, 10)}`
+  );
+  const [vrContrat, setVrContrat] = useState(`${ContratReducer.residualValue}`);
+
   const [interlocName, setInterlocName] = useState("");
   const [phoneNumber, setPhoneNumer] = useState("");
   const [interlocFirstName, setInterlocFirstname] = useState("");
   const [interlocMail, setInterlocMail] = useState("");
   const [interlocJob, setInterlocJob] = useState("");
+  const [showModalContrat, setShowModalContrat] = useState(false);
   const [showModalInterlocutor, setShowModalInterlocutor] = useState(false);
   const [modalModifierSuccess, setModalModifierSuccess] = useState(false);
   const [modalModifierFailed, setModalModifierFailed] = useState(false);
@@ -35,7 +53,6 @@ function Contrat() {
     fetch(`${BACKEND_ADDRESS}/contrat/contrat/${ContratReducer._id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("comment sonnt les données", data);
         setDataInterlocutor([data.contrat.interlocutor]);
       });
   }, [refresh]);
@@ -47,9 +64,7 @@ function Contrat() {
     const contratEndFormattedDate = contratEnd.toLocaleDateString();
     return (
       <div className={style.data} key={i}>
-        <span className={style.texte}>
-          Type d'équipements financés : {item.type}
-        </span>
+        <span className={style.texte}>Type d'équipements : {item.type}</span>
         <span className={style.texte}>Montant financé : {item.amount} €</span>
         <span className={style.texte}>Marge : {item.marge} %</span>
         <span className={style.texte}>
@@ -80,13 +95,40 @@ function Contrat() {
     );
   });
 
+  const saveContrat = async () => {
+    const response = await fetch(
+      `${BACKEND_ADDRESS}/contrat/updateContrat/${ContratReducer._id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: typeContrat,
+          amount: montantContrat,
+          marge: margeContrat,
+          duration: dureeContrat,
+          contratStart: startContrat,
+          contratEnd: endContrat,
+          residualValue: vrContrat,
+        }),
+      }
+    );
+    const data = await response.json();
+    if (data.result) {
+      console.log("ROUTE PUT CONTRAT =>", data.contrat);
+      setShowModalContrat(false);
+      setRefresh(!refresh);
+    } else {
+      console.log("FAILED ROUTE PUT CONTRAT");
+    }
+  };
+  console.log("id reduceur contrat", ContratReducer._id);
   const saveInterlocutor = async () => {
-    // POST DB CLIENT AJOUT D'UN NOUVEL INTERLOCUTEUR => Ce fetch ajoute directement un interlocuteur à la DB Interlocuteur
-    const clientID = [new ObjectId(ContratReducer.client)];
+    // PUT DB CLIENT AJOUT D'UN NOUVEL INTERLOCUTEUR => Ce fetch ajoute directement un interlocuteur à la DB Interlocuteur
+    // const clientID = [new ObjectId(ContratReducer.client)];
     const response1 = await fetch(
       `${BACKEND_ADDRESS}/contrat/addInterlocutor/${ContratReducer._id}`,
       {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: interlocName,
@@ -94,18 +136,13 @@ function Contrat() {
           poste: interlocJob,
           phone: phoneNumber,
           email: interlocMail,
-          client: clientID,
+          client: ContratReducer.client,
         }),
       }
     );
     const data1 = await response1.json();
     if (data1.result) {
-      console.log(
-        "RESULTAT DE LA ROUTE POST (ADD DB CLIENT/INTERLOC + MODIFS CONTRAT) =>",
-        data1.data.interlocutor
-      );
-      // setDataInterlocutor([data1.data.interlocutor]);
-
+      console.log("ROUTE PUT INTERLOC =>", data1.data.interlocutor);
       setInterlocName("");
       setPhoneNumer("");
       setInterlocFirstname("");
@@ -114,57 +151,33 @@ function Contrat() {
       setShowModalInterlocutor(false);
       setRefresh(!refresh);
     } else {
-      console.log("FAILED ROUTE POST");
+      console.log("FAILED ROUTE PUT");
     }
-
-    // PUT DB CONTRAT AVEC MAJ DE L'INTERLOCUTEUR
-    //   const newInterlocuteur = dataInterlocutor[0]._id;
-    //   const interlocFormated = [new ObjectId(newInterlocuteur)];
-    //   const response2 = await fetch(
-    //     `${BACKEND_ADDRESS}/contrat/updateInterlocutor/${ContratReducer._id}`,
-    //     {
-    //       method: "PUT",
-    //       headers: { "Content-Type": "application/json" },
-    //       body: JSON.stringify({
-    //         interlocutor: dataInterlocutor[0]._id,
-    //       }),
-    //     }
-    //   );
-    //   const data2 = await response2.json();
-    //   if (data2.result) {
-    //     console.log("PUT DB CONTRAT AVEC MAJ DE L'INTERLOCUTEUR =>", data2);
-    //     setInterlocName("");
-    //     setPhoneNumer("");
-    //     setInterlocFirstname("");
-    //     setInterlocMail("");
-    //     setInterlocJob("");
-    //     setShowModalInterlocutor(false);
-    //   } else {
-    //     console.log(
-    //       "FAILED PUT DB CONTRAT AVEC MAJ DE L'INTERLOCUTEUR =>",
-    //       data2
-    //     );
-    //   }
   };
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  const handleSubmit = () => {
-    // requete POST qui doit enregistrer le PDF dans la DB du contrat du client
-    // fetch(`${BACKEND_ADDRESS}/`, {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ document: document }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     data.result;
-    //   });
+  const handleSubmit = async () => {
+    // requete PUT qui enregistre le PDF dans la DB du contrat du client
+    const response = await fetch(
+      `${BACKEND_ADDRESS}/contrat/updateLink/${ContratReducer._id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          links: inputValue,
+        }),
+      }
+    );
+    const data = await response.json();
+    if (data.result) {
+      console.log("ROUTE PUT LINK =>", data.contrat);
+    } else {
+      console.log("FAILED ROUTE PUT LINK");
+    }
   };
-
-  const handleModify = () => {};
 
   const handleDelete = async () => {
     const response = await fetch(
@@ -176,16 +189,17 @@ function Contrat() {
     const data = await response.json();
     if (data.result) {
       console.log("DELETE DB CONTRAT =>", data);
-      router.push('/allContrat')
+      router.push("/allContrat");
     } else {
       console.log("FAILED DELETE DB CONTRAT =>", data);
     }
   };
 
   const handleCloseModal = () => {
-    setShowModalDoc(false);
+    setShowModalContrat(false);
     setShowModalInterlocutor(false);
     setModalModifierFailed(false);
+    setShowModalDoc(false);
     setModalModifierSuccess(false);
   };
 
@@ -202,9 +216,19 @@ function Contrat() {
               </span>
               <div className={style.contenuBoxData}>{contratData}</div>
             </div>
+            <div className={style.boxData + " " + style.boxData3}>
+              <div className={style.contenuBoxData}>
+                <button
+                  className={style.button}
+                  onClick={() => setShowModalContrat(true)}
+                >
+                  Modifier le contrat
+                </button>
+              </div>
+            </div>
             <div className={style.boxData + " " + style.boxData}>
               <span className={style.titreBoxData}>
-                Interlocutor du contrat :
+                Interlocuteur du contrat :
               </span>
               <div className={style.contenuBoxData}>{interlocutorData}</div>
             </div>
@@ -220,21 +244,10 @@ function Contrat() {
             </div>
           </div>
           <div className={style.SousContainerRight}>
-            <div className={style.boxData + " " + style.boxData4}>
-              <div className={style.contenuBoxData}>
-                <div>
-                  <button
-                    onClick={() => setShowModalDoc(true)}
-                    className={style.button}
-                  >
-                    Ajouter un document
-                  </button>
-                </div>
-              </div>
+            <div className={style.boxData + " " + style.boxData}>
+              <span className={style.titreBoxData}>Documents joints :</span>
             </div>
-
             <div className={style.boxData + " " + style.boxData5}>
-              <span className={style.titreBoxData}>Documents joints : </span>
               <div className={style.contenuBoxData}>
                 <img
                   src="/faux-contrat.webp"
@@ -252,17 +265,132 @@ function Contrat() {
               /> */}
             </div>
 
+            <div className={style.boxData + " " + style.boxData4}>
+              <div className={style.contenuBoxData}>
+                <div>
+                  <button
+                    onClick={() => setShowModalDoc(true)}
+                    className={style.button}
+                  >
+                    Ajouter un document
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <div className={style.boxData + " " + style.boxData6}>
               <div className={style.contenuBoxData}>
-                <button className={style.button} onClick={() => handleModify()}>
-                  Modifier
-                </button>
                 <button className={style.button} onClick={() => handleDelete()}>
-                  Supprimer
+                  Supprimer le contrat
                 </button>
               </div>
             </div>
           </div>
+          <Modal
+            onCancel={() => handleCloseModal()}
+            open={showModalContrat}
+            footer={null}
+          >
+            <span>Modifications contrat : </span>
+            <div className={style.newContratContainer}>
+              <br />
+              <div className={style.InputNewContratContainer}>
+                <div>
+                  <div className={style.InputContrat}>
+                    <p className={style.titreInput}>Type d'équipement :</p>
+                    <input
+                      className={style}
+                      placeholder="Type d'équipement"
+                      type="text"
+                      onChange={(e) => setTypeContrat(e.target.value)}
+                      value={typeContrat}
+                    ></input>
+                  </div>
+
+                  <br />
+                  <div className={style.InputContrat}>
+                    <p className={style.titreInput}>Montant :</p>
+                    <input
+                      className={style}
+                      placeholder="Montant"
+                      type="text"
+                      onChange={(e) => setMontantContrat(e.target.value)}
+                      value={montantContrat}
+                    ></input>
+                  </div>
+
+                  <br />
+                  <div className={style.InputContrat}>
+                    <p className={style.titreInput}>Marge :</p>
+                    <input
+                      className={style}
+                      placeholder="Marge"
+                      type="text"
+                      onChange={(e) => setMargeContrat(e.target.value)}
+                      value={margeContrat}
+                    ></input>
+                  </div>
+
+                  <br />
+                  <div className={style.InputContrat}>
+                    <p className={style.titreInput}>Durée du contrat :</p>
+                    <input
+                      className={style}
+                      placeholder="Durée du contrat"
+                      type="text"
+                      onChange={(e) => setDureeContrat(e.target.value)}
+                      value={dureeContrat}
+                    ></input>
+                  </div>
+
+                  <br />
+                  <div className={style.InputContrat}>
+                    <p className={style.titreInput}>Date de démarrage :</p>
+                    <input
+                      className={style}
+                      placeholder="Date de démarrage"
+                      type="date"
+                      onChange={(e) => setStartContrat(e.target.value)}
+                      value={startContrat}
+                    ></input>
+                  </div>
+
+                  <br />
+                  <div className={style.InputContrat}>
+                    <p className={style.titreInput}>Date de fin :</p>
+                    <input
+                      className={style}
+                      placeholder="Date de fin"
+                      type="date"
+                      onChange={(e) => setEndContrat(e.target.value)}
+                      value={endContrat}
+                    ></input>
+                  </div>
+
+                  <br />
+                  <div className={style.InputContrat}>
+                    <p className={style.titreInput}>Valeur residuelle :</p>
+                    <input
+                      className={style}
+                      placeholder="Valeur residuelle"
+                      type="text"
+                      onChange={(e) => setVrContrat(e.target.value)}
+                      value={vrContrat}
+                    ></input>
+                  </div>
+                </div>
+                <br />
+                <div>
+                  <button
+                    className={style.button}
+                    onClick={() => saveContrat()}
+                  >
+                    Enregistrer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Modal>
           <Modal
             onCancel={() => handleCloseModal()}
             open={showModalInterlocutor}
@@ -381,13 +509,3 @@ function Contrat() {
 }
 
 export default Contrat;
-
-// Plan d'action pour Nico :
-// Bouton modifier l'interloc
-// - fait :  POST Interloc pour ajout d'un new interloc en db
-// à faire : PUT Contrat pour modifier interloc contrat
-// à faire : POST Client pour ajouter interlocutor
-
-// - route PUT Contrat pour le modifier
-// - route DELETE Contrat pour supprimer le contrat
-// - route PUT Contrat pour mette à jour le link
