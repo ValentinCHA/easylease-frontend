@@ -65,6 +65,9 @@ justify-content: center;
   color: #326E9C;
 }
 
+.newInterlocutorContainer input {
+  margin: 5px;
+}
 
 .formContainer {
   display: flex;
