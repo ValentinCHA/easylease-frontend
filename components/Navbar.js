@@ -15,6 +15,7 @@ import { faGear } from '@fortawesome/free-solid-svg-icons';
 import {faFileInvoiceDollar} from '@fortawesome/free-solid-svg-icons';
 import {faHistory} from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUserTag } from '@fortawesome/free-solid-svg-icons';
 //import {use router} qui permet de changer de router 
 import {useRouter} from 'next/router'
 //import dispatch qui permet de d'activer les fonctions de mon reducer
@@ -69,6 +70,7 @@ function Navbar(props) {
                     </div>
             </div>
             {/* toutes mes icons qui vont permettre de naviguer de page en page */}
+            <div className={style.spaceDiv}>
             <div className={style.navigationPage}>
                 {/* espace entre chaque box */}
                 <div className={style.BoxSpan} style={props.styleDashboard} onClick={()=>navDashboard()} >
@@ -78,21 +80,22 @@ function Navbar(props) {
                     <span className={style.textStyle}><FontAwesomeIcon icon={faHistory} className={style.spaceIconSpan} />Scénarios</span>
                 </div>
                 <div className={style.BoxSpan} style={props.styleAllClients} onClick={()=>navClient()}>
-                    <span className={style.textStyle}><FontAwesomeIcon icon={faEnvelope} className={style.spaceIconSpan} />Clients</span>
+                    <span className={style.textStyle}><FontAwesomeIcon icon={faUserTag} className={style.spaceIconSpan} />Clients</span>
                 </div>
                 <div className={style.BoxSpan} style={props.styleAllContrats} onClick={()=>navContrat()} >
                     <span className={style.textStyle}><FontAwesomeIcon icon={faFileInvoiceDollar} className={style.spaceIconSpan} />Contrats</span>
                 </div>
-            </div>
-            {/* taille de ma 2e navBar */}
-            <div className={style.secondNav}>
                 <div className={style.BoxSpan} style={props.styleSettings} onClick={()=>navSettings()}>
                     <span><FontAwesomeIcon icon={faGear} className={style.spaceIconSpan} />Settings</span>
                 </div>
+            </div>
+            {/* taille de ma 2e navBar */}
+            <div className={style.secondNav}>
                 <div className={style.BoxSpan}>
                     <span onClick={()=>handleLogout()} className={style.boxSpan} ><FontAwesomeIcon icon={faSignOutAlt} className={style.spaceIconSpan} />Logout</span>
                 </div>
             </div>
+        </div>
       </div>
     </div>
   )
