@@ -32,7 +32,7 @@
   align-items: center;
   height: 100%;
   width: 100%;
-justify-content: center;
+  justify-content: center;
   padding: 20px;
   background-color: #fff;
 }
@@ -257,4 +257,14 @@ justify-content: center;
   font-size: 16px;
   font-family: 'Roboto', sans-serif; /* Remplacer la police de caractères par une police plus futuriste */
   margin-bottom: 8px;
+}
+
+.containerBtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 81.4vw;
+  margin-bottom: 20px;
+  background: white;
 }
