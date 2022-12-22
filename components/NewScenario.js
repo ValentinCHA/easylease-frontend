@@ -8,6 +8,9 @@ import { addId } from '../reducers/scenario';
 import Header from './Header';
 import { Line } from 'react-chartjs-2';
 import { removeId } from "../reducers/scenario";
+import {CategoryScale, LinearScale, ArcElement, PointElement, LineElement} from 'chart.js'; 
+import { Chart } from 'chart.js';
+Chart.register(CategoryScale, LinearScale, ArcElement, PointElement, LineElement); 
 
 const dataGraphique = {
   labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre', 'Janvier', 'Février', 'Mars'],
@@ -143,11 +146,11 @@ function NewScenario() {
 
   useEffect(() => {
     if (!idScenario._id) {
-      fetch(`${BACKEND_ADDRESS}/client/allClients`)
+      fetch(`${BACKEND_ADDRESS}/client/test/${user.token}`)
       .then(response => response.json())
       .then(data => {
         //console.log("Liste des clients", data.clients);
-        setClientList(data.clients)
+        setClientList(data.clientsInfos.clients)
       })
     }
     if (idScenario._id) {
@@ -581,7 +584,7 @@ let header;
               )}
             </div>
             <div className={style.graphic}>
-                 <Line data={dataGraphique} options={optionsGraphique} />
+                {dataGraphique && <Line data={dataGraphique} options={optionsGraphique} />}
             </div>
             <div className={style.buttonBottom}>
               <button

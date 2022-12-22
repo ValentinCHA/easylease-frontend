@@ -42,6 +42,7 @@ function Contrat() {
   console.log("ContratReducer", ContratReducer);
   console.log("dataContrat", dataContrat);
   console.log("dataInterlocutor", dataInterlocutor);
+  console.log("LINKS =>", dataContrat.links);
 
   useEffect(() => {
     fetch(`${BACKEND_ADDRESS}/contrat/contrat/${ContratReducer._id}`)
@@ -181,8 +182,10 @@ function Contrat() {
   };
 
   const handleSubmit = async (event) => {
+    console.log("RENTRE DANS LE SUBMIT IMAGE");
     // Envoi du fichier à Cloudinary
     const fichier = inputRef.current.files[0];
+    console.log("FICHIER =>", fichier);
     const formData = new FormData();
     formData.append("photoFromFront", fichier);
     const res = await fetch(`${BACKEND_ADDRESS}/cloudinary/upload`, {
@@ -269,7 +272,7 @@ function Contrat() {
             </div>
             <div className={style.boxData + " " + style.boxData6}>
               <div className={style.contenuBoxData}>
-                <img src={dataContrat.links} width="100%" height="100%" />
+               {dataContrat.links !== "TEST" && <img src={dataContrat.links} width="100%" height="100%" />}
               </div>
             </div>
 
