@@ -47,6 +47,10 @@ function ContratCard(props) {
         >
           {/* {props.creationDate.substring(0, 10)} */}
         </span>
+        <span style={{fontSize:23, color:'rgb(51,78,110)',fontSize:'1.0em'}}>
+          ...
+          </span>
+
       </div>
     </div>
   );
