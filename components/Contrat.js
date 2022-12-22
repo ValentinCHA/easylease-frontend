@@ -13,59 +13,65 @@ function Contrat() {
 
   const BACKEND_ADDRESS = "http://localhost:3000";
   const ContratReducer = useSelector((state) => state.contrat.value);
+  const [dataContrat, setDataContrat] = useState([]);
   const [dataInterlocutor, setDataInterlocutor] = useState([]);
 
-  const [typeContrat, setTypeContrat] = useState(`${ContratReducer.type}`);
-  const [montantContrat, setMontantContrat] = useState(
-    `${ContratReducer.amount}`
-  );
-  const [margeContrat, setMargeContrat] = useState(`${ContratReducer.marge}`);
-  const [dureeContrat, setDureeContrat] = useState(
-    `${ContratReducer.duration}`
-  );
-  const [startContrat, setStartContrat] = useState(
-    `${ContratReducer.contratStart.substring(0, 10)}`
-  );
-
-  // toISOString().substring(0, 10);
-  const [endContrat, setEndContrat] = useState(
-    `${ContratReducer.contratEnd.substring(0, 10)}`
-  );
-  const [vrContrat, setVrContrat] = useState(`${ContratReducer.residualValue}`);
+  const [typeContrat, setTypeContrat] = useState("");
+  const [montantContrat, setMontantContrat] = useState("");
+  const [margeContrat, setMargeContrat] = useState("");
+  const [dureeContrat, setDureeContrat] = useState("");
+  const [startContrat, setStartContrat] = useState("");
+  const [endContrat, setEndContrat] = useState("");
+  const [vrContrat, setVrContrat] = useState("");
 
   const [interlocName, setInterlocName] = useState("");
-  const [phoneNumber, setPhoneNumer] = useState("");
   const [interlocFirstName, setInterlocFirstname] = useState("");
-  const [interlocMail, setInterlocMail] = useState("");
   const [interlocJob, setInterlocJob] = useState("");
+  const [phoneNumber, setPhoneNumer] = useState("");
+  const [interlocMail, setInterlocMail] = useState("");
+
   const [showModalContrat, setShowModalContrat] = useState(false);
   const [showModalInterlocutor, setShowModalInterlocutor] = useState(false);
   const [modalModifierSuccess, setModalModifierSuccess] = useState(false);
   const [modalModifierFailed, setModalModifierFailed] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  const inputRef = useRef(null);
   const [showModalDoc, setShowModalDoc] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [modalDeleteContrat, setModalDeleteContrat] = useState(false);
 
   console.log("ContratReducer", ContratReducer);
+  console.log("dataContrat", dataContrat);
   console.log("dataInterlocutor", dataInterlocutor);
 
   useEffect(() => {
     fetch(`${BACKEND_ADDRESS}/contrat/contrat/${ContratReducer._id}`)
       .then((res) => res.json())
       .then((data) => {
+        setDataContrat(data.contrat);
+        setTypeContrat(data.contrat.type);
+        setMontantContrat(data.contrat.amount);
+        setMargeContrat(data.contrat.marge);
+        setDureeContrat(data.contrat.duration);
+        setStartContrat(data.contrat.contratStart);
+        setEndContrat(data.contrat.contratEnd);
+        setVrContrat(data.contrat.residualValue);
         setDataInterlocutor([data.contrat.interlocutor]);
+        setInterlocName(data.contrat.interlocutor.name);
+        setInterlocFirstname(data.contrat.interlocutor.firstname);
+        setInterlocJob(data.contrat.interlocutor.poste);
+        setPhoneNumer(data.contrat.interlocutor.phone);
+        setInterlocMail(data.contrat.interlocutor.email);
       });
   }, [refresh]);
 
-  const contratData = [ContratReducer].map((item, i) => {
+  const contratData = [dataContrat].map((item, i) => {
     const contratStart = new Date(item.contratStart);
     const contratStartFormattedDate = contratStart.toLocaleDateString();
     const contratEnd = new Date(item.contratEnd);
     const contratEndFormattedDate = contratEnd.toLocaleDateString();
     return (
       <div className={style.data} key={i}>
-        <span className={style.texte}>Nom du client : {item.client.name}</span>
+        <span className={style.texte}>Nom du client : {item.client?.name}</span>
         <span className={style.texte}>Type d'équipements : {item.type}</span>
         <span className={style.texte}>Montant financé : {item.amount} €</span>
         <span className={style.texte}>Marge : {item.marge} %</span>
@@ -99,7 +105,7 @@ function Contrat() {
 
   const saveContrat = async () => {
     const response = await fetch(
-      `${BACKEND_ADDRESS}/contrat/updateContrat/${ContratReducer._id}`,
+      `${BACKEND_ADDRESS}/contrat/updateContrat/${dataContrat._id}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -114,6 +120,7 @@ function Contrat() {
         }),
       }
     );
+
     const data = await response.json();
     if (data.result) {
       console.log("ROUTE PUT CONTRAT =>", data.contrat);
@@ -125,9 +132,9 @@ function Contrat() {
   };
   const saveInterlocutor = async () => {
     // PUT DB CLIENT AJOUT D'UN NOUVEL INTERLOCUTEUR => Ce fetch ajoute directement un interlocuteur à la DB Interlocuteur
-    // const clientID = [new ObjectId(ContratReducer.client)];
+    // const clientID = [new ObjectId(dataContrat.client)];
     const response1 = await fetch(
-      `${BACKEND_ADDRESS}/contrat/addInterlocutor/${ContratReducer._id}`,
+      `${BACKEND_ADDRESS}/contrat/addInterlocutor/${dataContrat._id}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -137,7 +144,7 @@ function Contrat() {
           poste: interlocJob,
           phone: phoneNumber,
           email: interlocMail,
-          client: ContratReducer.client,
+          client: dataContrat.client,
         }),
       }
     );
@@ -156,79 +163,25 @@ function Contrat() {
     }
   };
 
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
-  };
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   // Create FormData object
-  //   const formData = new FormData();
-  //   // Add the file to the form data
-  //   formData.append("file", inputValue);
-
-  //   try {
-  //     // Send the POST request to the server to upload the file to Cloudinary
-  //     const response = await fetch(`${BACKEND_ADDRESS}/cloudinary/upload`, {
-  //       method: "POST",
-  //       body: formData,
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     });
-
-  //     console.log(response);
-  //     // Update the link field in the database
-  //     const updateResponse = await fetch(
-  //       `${BACKEND_ADDRESS}/contrat/updateLink/${ContratReducer._id}`,
-  //       {
-  //         method: "PUT",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify({
-  //           links: response.secure_url,
-  //         }),
-  //       }
-  //     );
-
-  //     const data = await updateResponse.json();
-  //     if (data.result) {
-  //       console.log("ROUTE PUT LINK =>", data.contrat);
-  //     } else {
-  //       console.log("FAILED ROUTE PUT LINK");
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  const NICO_UPPLOAD = "your_upload_preset";
-  const NICO_CLOUD_NAME = "dhzujvrdr";
-
   const handleSubmit = async (event) => {
-    // event.preventDefault();
-
     // Envoi du fichier à Cloudinary
+    const fichier = inputRef.current.files[0];
     const formData = new FormData();
-    formData.append("file", inputValue);
-    formData.append("upload_preset", NICO_UPPLOAD);
-    formData.append("cloud_name", NICO_CLOUD_NAME);
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/dhzujvrdr/upload",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    formData.append("photoFromFront", fichier);
+    const res = await fetch(`${BACKEND_ADDRESS}/cloudinary/upload`, {
+      method: "POST",
+      body: formData,
+    });
     const file = await res.json();
     console.log(file);
 
     // Mise à jour du lien dans la base de données
     const data = {
-      links: file.secure_url,
+      links: file.url,
     };
+
     const response = await fetch(
-      `${BACKEND_ADDRESS}/contrat/updateLink/${ContratReducer._id}`,
+      `${BACKEND_ADDRESS}/contrat/updateLink/${dataContrat._id}`,
       {
         method: "PUT",
         headers: {
@@ -241,14 +194,13 @@ function Contrat() {
     console.log(updatedContrat);
 
     // Mise à jour de l'état du composant
-    // setRefresh(!refresh);
+    setRefresh(!refresh);
     setShowModalDoc(false);
-    setInputValue("");
   };
 
   const handleDelete = async () => {
     const response = await fetch(
-      `${BACKEND_ADDRESS}/contrat/${ContratReducer._id}`,
+      `${BACKEND_ADDRESS}/contrat/${dataContrat._id}`,
       {
         method: "DELETE",
       }
@@ -275,7 +227,7 @@ function Contrat() {
     <>
       <div className={style.mainContent}>
         <Navbar />
-        <Header name={`${ContratReducer.name}`} />
+        <Header name={`${dataContrat.name}`} />
         <div className={style.container}>
           <div className={style.SousContainerLeft}>
             <div className={style.boxData + " " + style.boxData1}>
@@ -317,7 +269,7 @@ function Contrat() {
             </div>
             <div className={style.boxData + " " + style.boxData6}>
               <div className={style.contenuBoxData}>
-                <iframe src={ContratReducer.link} width="100%" height="100%" />
+                <img src={dataContrat.links} width="100%" height="100%" />
               </div>
             </div>
 
@@ -523,14 +475,16 @@ function Contrat() {
                 >
                   Sélectionner un document
                 </label>
-                {inputValue}
+                {/* {inputValue} */}
+                {/* {inputRef} */}
                 <br />
                 <input
                   className={style.fileUpload}
                   type="file"
                   id="filePicker"
-                  onChange={handleChange}
-                  value={inputValue}
+                  // onChange={handleChange}
+                  // value={inputValue}
+                  ref={inputRef}
                 />
                 <br />
                 <button
