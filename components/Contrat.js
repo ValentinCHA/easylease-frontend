@@ -87,6 +87,14 @@ function Contrat() {
         <span className={style.texte}>
           Valeur résiduelle : {item.residualValue} %
         </span>
+        <div className={style.contenuBoxData}>
+          <button
+            className={style.button}
+            onClick={() => setShowModalContrat(true)}
+          >
+            Modifier le contrat
+          </button>
+        </div>
       </div>
     );
   });
@@ -99,6 +107,15 @@ function Contrat() {
         <span className={style.texte}>Poste : {item.poste}</span>
         <span className={style.texte}>Téléphone : {item.phone}</span>
         <span className={style.texte}>Mail : {item.email}</span>
+
+        <div className={style.contenuBoxData}>
+          <button
+            className={style.button}
+            onClick={() => setShowModalInterlocutor(true)}
+          >
+            Modifier l'interlocuteur
+          </button>
+        </div>
       </div>
     );
   });
@@ -237,30 +254,13 @@ function Contrat() {
               <div className={style.contenuBoxData}>{contratData}</div>
             </div>
             <div className={style.boxData + " " + style.boxData2}>
-              <div className={style.contenuBoxData}>
-                <button
-                  className={style.button}
-                  onClick={() => setShowModalContrat(true)}
-                >
-                  Modifier le contrat
-                </button>
-              </div>
+              <div className={style.contenuBoxData}></div>
             </div>
             <div className={style.boxData + " " + style.boxData3}>
               <span className={style.titreBoxData}>
                 Interlocuteur du contrat :
               </span>
               <div className={style.contenuBoxData}>{interlocutorData}</div>
-            </div>
-            <div className={style.boxData + " " + style.boxData4}>
-              <div className={style.contenuBoxData}>
-                <button
-                  className={style.button}
-                  onClick={() => setShowModalInterlocutor(true)}
-                >
-                  Modifier l'interlocutor
-                </button>
-              </div>
             </div>
           </div>
           <div className={style.SousContainerRight}>
