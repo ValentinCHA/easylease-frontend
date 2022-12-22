@@ -173,7 +173,7 @@ function Contrat() {
       body: formData,
     });
     const file = await res.json();
-    console.log(file);
+    console.log("JE SUIS LE FICHIER", file);
 
     // Mise à jour du lien dans la base de données
     const data = {
