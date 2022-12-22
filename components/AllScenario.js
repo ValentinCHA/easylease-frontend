@@ -60,7 +60,7 @@ function AllScenario() {
               className={style.input}
               onChange={(e) => setInputValue(e.target.value)}
               type="text"
-              placeholder="  Search scenario....."
+              placeholder="  Chercher un scenario....."
               value={inputValue}
             />
             <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />

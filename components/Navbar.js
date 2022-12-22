@@ -86,7 +86,7 @@ function Navbar(props) {
                     <span className={style.textStyle}><FontAwesomeIcon icon={faUserTag} className={style.spaceIconSpan} />Clients</span>
                 </div>
                 <div className={style.BoxSpan} style={props.styleSettings} onClick={()=>navSettings()}>
-                    <span><FontAwesomeIcon icon={faGear} className={style.spaceIconSpan} />Settings</span>
+                    <span><FontAwesomeIcon icon={faGear} className={style.spaceIconSpan} />Options</span>
                 </div>
             </div>
             {/* taille de ma 2e navBar */}

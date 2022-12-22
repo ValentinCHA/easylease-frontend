@@ -53,7 +53,7 @@ function AllContrat() {
               className={style.input}
               onChange={(e) => setInputValue(e.target.value)}
               type="text"
-              placeholder="  Search contrat....."
+              placeholder="  Chercher un contrat....."
               value={inputValue}
             />
             <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />
