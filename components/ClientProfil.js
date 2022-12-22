@@ -126,10 +126,16 @@ function ClientProfil() {
         setaddDocModal(false);
 
     };
+console.log("inter",interlocutor)
 
-    const interlocutorData = interlocutor.map((data, i) => (
-        <li key={i}>Interlocuteur : {data.name}</li>
+let interlocutorData 
+
+if(interlocutor){
+    interlocutorData = interlocutor.map((data, i) => (
+        <li key={i}>Interlocuteur {i+1} : Nom: {data.name} / Email: {data.email} </li>
+    
       ));
+    }
 
     return (
         <>
@@ -149,10 +155,8 @@ function ClientProfil() {
                                     <li>Adresse : {address} </li>
                                     <li>Nombre de salariés : {numberOfEmployees} </li>
                                     <li>Chiffre d'affaires : {chiffre} </li>
-                                    {interlocutorData.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-                                    
+                                    {interlocutorData}
+                
                                 </ul>
                             </div>
                             <div className={style.docsContainer}>
