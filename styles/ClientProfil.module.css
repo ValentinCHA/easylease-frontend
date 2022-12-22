@@ -71,42 +71,52 @@
 
 .buttoncontainer{
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
 
 }
 .buttoncontainer > button {
-  cursor: pointer;
-  width: 25%;
-  height: 3.25rem;
-  background: #3A3E9C;
-  border: solid 1px white;
+  padding: 1.3% 3%;
+  gap: 10px;
+  width: 100px;
+  background: #2A9C90;
+  border-radius: 5px;
+  border: none;
   color: white;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  transition-timing-function: linear;
+  height:50px;
   font-size: 16px;
-  font-weight:normal;
-  transition: 500ms;
-  margin: 10px;
-}
-.Infosclient > button:hover {
-  color: #635cff;
-  background: white;
-  transition: all 0.3s ease-in-out;
-  border: 0.1rem solid #635cff;
 }
 
+.buttoncontainer > button:hover,
+.buttoncontainer > button:focus {
+  background-color: #2980b9;
+  color: white;
+}
+
+.button:active {
+  background-color: #3498db;
+}
 .buttonModal{
-  background-color: #FFFFFF;
-  border: solid 1px #326E9C;
-  color: #326E9C;
-  width: 30%;
-  height: 10%;
+  padding: 1.3% 3%;
+  gap: 10px;
+  width: 200px;
+  background: #3A3E9C;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  transition-timing-function: linear;
+  height:50px;
+  font-size: 16px;
 }
 
 .buttonModal:hover {
-  border: 0.1rem solid #326E9C;
-  color: #326E9C;
-  background: white;
-  transition: all 0.3s;
-  cursor: pointer;
+  background-color: #2980b9;
+  color: white;
 }
 
 
