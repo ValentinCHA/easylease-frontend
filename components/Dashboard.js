@@ -119,7 +119,7 @@ const optionsBarCa = {
       <div className={styles.allGraphics}>
       <div className={styles.graphic}>
       <Doughnut
-        data={dataMarge}
+        data={dataCA}
         className={styles.diagramme}
         options={{
           maintainAspectRatio: false,
@@ -138,24 +138,24 @@ const optionsBarCa = {
       />
       </div>
       <div className={styles.graphic}>
-      <Doughnut
-        data={dataCA}
-        className={styles.diagramme}
-        options={{
-          maintainAspectRatio: false,
-          tooltips: {
-            callbacks: {
-              label: function(tooltipItem, data) {
-                let value = data.datasets[0].data[tooltipItem.index];
-                value = value.toString();
-                value = value.split(/(?=(?:...)*$)/);
-                value = value.join('.');
-                return value + ' €';
+        <Doughnut
+          data={dataMarge}
+          className={styles.diagramme}
+          options={{
+            maintainAspectRatio: false,
+            tooltips: {
+              callbacks: {
+                label: function(tooltipItem, data) {
+                  let value = data.datasets[0].data[tooltipItem.index];
+                  value = value.toString();
+                  value = value.split(/(?=(?:...)*$)/);
+                  value = value.join('.');
+                  return value + ' €';
+                }
               }
             }
-          }
-        }}
-      />
+          }}
+        />
       </div>
       </div>
       <div className={styles.pourcentageDiag}>

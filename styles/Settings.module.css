@@ -2,6 +2,7 @@
   height: 100vh;
   width: 100vw;
   background-color: #F3F3F3;
+  border: 1px solid red;
 }
 
 .header{
@@ -15,7 +16,7 @@
 .container{
   display: flex;
   flex-direction: column;
-  width: 81.5%;
+  width: 78%;
   height: 72vh;
   align-items: center;
   margin-left: 300px;

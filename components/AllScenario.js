@@ -51,7 +51,7 @@ function AllScenario() {
     <>
       {/* {/* navbar et header /} */}
       <div className={style.main}>
-        <Navbar styleScenario={{ backgroundColor: "" }} />
+        <Navbar styleScenario={{backgroundColor: "#2A9C90"}} />
         <Header name="Scenarios" />
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}

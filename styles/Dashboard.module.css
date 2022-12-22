@@ -21,6 +21,7 @@
     justify-content: center;
     align-items: center;
     margin-left: 23%;
+    border-top: 1px solid rgba(128, 128, 128, 0.418);
 }
 
 .allGraphics {
