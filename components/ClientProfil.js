@@ -19,6 +19,7 @@ function ClientProfil() {
     const [errorModifModal, setErrorModifModal] = useState(false);
     const [successDeleteModal, setSuccesDeleteModal] = useState(false);
     const [errorDeleteModal, setErrorDeleteModal] = useState(false);
+    const [dataInterlocutor, setDataInterlocutor] = useState([]);
     const [name, setname] = useState("");
     const [clientBirth, setclientBirth] = useState("");
     const [address, setaddress] = useState("");
@@ -42,10 +43,13 @@ function ClientProfil() {
                     setnumberOfEmployees(data.client.numberOfEmployees)
                     setclientBirth(data.client.clientBirth)
                     setchiffre(data.client.chiffre)
-                    setinterlocutor(data.client.interlocutor)
-                    console.log(data)
-                }
-            })
+                    if (!Array.isArray(data.client.interlocutor)) {
+                        setinterlocutor([]);
+                      } else {
+                        setinterlocutor(data.client.interlocutor);
+                      }
+                    }
+                  });
     }, [])
 
     const handleSubmit = () => {
@@ -60,6 +64,7 @@ function ClientProfil() {
                 numberOfEmployees: numberOfEmployees,
                 clientBirth: clientBirth,
                 chiffre: chiffre,
+                interlocutor: interlocutor,
 
             })
         }).then(res => res.json())
@@ -72,7 +77,11 @@ function ClientProfil() {
                     setnumberOfEmployees(data.client.numberOfEmployees)
                     setclientBirth(data.client.clientBirth)
                     setchiffre(data.client.chiffre)
-
+                    if (!Array.isArray(data.client.interlocutor)) {
+                        setinterlocutor([]);
+                    } else {
+                      setinterlocutor(data.client.interlocutor);
+                    }
                     setSuccesModifModal(true);
 
                 } else {
@@ -118,11 +127,9 @@ function ClientProfil() {
 
     };
 
-    // const interlocutorData = interlocutor.map((data,i)=>{
-
-    // return <li>Interlocuteur : {data.name} </li>
-
-    // })
+    const interlocutorData = interlocutor.map((data, i) => (
+        <li key={i}>Interlocuteur : {data.name}</li>
+      ));
 
     return (
         <>
@@ -142,7 +149,10 @@ function ClientProfil() {
                                     <li>Adresse : {address} </li>
                                     <li>Nombre de salariés : {numberOfEmployees} </li>
                                     <li>Chiffre d'affaires : {chiffre} </li>
-                                    {/* {interlocutorData} */}
+                                    {interlocutorData.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+                                    
                                 </ul>
                             </div>
                             <div className={style.docsContainer}>
