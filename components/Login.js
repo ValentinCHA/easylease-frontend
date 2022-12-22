@@ -42,7 +42,7 @@ function Login() {
   // Redirection dynamique vers la page contrat pour le moment, elle redirigera vers la page dashboard a terme //
   const router = useRouter();
   if (user.token) {
-    router.push("/allContrat");
+    router.push("/dashboard");
   }
 
   // Click sur "Première connexion", la modale s'ouvre //

@@ -33,6 +33,7 @@
   align-items:center;
   border-right: 1px solid rgba(128, 128, 128, 0.424);
   height: 100%;
+  margin-top: 5%;
 }
 
 .SousContainerRight {
@@ -78,6 +79,7 @@
   justify-content: center;
   align-items: left;
   font-size: 16px;
+  height: 90%;
 }
 
 .button {
@@ -192,10 +194,12 @@
 
 .boxData3 {
   height: 40%;
+  
 }
 
 .boxData4 {
   height: 10%;
+  
 }
 
 .boxData5 {
