@@ -19,12 +19,14 @@ function ClientProfil() {
     const [errorModifModal, setErrorModifModal] = useState(false);
     const [successDeleteModal, setSuccesDeleteModal] = useState(false);
     const [errorDeleteModal, setErrorDeleteModal] = useState(false);
+    const [dataInterlocutor, setDataInterlocutor] = useState([]);
     const [name, setname] = useState("");
     const [clientBirth, setclientBirth] = useState("");
     const [address, setaddress] = useState("");
     const [numberOfEmployees, setnumberOfEmployees] = useState("");
     const [chiffre, setchiffre] = useState("");
     const [interlocutor, setinterlocutor] = useState("");
+    const [contrat, setContrat] = useState("");
     const backend_adress = "http://localhost:3000"
 
     const idClient = useSelector((state) => state.client.value)
@@ -34,17 +36,26 @@ function ClientProfil() {
         fetch(`${backend_adress}/client/id/${idClient._id}`)
             .then(res => res.json())
             .then((data) => {
-
+                console.log('le data contrat',data.client.contrats)
                 if (data.result) {
+                    console.log('dataaaaaaaa',data);
                     setname(data.client.name)
                     setaddress(data.client.address)
                     setnumberOfEmployees(data.client.numberOfEmployees)
                     setclientBirth(data.client.clientBirth)
                     setchiffre(data.client.chiffre)
-                    setinterlocutor(data.client.interlocutor)
-                    console.log(data)
-                }
-            })
+                    if (!Array.isArray(data.client.interlocutor)) {
+                        setinterlocutor([]);
+                      } else {
+                        setinterlocutor(data.client.interlocutor);
+                      }
+                    if (!Array.isArray(data.client.contrats)) {
+                        setContrat([]);
+                      } else {
+                        setContrat(data.client.contrats);
+                      }
+                    }
+                  });
     }, [])
 
     const handleSubmit = () => {
@@ -58,6 +69,8 @@ function ClientProfil() {
                 numberOfEmployees: numberOfEmployees,
                 clientBirth: clientBirth,
                 chiffre: chiffre,
+                interlocutor: interlocutor,
+
             })
         }).then(res => res.json())
             .then(data => {
@@ -69,7 +82,11 @@ function ClientProfil() {
                     setnumberOfEmployees(data.client.numberOfEmployees)
                     setclientBirth(data.client.clientBirth)
                     setchiffre(data.client.chiffre)
-
+                    if (!Array.isArray(data.client.interlocutor)) {
+                        setinterlocutor([]);
+                    } else {
+                      setinterlocutor(data.client.interlocutor);
+                    }
                     setSuccesModifModal(true);
 
                 } else {
@@ -114,13 +131,26 @@ function ClientProfil() {
         setaddDocModal(false);
 
     };
+console.log("inter",interlocutor)
 
-    // const interlocutorData = interlocutor.map((data,i)=>{
+let interlocutorData 
 
-    // return <li>Interlocuteur : {data.name} </li>
+if(interlocutor){
+    interlocutorData = interlocutor.map((data, i) => (
+        <li key={i}>Interlocuteur {i+1} : Nom: {data.name} / Email: {data.email} </li>
+    
+      ));
+    }
+let contratData 
 
-    // })
+if(contrat){
+    contratData = contrat.map((data, i) => (
+        <li key={i}>Contrat {i+1} : Nom: {data.name} </li>
+    
+      ));
+    }
 
+    console.log('console contrat en brrrr',contrat)
     return (
         <>
             <div className={style.mainContainer}>
@@ -139,11 +169,13 @@ function ClientProfil() {
                                     <li>Adresse : {address} </li>
                                     <li>Nombre de salariés : {numberOfEmployees} </li>
                                     <li>Chiffre d'affaires : {chiffre} </li>
-                                    {/* {interlocutorData} */}
+                                    {interlocutorData}
+                
                                 </ul>
                             </div>
                             <div className={style.docsContainer}>
                                 <h3>Documents joints : </h3>
+                                {contratData}
                                 
                             </div>
                         </div>

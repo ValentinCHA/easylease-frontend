@@ -22,20 +22,7 @@ function AllClient() {
       .then((data) => {
         if (data.result) {
           // console.log('data find',data.contrat)
-          console.log("DATA", data);
-          const client = data.clientsInfos.clients.map((data, i) => {
-            return {
-              _id: data._id,
-              name: data.name,
-              address: data.address,
-              numberOfEmployees: data.numberOfEmployees,
-              clientBirth: data.clientBirth,
-              chiffre: data.chiffre,
-              interlocutor: data.interlocutor.length > 0? data.interlocutor[0].name : null,
-              
-            };
-          });
-          setDataClient(client);
+          setDataClient(data.clientsInfos.clients)
         } else {
           console.log("DATA ELSE", data);
 
@@ -53,7 +40,7 @@ function AllClient() {
     }
   })
     .map((data, i) => {
-      return <ClientCard key={i} {...data} />;
+      return <ClientCard key={i} {...data} id={data._id} />;
     });
 
   return (

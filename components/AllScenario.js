@@ -27,22 +27,8 @@ function AllScenario() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log("data find", data);
-          const scenario = data.userInfos.scenary.map((data, i) => {
-            return {
-              _id: data._id,
-              client: data.client.name,
-              name: data.name,
-              type: data.type,
-              durée: data.duration,
-              montant: data.amount,
-              creationDate: data.creationDate,
-              date_de_début: data.contratStart,
-              date_de_fin: data.contratEnd,
-              valeur_résiduel: data.residualValue,
-            };
-          });
-          setDataScenario(scenario);
+          console.log('data find',data)
+          setDataScenario(data.userInfos.scenary)
         }
       });
   }, []);
@@ -65,7 +51,7 @@ function AllScenario() {
     <>
       {/* {/* navbar et header /} */}
       <div className={style.main}>
-        <Navbar styleScenario={{ backgroundColor: "" }} />
+        <Navbar styleScenario={{backgroundColor: "#2A9C90"}} />
         <Header name="Scenarios" />
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}

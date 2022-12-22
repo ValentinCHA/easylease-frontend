@@ -30,10 +30,10 @@ function Scenario(props) {
       <FontAwesomeIcon icon={faFileSignature} className={style.userIcon} />
       {/ info du scenario */}
       <div className={style.infoContrat}>
-        <span style={{fontSize:23, color:'white',fontSize:'1.4em', fontWeight:'bold'}}>{props.client.substring(0,10)}</span>
+        <span style={{fontSize:23, color:'white',fontSize:'1.4em', fontWeight:'bold'}}>{props.client.name.substring(0,10)}</span>
         <span style={{fontSize:23, color:'white',fontSize:'1.2em'}}>{props.name}</span>
         <div style={{backgroundColor:'white', width: "50%"}}>
-        <span style={{paddingLeft:"2px",fontSize:23, color:'#3A3E9C',fontSize:'1.0em', }}>{props.amount}€</span>
+        <span style={{paddingLeft:"2px",fontSize:23, color:'#3A3E9C',fontSize:'1.0em', }}>{props.montant}€</span>
         </div>
         <span style={{fontSize:23, color:'white',fontSize:'1.0em',fontWeight:'lighter'}}>{props.creationDate.substring(0,10)}</span>
         <span style={{fontSize:23, color:'white',fontSize:'1.0em'}}>...</span>

@@ -6,8 +6,8 @@
 .container{
     display: flex;
     flex-direction: column;
-    height: 92%;
-    width: 81.5%;
+    height: 85%;
+    width: 76%;
     margin-left: 300px;
     background-color: #fff;
 }

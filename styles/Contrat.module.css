@@ -14,10 +14,11 @@
 }
 
 .container {
-  height: 89%;
+  height: 87%;
   width: 81.5%;
   display: flex;
   justify-content: space-around;
+  margin-left: 17%;
 }
 
 .SousContainerLeft {

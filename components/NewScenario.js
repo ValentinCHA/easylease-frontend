@@ -726,7 +726,7 @@ let header;
             footer={null}
           >
             <p style={{ fontSize: 18, textAlign: "center" }}>
-              ✅ Scenario validé et transformer en contrat ! ✅
+              ✅ Scenario validé et transformé en contrat ! ✅
             </p>
           </Modal>
           <Modal
