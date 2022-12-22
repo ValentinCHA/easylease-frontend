@@ -131,10 +131,6 @@ function Dashboard() {
         <Navbar styleDashboard={{ backgroundColor: "#2A9C90" }} />
         <Header name="Dashboard" />
         <div className={styles.container}>
-          <div className={styles.spanGang}>
-            <span>CA annuel / Objectif</span>
-            <span>Marge annuel / Objectif</span>
-          </div>
           <div className={styles.allGraphics}>
             <div className={styles.graphic}>
               <Doughnut
@@ -180,25 +176,20 @@ function Dashboard() {
           <div className={styles.pourcentageDiag}>
             <div className={styles.left}>
               <span className={styles.pourcentage}>
-                Le CA réalisée est de :{" "}
                 <span className={styles.gras}>
                   {((100 * CArealise) / objCA).toFixed(2)}%
-                </span>{" "}
-                sur l'objectif total
+                </span>
               </span>
             </div>
             <div className={styles.right}>
               <span className={styles.pourcentage}>
-                La marge réalisée est de :{" "}
                 <span className={styles.gras}>
                   {((100 * margeRea) / objMarge).toFixed(2)}%
-                </span>{" "}
-                sur l'objectif total
+                </span>
               </span>
             </div>
           </div>
           <div className={styles.graphicBar}>
-            <span className={styles.span2}>CA annuel / Objectif / Mois</span>
             <Bar data={dataBarCa} options={optionsBarCa} />
           </div>
         </div>
