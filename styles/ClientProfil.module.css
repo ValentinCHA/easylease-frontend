@@ -17,7 +17,7 @@
   align-items: center;
   justify-content: center;
   width: auto;
-  height: 92%;
+  height: 88%;
   margin-left: 300px;
   background-color: #FFFFFF;
 }
@@ -49,12 +49,15 @@
 
 .Infosclient {
   border-radius: 1rem;
-  display: block;
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   width: 30rem;
   background-color: #3A3E9C;
   color: #FFFFFF;
   padding: 20px;
+  justify-content: center;
+  align-items: left;
 }
 .Infosclient > h2 {
   margin-left: 1rem;
@@ -66,19 +69,14 @@
   font-weight: lighter;
 }
 
-.ButtonContainer {
-  padding: 0.5rem;
-  width: 65rem;
-  height: 15rem;
+.buttoncontainer{
   display: flex;
-  margin: 0 auto 1rem;
-  gap: 23rem;
-  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
 
 }
-.Infosclient > button {
+.buttoncontainer > button {
   cursor: pointer;
-  width: 20%;
+  width: 25%;
   height: 3.25rem;
   background: #3A3E9C;
   border: solid 1px white;
@@ -109,27 +107,13 @@
   cursor: pointer;
 }
 
-.buttonModif{
 
-  cursor: pointer;
-  padding: 13.5px 10px;
-  gap: 10px;
-  width: 14rem;
-  height: 10%;
-  background: #635cff;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  font-size: 16px;
-  font-weight: 400;
-  transition: 500ms;
-}
 .docsContainer {
   display: flex;
   flex-direction: column;
   padding: 20px;
   border: 1px solid #ddd;
-  justify-content: center;
+  justify-content: space-between;
   margin: 20px;
   align-items: center;
   color: #326E9C;
