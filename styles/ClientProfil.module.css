@@ -48,7 +48,7 @@
 }
 
 .Infosclient {
-  border-radius: 1rem;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;

@@ -4,7 +4,7 @@
     border-bottom: 2px solid rgb(235,239,242);
 }
 
-.maincontainer {
+.mainContainer {
     height: 100vh;
     width: 100vw;
     background-color: #F3F3F3;
@@ -15,13 +15,15 @@
     margin: 2% 8%;
 }
 .container{
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    justify-content: center;
-    align-items: center;
-    margin-left: 23%;
-    border-top: 1px solid rgba(128, 128, 128, 0.418);
+  margin-left: 300px;
+  display: flex;
+  flex-direction: column;
+  width: 81.5%;
+  height: auto;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+  height: 70vh;
 }
 
 .allGraphics {
@@ -31,6 +33,7 @@
     align-items: center;
     width: 100%;
     height: 350px;
+    
 }
 
 .pourcentageDiag {

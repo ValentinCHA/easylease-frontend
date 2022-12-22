@@ -42,6 +42,7 @@ function Contrat() {
   console.log("ContratReducer", ContratReducer);
   console.log("dataContrat", dataContrat);
   console.log("dataInterlocutor", dataInterlocutor);
+  console.log("LINKS =>", dataContrat.links);
 
   useEffect(() => {
     fetch(`${BACKEND_ADDRESS}/contrat/contrat/${ContratReducer._id}`)
@@ -87,6 +88,14 @@ function Contrat() {
         <span className={style.texte}>
           Valeur résiduelle : {item.residualValue} %
         </span>
+        <div className={style.contenuBoxData}>
+          <button
+            className={style.button}
+            onClick={() => setShowModalContrat(true)}
+          >
+            Modifier le contrat
+          </button>
+        </div>
       </div>
     );
   });
@@ -99,6 +108,15 @@ function Contrat() {
         <span className={style.texte}>Poste : {item.poste}</span>
         <span className={style.texte}>Téléphone : {item.phone}</span>
         <span className={style.texte}>Mail : {item.email}</span>
+
+        <div className={style.contenuBoxData}>
+          <button
+            className={style.button}
+            onClick={() => setShowModalInterlocutor(true)}
+          >
+            Modifier l'interlocuteur
+          </button>
+        </div>
       </div>
     );
   });
@@ -164,8 +182,10 @@ function Contrat() {
   };
 
   const handleSubmit = async (event) => {
+    console.log("RENTRE DANS LE SUBMIT IMAGE");
     // Envoi du fichier à Cloudinary
     const fichier = inputRef.current.files[0];
+    console.log("FICHIER =>", fichier);
     const formData = new FormData();
     formData.append("photoFromFront", fichier);
     const res = await fetch(`${BACKEND_ADDRESS}/cloudinary/upload`, {
@@ -237,30 +257,13 @@ function Contrat() {
               <div className={style.contenuBoxData}>{contratData}</div>
             </div>
             <div className={style.boxData + " " + style.boxData2}>
-              <div className={style.contenuBoxData}>
-                <button
-                  className={style.button}
-                  onClick={() => setShowModalContrat(true)}
-                >
-                  Modifier le contrat
-                </button>
-              </div>
+              <div className={style.contenuBoxData}></div>
             </div>
             <div className={style.boxData + " " + style.boxData3}>
               <span className={style.titreBoxData}>
                 Interlocuteur du contrat :
               </span>
               <div className={style.contenuBoxData}>{interlocutorData}</div>
-            </div>
-            <div className={style.boxData + " " + style.boxData4}>
-              <div className={style.contenuBoxData}>
-                <button
-                  className={style.button}
-                  onClick={() => setShowModalInterlocutor(true)}
-                >
-                  Modifier l'interlocutor
-                </button>
-              </div>
             </div>
           </div>
           <div className={style.SousContainerRight}>
@@ -269,7 +272,7 @@ function Contrat() {
             </div>
             <div className={style.boxData + " " + style.boxData6}>
               <div className={style.contenuBoxData}>
-                <img src={dataContrat.links} width="100%" height="100%" />
+               {dataContrat.links !== "TEST" && <img src={dataContrat.links} width="100%" height="100%" />}
               </div>
             </div>
 
