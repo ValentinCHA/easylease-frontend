@@ -79,11 +79,11 @@ function Navbar(props) {
                 <div className={style.BoxSpan } style={props.styleScenario} onClick={()=>navScenario()} >
                     <span className={style.textStyle}><FontAwesomeIcon icon={faHistory} className={style.spaceIconSpan} />Scénarios</span>
                 </div>
-                <div className={style.BoxSpan} style={props.styleAllClients} onClick={()=>navClient()}>
-                    <span className={style.textStyle}><FontAwesomeIcon icon={faUserTag} className={style.spaceIconSpan} />Clients</span>
-                </div>
                 <div className={style.BoxSpan} style={props.styleAllContrats} onClick={()=>navContrat()} >
                     <span className={style.textStyle}><FontAwesomeIcon icon={faFileInvoiceDollar} className={style.spaceIconSpan} />Contrats</span>
+                </div>
+                <div className={style.BoxSpan} style={props.styleAllClients} onClick={()=>navClient()}>
+                    <span className={style.textStyle}><FontAwesomeIcon icon={faUserTag} className={style.spaceIconSpan} />Clients</span>
                 </div>
                 <div className={style.BoxSpan} style={props.styleSettings} onClick={()=>navSettings()}>
                     <span><FontAwesomeIcon icon={faGear} className={style.spaceIconSpan} />Settings</span>
