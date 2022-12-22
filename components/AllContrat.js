@@ -3,7 +3,6 @@ import style from "../styles/AllContratPage.module.css";
 import Navbar from "./Navbar";
 import ContratCard from "./ContratCard";
 import Header from "./Header";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
@@ -21,6 +20,7 @@ function AllContrat() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
+          console.log("dataaaaa", data);
           setDataContrat(data.userInfos.contrats);
         }
       });
