@@ -36,7 +36,6 @@ function ClientProfil() {
             .then((data) => {
 
                 if (data.result) {
-
                     setname(data.client.name)
                     setaddress(data.client.address)
                     setnumberOfEmployees(data.client.numberOfEmployees)
@@ -54,13 +53,11 @@ function ClientProfil() {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-
                 name: name,
                 address: address,
                 numberOfEmployees: numberOfEmployees,
                 clientBirth: clientBirth,
                 chiffre: chiffre,
-
             })
         }).then(res => res.json())
             .then(data => {
@@ -147,11 +144,12 @@ function ClientProfil() {
                             </div>
                             <div className={style.docsContainer}>
                                 <h3>Documents joints : </h3>
+                                
                             </div>
                         </div>
                         <div className={style.ButtonContainer}>
-                            <button className={style.buttonmodifier} onClick={() => setaddDocModal(true)}>Modifier</button>
-                            <button className={style.buttonsupprimer} onClick={() => SupprimClient()}>Supprimer</button>
+                            <button className={style.buttonModal} onClick={() => setaddDocModal(true)}>Modifier</button>
+                            <button className={style.buttonModal} onClick={() => SupprimClient()}>Supprimer</button>
                             <button className={style.buttonModal} onClick={() => handleCloseModal()}>
                                 Ajouter un document
                             </button>

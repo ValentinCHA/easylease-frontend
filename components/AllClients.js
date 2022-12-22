@@ -32,6 +32,7 @@ function AllClient() {
               clientBirth: data.clientBirth,
               chiffre: data.chiffre,
               interlocutor: data.interlocutor.length > 0? data.interlocutor[0].name : null,
+              
             };
           });
           setDataClient(client);

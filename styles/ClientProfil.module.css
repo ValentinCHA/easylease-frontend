@@ -99,6 +99,8 @@
   background-color: #FFFFFF;
   border: solid 1px #326E9C;
   color: #326E9C;
+  width: 30%;
+  height: 10%;
 }
 
 .buttonModal:hover {
@@ -114,8 +116,6 @@
   cursor: pointer;
   padding: 13.5px 10px;
   gap: 10px;
-  width: 14rem;
-  height: 10%;
   background: #635cff;
   border-radius: 5px;
   border: none;
@@ -123,6 +123,8 @@
   font-size: 16px;
   font-weight: 400;
   transition: 500ms;
+  width: 20%;
+  height: 10%;
 }
 .docsContainer {
   display: flex;
