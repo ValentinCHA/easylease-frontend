@@ -89,7 +89,7 @@ const optionsBarCa = {
         mode: 'horizontal',
         scaleID: 'y-axis-0',
         value: 450000,
-        borderColor: 'green',
+        borderColor: 'blue', // couleur de la ligne : bleue
         borderWidth: 2,
         label: {
           content: 'Objectif de chiffre d\'affaires',
