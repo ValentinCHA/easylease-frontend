@@ -7,6 +7,12 @@
     flex-direction: column;
     position: fixed;
 }
+.spaceDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 77%;
+}
 .firstNavbar{
     
     height: 100%;
@@ -106,7 +112,7 @@
     
 }
 .secondNav{
-    height: 50%;
+    height: auto;
     width: 100%;
     display: flex;
     flex-direction: column;
