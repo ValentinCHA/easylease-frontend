@@ -160,10 +160,10 @@ const optionsBarCa = {
       </div>
       <div className={styles.pourcentageDiag}>
         <div className={styles.left}>
-          <span className={styles.pourcentage}>La marge réalisée est de : <span className={styles.gras}>{(100 * margeRea/objMarge).toFixed(2)}%</span> sur l'objectif total</span>
+          <span className={styles.pourcentage}>Le CA réalisée est de : <span className={styles.gras}>{(100 * CArealise/objCA).toFixed(2)}%</span> sur l'objectif total</span>
         </div>
         <div className={styles.right}>
-          <span className={styles.pourcentage}>Le CA réalisée est de : <span className={styles.gras}>{(100 * CArealise/objCA).toFixed(2)}%</span> sur l'objectif total</span>
+          <span className={styles.pourcentage}>La marge réalisée est de : <span className={styles.gras}>{(100 * margeRea/objMarge).toFixed(2)}%</span> sur l'objectif total</span>
         </div>
       </div>
       <div  className={styles.graphicBar}>
