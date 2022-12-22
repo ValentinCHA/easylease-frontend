@@ -1,13 +1,7 @@
-.mainContainer {
-    height: 100vh;
-    width: 100vw;
-}
-
 .header{
     display: flex;
     width: 80%;
     border-bottom: 2px solid rgb(235,239,242);
-
 }
 
 .maincontainer {
@@ -15,24 +9,85 @@
     width: 100vw;
     background-color: #F3F3F3;
     position: fixed;
-    
   }
 
 .head{
-    
     margin: 2% 8%;
 }
 .container{
-    width: auto;
-    height: auto;
-    margin-left: 260px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    width: 70%;
     justify-content: center;
+    align-items: center;
+    margin-left: 23%;
+}
+
+.allGraphics {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 350px;
+}
+
+.pourcentageDiag {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: auto;
+    width: 100%;
+}
+
+.left {
+    margin-left: 3.5%;
+}
+
+.right {
+    margin-right: 4%;
+}
+
+.pourcentage {
+    font-weight: 400;
+    font-size: 19px;
+    
 }
 
 .graphic {
+    height: 90%;
+
+}
+
+.graphicBar {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    height: 235px;
+    width: 50%;
+    margin-top: 3%;
+}
+
+.gras{
+    font-weight: bold;
+    color: green;
+}
+
+.spanGang{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 67%;
+    text-decoration: underline;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.span2{
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: underline;
+    margin-bottom: 1%;
 }

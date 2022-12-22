@@ -5,7 +5,7 @@ import Header from './Header';
 
 import { Doughnut } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
-// import 'chart.js/dist/Chart.css';
+import { Bar } from 'react-chartjs-2';
 
 
 function Dashboard() {
@@ -35,7 +35,6 @@ function Dashboard() {
     }
   }
 
-  
 const dataMarge = {
   labels: [`Objectif marge : ${objMarge}€`, `Marge réalisée : ${margeRea.toFixed(2)}€`],
   datasets: [
@@ -58,15 +57,65 @@ const dataCA = {
   ]
 };
 
+const dataBarCa = {
+  labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+  datasets: [
+    {
+      label: 'Chiffre d\'affaires',
+      data: [400000, 350000, 380000, 410000, 370000, 430000, 390000, 420000, 450000, 440000, 460000, 430000],
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderColor: 'rgba(255, 99, 132, 1)',
+      borderWidth: 1
+    }
+  ]
+};
+
+const optionsBarCa = {
+  scales: {
+    yAxes: [
+      {
+        ticks: {
+          beginAtZero: true,
+          suggestedMax: 500000
+        }
+      }
+    ]
+  },
+  annotation: {
+    drawTime: 'afterDraw', // définit le moment où la ligne sera dessinée
+    annotations: [
+      {
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: 450000,
+        borderColor: 'green',
+        borderWidth: 2,
+        label: {
+          content: 'Objectif de chiffre d\'affaires',
+          enabled: true,
+          position: 'right'
+        }
+      }
+    ]
+  }
+};
+
+
   console.log("CA", CArealise);
   console.log("MARGE REA", margeRea);
   console.log("OBJ marge", objMarge);
 
   return (
+    <>
     <div className={styles.mainContainer}>
-    <Navbar styleDashboard={{backgroundColor: "2A9C90"}}/>
+    <Navbar styleDashboard={{backgroundColor: "rgba(0, 217, 255, 0.383)"}}/>
     <Header name ="Dashboard"/>
     <div className={styles.container}>
+      <div className={styles.spanGang}>
+      <span>CA annuel / Objectif</span>
+      <span>Marge annuel / Objectif</span>
+      </div>
       <div className={styles.allGraphics}>
       <div className={styles.graphic}>
       <Doughnut
@@ -117,8 +166,13 @@ const dataCA = {
           <span className={styles.pourcentage}>La marge réalisée est de : <span className={styles.gras}>{(100 * margeRea/objMarge).toFixed(2)}%</span> sur l'objectif total</span>
         </div>
       </div>
+      <div  className={styles.graphicBar}>
+      <span className={styles.span2}>CA annuel / Objectif / Mois</span>
+      <Bar data={dataBarCa} options={optionsBarCa} />
+      </div>
     </div>
     </div>
+    </>
   );
 }
 
