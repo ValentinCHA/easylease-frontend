@@ -247,7 +247,7 @@ function Contrat() {
     <>
       <div className={style.mainContent}>
         <Navbar />
-        <Header name={`${dataContrat.name}`} />
+        <Header name={`Contrat : ${dataContrat.name}`} />
         <div className={style.container}>
           <div className={style.SousContainerLeft}>
             <div className={style.boxData + " " + style.boxData1}>

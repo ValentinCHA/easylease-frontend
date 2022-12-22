@@ -145,7 +145,7 @@ function ClientProfil() {
     <>
       <div className={style.mainContainer}>
         <Navbar styleAllClients={{ backgroundColor: "#2A9C90" }}/>
-        <Header name ={name} />
+        <Header name ={`Client : ${name}`} />
         <div className={style.container}>
           <div className={style.GridParent}>
             <div className={style.GridContent}>
