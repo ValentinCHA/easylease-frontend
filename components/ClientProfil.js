@@ -28,6 +28,9 @@ function ClientProfil() {
   const [contrat, setContrat] = useState("");
   const backend_adress = "http://localhost:3000";
 
+  const clientBirthDate = new Date(clientBirth);
+  const clientBirthDateFormated = clientBirthDate.toLocaleDateString();
+
   const idClient = useSelector((state) => state.client.value);
 
   useEffect(() => {
@@ -122,11 +125,11 @@ function ClientProfil() {
   console.log("inter", interlocutor);
 
   let interlocutorData;
-
+  console.log("Infos interlocuteur =>", interlocutor);
   if (interlocutor) {
     interlocutorData = interlocutor.map((data, i) => (
       <li key={i}>
-        Interlocuteur {i + 1} : Nom: {data.name} / Email: {data.email}{" "}
+        Interlocuteur {i + 1} : {data.firstname} {data.name}
       </li>
     ));
   }
@@ -140,12 +143,11 @@ function ClientProfil() {
     ));
   }
 
-  console.log("console contrat en brrrr", contrat);
   return (
     <>
       <div className={style.mainContainer}>
-        <Navbar styleAllClients={{ backgroundColor: "#2A9C90" }}/>
-        <Header name ={`Client : ${name}`} />
+        <Navbar styleAllClients={{ backgroundColor: "#2A9C90" }} />
+        <Header name={name} />
         <div className={style.container}>
           <div className={style.GridParent}>
             <div className={style.GridContent}>
@@ -153,26 +155,26 @@ function ClientProfil() {
                 <h2>Informations client :</h2>
                 <ul>
                   <li>Nom entreprise : {name} </li>
-                  <li>Client depuis le : {clientBirth} </li>
+                  <li>Client depuis le : {clientBirthDateFormated} </li>
                   <li>Adresse : {address} </li>
                   <li>Nombre de salariés : {numberOfEmployees} </li>
                   <li>Chiffre d'affaires : {chiffre} </li>
                   {interlocutorData}
                 </ul>
                 <div className={style.buttoncontainer}>
-                <button
-                  className={style.buttonModal}
-                  onClick={() => setaddDocModal(true)}
-                >
-                  Modifier
-                </button>
-                <button
-                  className={style.buttonModal}
-                  onClick={() => SupprimClient()}
-                >
-                  Supprimer
-                </button>
-              </div>
+                  <button
+                    className={style.buttonModal}
+                    onClick={() => setaddDocModal(true)}
+                  >
+                    Modifier
+                  </button>
+                  <button
+                    className={style.buttonModal}
+                    onClick={() => SupprimClient()}
+                  >
+                    Supprimer
+                  </button>
+                </div>
               </div>
               <div className={style.docsContainer}>
                 <h3>Documents joints : </h3>

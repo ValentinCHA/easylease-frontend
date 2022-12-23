@@ -247,7 +247,7 @@ function Contrat() {
     <>
       <div className={style.mainContent}>
         <Navbar />
-        <Header name={`Contrat : ${dataContrat.name}`} />
+        <Header name={dataContrat.name} />
         <div className={style.container}>
           <div className={style.SousContainerLeft}>
             <div className={style.boxData + " " + style.boxData1}>
@@ -272,7 +272,9 @@ function Contrat() {
             </div>
             <div className={style.boxData + " " + style.boxData6}>
               <div className={style.contenuBoxData}>
-               {dataContrat.links !== "TEST" && <img src={dataContrat.links} width="100%" height="100%" />}
+                {dataContrat.links !== "TEST" && (
+                  <img src={dataContrat.links} width="100%" height="100%" />
+                )}
               </div>
             </div>
 

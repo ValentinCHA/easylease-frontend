@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addId } from "../reducers/scenario";
 
 function Scenario(props) {
-
   const idScenario = useSelector((state) => state.scenario.value);
 
   const router = useRouter();
@@ -16,7 +15,7 @@ function Scenario(props) {
 
   const affichePageScenario = () => {
     // console.log('the props',props)
-     dispatch(addId(props));
+    dispatch(addId(props));
     //  console.log('valeur reducer scenario',idScenario.id)
     router.push("/newScenario");
   };
@@ -30,13 +29,41 @@ function Scenario(props) {
       <FontAwesomeIcon icon={faFileSignature} className={style.userIcon} />
       {/ info du scenario */}
       <div className={style.infoContrat}>
-        <span style={{fontSize:23, color:'white',fontSize:'1.4em', fontWeight:'bold'}}>{props.client.name.substring(0,10)}</span>
-        <span style={{fontSize:23, color:'white',fontSize:'1.2em'}}>{props.name}</span>
-        <div style={{backgroundColor:'white', width: "50%"}}>
-        <span style={{paddingLeft:"2px",fontSize:23, color:'#3A3E9C',fontSize:'1.0em', }}>{props.amount}€</span>
+        <span
+          style={{
+            fontSize: 23,
+            color: "white",
+            fontSize: "1.4em",
+            fontWeight: "bold",
+          }}
+        >
+          {props.client.name.substring(0, 10)}
+        </span>
+        <span style={{ fontSize: 23, color: "white", fontSize: "1.2em" }}>
+          {props.name}
+        </span>
+        <div style={{ backgroundColor: "white", width: "50%" }}>
+          <span
+            style={{
+              paddingLeft: "2px",
+              fontSize: 23,
+              color: "#3A3E9C",
+              fontSize: "1.0em",
+            }}
+          >
+            {props.amount}€
+          </span>
         </div>
-        <span style={{fontSize:23, color:'white',fontSize:'1.0em',fontWeight:'lighter'}}>{props.creationDate.substring(0,10)}</span>
-        <span style={{fontSize:23, color:'white',fontSize:'1.0em'}}>...</span>
+        <span
+          style={{
+            fontSize: 23,
+            color: "white",
+            fontSize: "1.0em",
+            fontWeight: "lighter",
+          }}
+        >
+          {props.creationDate.substring(0, 10)}
+        </span>
       </div>
     </div>
   );
