@@ -27,8 +27,8 @@ function AllScenario() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log('data find',data)
-          setDataScenario(data.userInfos.scenary)
+          console.log("data find", data);
+          setDataScenario(data.userInfos.scenary);
         }
       });
   }, []);
@@ -51,7 +51,7 @@ function AllScenario() {
     <>
       {/* {/* navbar et header /} */}
       <div className={style.main}>
-        <Navbar styleScenario={{backgroundColor: "#2A9C90"}} />
+        <Navbar styleScenario={{ backgroundColor: "#2A9C90" }} />
         <Header name="Scenarios" />
         <div className={style.container}>
           {/* {/ mon input de recherche /} */}
@@ -60,7 +60,7 @@ function AllScenario() {
               className={style.input}
               onChange={(e) => setInputValue(e.target.value)}
               type="text"
-              placeholder="  Chercher un scenario....."
+              placeholder="  Chercher un scenario..."
               value={inputValue}
             />
             <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />

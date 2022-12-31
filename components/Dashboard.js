@@ -25,7 +25,7 @@ function Dashboard() {
 
   console.log("DATA CONTRATS =>", datasContrats);
   let CArealise = 0;
-  let objCA = 45000000;
+  let objCA = 20000000;
   let objMarge = 0.1 * objCA;
   let margeRea = 0;
   if (datasContrats.length > 0) {
@@ -129,7 +129,7 @@ function Dashboard() {
 
   return (
     <>
-      <div className={styles.mainContainer}> 
+      <div className={styles.mainContainer}>
         <Navbar styleDashboard={{ backgroundColor: "#2A9C90" }} />
         <Header name="Dashboard" />
         <div className={styles.container}>
