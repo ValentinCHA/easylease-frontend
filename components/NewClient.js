@@ -112,6 +112,7 @@ function NewClient() {
             setNumberofEmployees(0);
             setChiffreAffaire("");
             setNewClientAdded(true);
+            setInterlocutors([]);
           }
         })
         .catch((error) => {
@@ -200,7 +201,7 @@ function NewClient() {
                 <div className={style.modal}>
                   <Modal closable={false} footer={null} open={newClientAdded}>
                     <div className={style.modalContainer}>
-                      <span>Nouveau client ajouté !</span>
+                      <span>✅ Nouveau client ajouté ! ✅</span>
                       <button
                         className={style.button}
                         onClick={() => setNewClientAdded(false)}
@@ -263,7 +264,7 @@ function NewClient() {
           {alertInterlocutor && (
             <span className={style.alert}>
               {" "}
-              Ajoutez d'abord un interlocuteur !
+              ❌ Ajoutez d'abord un interlocuteur ! ❌
             </span>
           )}
         </div>
@@ -272,7 +273,7 @@ function NewClient() {
           className={style.button}
           onClick={() => handleNewClientSubmit()}
         >
-          Création du client
+           Création du client ! 
         </button>
         </div>
       </div>

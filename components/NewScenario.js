@@ -41,30 +41,30 @@ const dataGraphique = {
 const optionsGraphique = {
   responsive: true,
   maintainAspectRatio: false,
-  scales: {
-    xAxes: [{
-      type: 'time',
-      time: {
-        unit: 'month',
-      },
-    }],
-    yAxes: [{
-      ticks: {
-        beginAtZero: true,
-      },
-      gridLines: {
-        drawOnChartArea: false,
-      },
-      scaleLabel: {
-        display: true,
-        labelString: 'Valeur en euros',
-      },
-      scaleOverride: true,
-      scaleSteps: 8,
-      scaleStepWidth: 10000,
-      scaleStartValue: 0,
-    }],
-  },
+//   scales: {
+//     xAxes: [{
+//       type: 'time',
+//       time: {
+//         unit: 'month',
+//       },
+//     }],
+//     yAxes: [{
+//       ticks: {
+//         beginAtZero: true,
+//       },
+//       gridLines: {
+//         drawOnChartArea: false,
+//       },
+//       scaleLabel: {
+//         display: true,
+//         labelString: 'Valeur en euros',
+//       },
+//       scaleOverride: true,
+//       scaleSteps: 8,
+//       scaleStepWidth: 10000,
+//       scaleStartValue: 0,
+//     }],
+//   },
 };
 
 
