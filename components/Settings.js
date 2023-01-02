@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { Modal } from "antd";
 
 const Settings = () => {
-  const BACKEND_ADDRESS = "http://localhost:3000";
+  const BACKEND_ADDRESS = "https://easylease-backend.vercel.app/";
   const user = useSelector((state) => state.user.value);
   const [emailSettings, setEmail] = useState(user.email);
   const [currentPassword, setCurrentPassword] = useState("");

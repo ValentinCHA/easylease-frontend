@@ -13,7 +13,7 @@ function Dashboard() {
   const [datasContrats, setDatasContrats] = useState([]);
   const user = useSelector((state) => state.user.value);
 
-  let BACKEND_ADDRESS = "http://localhost:3000";
+  let BACKEND_ADDRESS = "https://easylease-backend.vercel.app/";
 
   useEffect(() => {
     fetch(`${BACKEND_ADDRESS}/contrat/${user.token}`)
