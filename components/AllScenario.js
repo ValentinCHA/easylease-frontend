@@ -11,7 +11,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 
 function AllScenario() {
-  const BACKEND_ADDRESS = "https://easylease-backend.vercel.app/"
+  const BACKEND_ADDRESS = "https://easylease-backend.vercel.app"
   const router = useRouter();
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");

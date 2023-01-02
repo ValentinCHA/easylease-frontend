@@ -9,7 +9,7 @@ import Header from "./Header";
 
 function NewClient() {
   // Définir l'état local pour les champs de formulaire
-  let BACKEND_ADDRESS = "https://easylease-backend.vercel.app/"
+  let BACKEND_ADDRESS = "https://easylease-backend.vercel.app"
 
   const user = useSelector((state) => state.user.value);
   const [name, setName] = useState("");
