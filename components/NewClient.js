@@ -9,6 +9,7 @@ import Header from "./Header";
 
 function NewClient() {
   // Définir l'état local pour les champs de formulaire
+  let BACKEND_ADDRESS = "http://localhost:3000"
 
   const user = useSelector((state) => state.user.value);
   const [name, setName] = useState("");
@@ -84,7 +85,7 @@ function NewClient() {
 
   const handleNewClientSubmit = () => {
     if (interlocutors.length > 0) {
-      fetch("http://localhost:3000/client/uploadClient", {
+      fetch(`${BACKEND_ADDRESS}/client/uploadClient`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

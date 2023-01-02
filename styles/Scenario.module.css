@@ -34,6 +34,6 @@
     flex-direction: column;
     justify-content: space-between;
     height: auto;
+    width: auto;
     align-items:left;
-    
 }

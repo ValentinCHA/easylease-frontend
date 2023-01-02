@@ -8,6 +8,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 
 function AllContrat() {
+  let BACKEND_ADDRESS = "http://localhost:3000"
   const user = useSelector((state) => state.user.value);
   const [inputValue, setInputValue] = useState("");
   const [nameClient, setNameClient] = useState("");
@@ -16,7 +17,7 @@ function AllContrat() {
   console.log("Console log de l'état", dataContrat);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/contrat/${user.token}`)
+    fetch(`${BACKEND_ADDRESS}/contrat/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {

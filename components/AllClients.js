@@ -10,6 +10,7 @@ import Header from "./Header";
 import { useRouter } from "next/router";
 
 function AllClient() {
+  let BACKEND_ADDRESS = "http://localhost:3000"
   const [inputValue, setInputValue] = useState("");
   const [dataClient, setDataClient] = useState([]);
   const router = useRouter();
@@ -17,7 +18,7 @@ function AllClient() {
   const user = useSelector((state) => state.user.value);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/client/test/${user.token}`)
+    fetch(`${BACKEND_ADDRESS}/client/test/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
