@@ -11,6 +11,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 
 function AllScenario() {
+  const BACKEND_ADDRESS = "http://localhost:3000"
   const router = useRouter();
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
@@ -23,7 +24,7 @@ function AllScenario() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/scenary/token/${user.token}`)
+    fetch(`${BACKEND_ADDRESS}/scenary/token/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
