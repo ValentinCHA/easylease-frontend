@@ -1,12 +1,9 @@
+const { redirect } = require("../components/isLogged.js");
 import Head from 'next/head';
 import Dashboard from '../components/Dashboard';
 
-const { redirect } = require("../components/isLogged.js");
-
-
 function DashboardPage() {
 redirect();
-  
   return (
     <>
       <Head>

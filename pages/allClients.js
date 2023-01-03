@@ -1,6 +1,6 @@
+const { redirect } = require("../components/isLogged.js");
 import Head from 'next/head';
 import AllClients from '../components/AllClients';
-const { redirect } = require("../components/isLogged.js");
 
 
 function AllClientsPage() {
