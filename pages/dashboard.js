@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import Dashboard from '../components/Dashboard';
-import { redirect } from "../components/isLogged.js"
+// import { redirect } from "../components/isLogged.js"
 
 function DashboardPage() {
 
-  redirect("dashboard");
+  // redirect("dashboard");
   
   return (
     <>
