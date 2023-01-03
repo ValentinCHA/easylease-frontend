@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 
 
-function redirect(page) {
+function redirectPage(page) {
   const user = useSelector((state) => state.user.value);
   
 const router = useRouter();
@@ -14,4 +14,4 @@ const router = useRouter();
     } 
 };
 
-module.exports = {redirect};
+module.exports = {redirectPage};
