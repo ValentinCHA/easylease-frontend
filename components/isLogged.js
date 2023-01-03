@@ -10,7 +10,7 @@ function redirect(page) {
 const router = useRouter();
 
     if (!user.token) {
-      return router.push('/login');
+      router.push('/login');
     } 
 };
 
