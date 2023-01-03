@@ -44,7 +44,10 @@ function Login() {
   const router = useRouter();
   if (user.token) {
     setModalCreationSuccess(true);
-    router.push("/dashboard");
+    setTimeout(() => {
+      router.push("/dashboard");
+    }, 1000);
+    
   }
 
   // Click sur "Première connexion", la modale s'ouvre //
@@ -272,6 +275,9 @@ function Login() {
           >
             <p style={{ fontSize: 18, textAlign: "center" }}>
               ✅ Utilisateur créer et connecté ! ✅
+            </p>
+            <p style={{ fontSize: 18, textAlign: "center" }}>
+              Redirection en cours ....
             </p>
           </Modal>
       </div>
