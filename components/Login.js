@@ -43,11 +43,9 @@ function Login() {
   // Redirection dynamique vers la page contrat pour le moment, elle redirigera vers la page dashboard a terme //
   const router = useRouter();
   if (user.token) {
-    setModalCreationSuccess(true);
     setTimeout(() => {
       router.push("/dashboard");
     }, 1000);
-    
   }
 
   // Click sur "Première connexion", la modale s'ouvre //
@@ -121,6 +119,7 @@ function Login() {
         .then((response) => response.json())
         .then((data) => {
           data.result &&
+          setModalCreationSuccess(true);
             dispatch(
               login({
                 token: data.token,
