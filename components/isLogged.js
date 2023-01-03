@@ -8,9 +8,9 @@ const router = useRouter();
 function redirect (page) {
 
     if (!user.token) {
-      router.push('/login');
+      return router.push('/login');
     } else {
-      router.push(`/${page}`)
+      return router.push(`/${page}`)
     };
 };
 
