@@ -5,6 +5,15 @@ import Dashboard from '../components/Dashboard';
 function DashboardPage() {
 
   // redirect("dashboard");
+  function redirect(page) {
+
+    if (!user.token) {
+      return router.push('/login');
+    } else {
+      return router.push(`/${page}`)
+    };
+};
+redirect("dashboard")
   
   return (
     <>
