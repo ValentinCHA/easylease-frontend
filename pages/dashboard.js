@@ -1,15 +1,16 @@
 import Head from 'next/head';
 import Dashboard from '../components/Dashboard';
-import { redirect } from "../components/isLogged.js"
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+// import { redirect } from "../components/isLogged.js"
+const { redirect } = require("../components/isLogged.js");
+
 
 function DashboardPage() {
 
 //   const user = useSelector((state) => state.user.value);
   
 // const router = useRouter();
-  redirect("dashboard");
+redirect();
+  
 //   function redirect(page) {
 
 //     if (!user.token) {
