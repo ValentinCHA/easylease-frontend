@@ -4,7 +4,7 @@ const { redirect } = require("../components/isLogged")
 
 function DashboardPage() {
 
-  redirect("login");
+  redirect("dashboard");
   
   return (
     <>
