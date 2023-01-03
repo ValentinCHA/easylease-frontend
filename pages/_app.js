@@ -14,7 +14,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { redirect } from "next/dist/server/api-utils";
-const { redirect } = require("../components/isLogged.js");
+const { redirectPage } = require("../components/isLogged.js");
 
 
 const createNoopStorage = () => {
@@ -51,7 +51,7 @@ const store = configureStore({
 const persistor = persistStore(store);
 
 function App({ Component, pageProps }) {
-  redirect();
+  redirectPage();
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
