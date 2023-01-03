@@ -26,6 +26,7 @@ function Login() {
   const [emailErrorMain, setEmailErrorMain] = useState(false);
   const [emailErrorModal, setEmailErrorModal] = useState(false);
   const [userInnexistant, setUserInnexistant] = useState(false);
+  const [modalCreationSuccess, setModalCreationSuccess] = useState(false);
   //
 
   // Check si l'email est valide //
@@ -42,6 +43,7 @@ function Login() {
   // Redirection dynamique vers la page contrat pour le moment, elle redirigera vers la page dashboard a terme //
   const router = useRouter();
   if (user.token) {
+    setModalCreationSuccess(true);
     router.push("/dashboard");
   }
 
@@ -263,6 +265,15 @@ function Login() {
             ❌ Utilisateur innexistant ! ❌
           </p>
         </Modal>
+        <Modal
+            onCancel={() => setModalCreationSuccess(false)}
+            open={modalCreationSuccess}
+            footer={null}
+          >
+            <p style={{ fontSize: 18, textAlign: "center" }}>
+              ✅ Utilisateur créer et connecté ! ✅
+            </p>
+          </Modal>
       </div>
     </>
   );

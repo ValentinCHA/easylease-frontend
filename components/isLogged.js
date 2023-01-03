@@ -2,8 +2,6 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
 
-
-
 function redirect(page) {
   const user = useSelector((state) => state.user.value);
   
