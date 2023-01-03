@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Dashboard from '../components/Dashboard';
-const { redirect } = require("../components/isLogged")
+import { redirect } from "../components/isLogged.js"
 
 function DashboardPage() {
 

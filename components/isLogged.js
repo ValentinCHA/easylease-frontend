@@ -5,7 +5,7 @@ const user = useSelector((state) => state.user.value);
   
 const router = useRouter();
 
-function redirect (page) {
+export function redirect (page) {
 
     if (!user.token) {
       return router.push('/login');
@@ -13,5 +13,3 @@ function redirect (page) {
       return router.push(`/${page}`)
     };
 };
-
-module.exports = { redirect };
