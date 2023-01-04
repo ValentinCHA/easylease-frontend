@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState } from "react";
 import styles from "../styles/Login.module.css";
 import { Modal } from "antd";
@@ -32,6 +33,7 @@ function Login() {
 
   // Check si l'email est valide //
   const EMAIL_REGEX =
+    // eslint-disable-next-line no-useless-escape
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   // Savoir si l'user a le droit de cliquer sur "Première connexion" //
@@ -185,7 +187,7 @@ function Login() {
               Connexion
             </button>
           </div>
-          <a href={url} target="_blank" className={styles.textContent}>
+          <a href={url} target="_blank" className={styles.textContent} rel="noreferrer">
             Conditions d'utilisation
           </a>
         </div>

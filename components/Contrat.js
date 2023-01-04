@@ -4,7 +4,6 @@ import Navbar from "./Navbar";
 import { useState, useEffect, useRef } from "react";
 import { Modal } from "antd";
 import { useSelector } from "react-redux";
-const { ObjectId } = require("mongoose").Types;
 import Header from "./Header";
 import { useRouter } from "next/router";
 
@@ -73,7 +72,7 @@ function Contrat() {
     return (
       <div className={style.data} key={i}>
         <span className={style.texte}>Nom du client : {item.client?.name}</span>
-        <span className={style.texte}>Type d'équipements : {item.type}</span>
+        <span className={style.texte}>Type d équipements : {item.type}</span>
         <span className={style.texte}>Montant financé : {item.amount} €</span>
         <span className={style.texte}>Marge : {item.marge} %</span>
         <span className={style.texte}>
@@ -114,7 +113,7 @@ function Contrat() {
             className={style.button}
             onClick={() => setShowModalInterlocutor(true)}
           >
-            Modifier l'interlocuteur
+            Modifier interlocuteur
           </button>
         </div>
       </div>
@@ -181,7 +180,7 @@ function Contrat() {
     }
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async () => {
     console.log("RENTRE DANS LE SUBMIT IMAGE");
     // Envoi du fichier à Cloudinary
     const fichier = inputRef.current.files[0];
@@ -313,7 +312,7 @@ function Contrat() {
               <div className={style.InputNewContratContainer}>
                 <div>
                   <div className={style.InputContrat}>
-                    <p className={style.titreInput}>Type d'équipement :</p>
+                    <p className={style.titreInput}>Type d équipement :</p>
                     <input
                       className={style}
                       placeholder="Type d'équipement"

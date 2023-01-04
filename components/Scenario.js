@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+/* eslint-disable no-dupe-keys */
+/* eslint-disable react/prop-types */
+import React from "react";
 import style from "../styles/Scenario.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileSignature } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { addId } from "../reducers/scenario";

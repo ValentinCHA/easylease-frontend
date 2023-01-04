@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from "react";
 import style from "../styles/NewClient.module.css";
 import Navbar from "./Navbar";
@@ -32,7 +33,7 @@ function NewClient() {
 
   const modalContent = interlocutors.map((e, i) => {
     return (
-      <div id={e} className={style.modalInterlocutorContainer}>
+      <div key={i} id={e} className={style.modalInterlocutorContainer}>
         <ul>
           <li>
             {e.firstname} {e.name} {e.poste}
@@ -98,7 +99,7 @@ function NewClient() {
           clientBirth: Date.now(),
         }),
       })
-        .then(response => response.json())
+        .then((response) => response.json())
         .then((data) => {
           console.log("TRUE, DATAS FROM CREATION CLIENT", data);
           if (data.result) {

@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import Home from '../components/Home';
 import Head from 'next/head';
 import { useRouter } from 'next/router';

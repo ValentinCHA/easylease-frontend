@@ -30,6 +30,8 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@types/react-vis": "^1.11.11",
+    "eslint": "^8.31.0",
+    "eslint-plugin-react": "^7.31.11",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0"
   }
