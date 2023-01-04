@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Header from "./Header";
 import style from "../styles/Settings.module.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Modal } from "antd";
+import { useRouter } from "next/router";
+import {logout} from '../reducers/user'
 
 const Settings = () => {
   const BACKEND_ADDRESS = "https://easylease-backend.vercel.app";
@@ -13,6 +15,12 @@ const Settings = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [passwordModified, setPasswordModified] = useState(false);
+  const [handleBeforeDeleteModal, setHandleBeforeDeleteModal] = useState(false);
+  const [modalDeleteSuccess, setModalDeleteSuccess] = useState(false);
+
+  const dispatch = useDispatch()
+
+  const routerPage = useRouter();
 
   const handleChangeClient = () => {
     fetch(`${BACKEND_ADDRESS}/users/updateMdp`, {
@@ -44,6 +52,30 @@ const Settings = () => {
         console.log(error);
       });
   };
+
+  const handleBeforeDelete = () => {
+    setHandleBeforeDeleteModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setHandleBeforeDeleteModal(false);
+  };
+
+  const handleDeleteAccount = () => {
+    fetch(`${BACKEND_ADDRESS}/users/delete/${user.token}`, {
+      method : 'DELETE'
+    })
+    .then((response) => response.json())
+    .then(data => {
+      if (data.result) {
+        setModalDeleteSuccess(true);
+        setTimeout(() => {
+          dispatch(logout())
+        }, 1000);
+      }
+    })
+  };
+
   return (
     <div className={style.main}>
       <Navbar styleSettings={{ backgroundColor: "#2A9C90" }} />
@@ -98,9 +130,16 @@ const Settings = () => {
           >
             Enregistrer les modifications
           </button>
+          <button
+            className={style.button + " " + style.deleteAccount}
+            type="button"
+            onClick={() => handleBeforeDelete()}
+          >
+            Supprimer mon compte
+          </button>
           {passwordModified && (
             <div className={style.modal}>
-              <Modal closable={false} footer={null} open={passwordModified}>
+              <Modal open={passwordModified} footer={null}>
                 <div className={style.modalContainer}>
                   <span>Mot de passe modifié !</span>
                   <button
@@ -113,6 +152,31 @@ const Settings = () => {
               </Modal>
             </div>
           )}
+              <Modal footer={null} open={handleBeforeDeleteModal} onCancel={() => handleCloseModal()}>
+                <div className={style.modalContainer}>
+                  <span className={style.paragraphe}>Etes vous sur de vouloir supprimer votre compte ?</span>
+                  <div className={style.buttonsConfirmation}>
+                  <button
+                    className={style.button + " " + style.deleteAccount}
+                    onClick={() => handleDeleteAccount()}
+                  >
+                    Oui
+                  </button>
+                  <button
+                    className={style.button + " " + style.right}
+                    onClick={() => setHandleBeforeDeleteModal(false)}
+                  >
+                    Non
+                  </button>
+                  </div>
+                </div>
+              </Modal>
+              <Modal footer={null} open={modalDeleteSuccess} closable={false}>
+                <div className={style.modalContainer}>
+                  <span className={style.paragraphe + " " + style.p2}> ✅ Compte supprimé ! ✅</span>
+                  <span className={style.paragraphe +  " " + style.p2}> Redirection en cours ...</span>
+                </div>
+              </Modal>
         </div>
       </div>
     </div>

@@ -54,8 +54,7 @@ justify-content: space-evenly;
   transition-duration: 0.3s;
   transition-timing-function: linear;
 }
-.button:hover,
-.button:focus {
+.button:hover {
   background-color: #2980b9;
 }
 
@@ -77,4 +76,35 @@ justify-content: space-evenly;
   padding: 16px;
   background-color: #fff;
   border-radius: 4px;
+}
+
+.deleteAccount {
+  background-color: red;
+}
+
+.deleteAccount:hover {
+  background-color: rgba(255, 0, 0, 0.792);
+}
+
+
+.buttonsConfirmation{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4%;
+}
+
+.right{
+  margin-left: 10%;
+}
+
+.paragraphe {
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.p2 {
+  text-decoration: none;
 }
