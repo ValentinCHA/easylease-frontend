@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import style from "../styles/NewScenario.module.css";
+import styles from "../styles/Settings.module.css"
 import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
@@ -157,6 +158,8 @@ function NewScenario() {
   const [addInterlocutorSucccess, setAddInterlocutorSuccess] = useState(false);
   const [addInterlocutorFailed, setAddInterlocutorFailed] = useState(false);
 
+  const [handleBeforeDeleteModal, setHandleBeforeDeleteModal] = useState(false);
+
   // console.log(idScenario)
   // Check si le scenario est déja enregistrer en BDD//
 
@@ -256,6 +259,7 @@ function NewScenario() {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
+          setHandleBeforeDeleteModal(false)
           setModalDeleteSuccess(true);
           setOldScenario(false);
           setCreationDate(date.toISOString().substring(0, 10));
@@ -496,6 +500,10 @@ function NewScenario() {
     setAddInterlocutorFailed(false);
   };
 
+  const beforeDeletion = () => {
+    setHandleBeforeDeleteModal(true);
+  }
+
   return (
     <>
       <div className={style.mainContainer}>
@@ -626,7 +634,7 @@ function NewScenario() {
                 </button>
               )}
               {oldScenario && (
-                <button className={style.button} onClick={() => deletion()}>
+                <button className={style.button} onClick={() => beforeDeletion()}>
                   Supprimer
                 </button>
               )}
@@ -864,6 +872,25 @@ function NewScenario() {
               ✅ Interlocuteur ajouté ! ✅
             </p>
           </Modal>
+          <Modal footer={null} open={handleBeforeDeleteModal} onCancel={() => setHandleBeforeDeleteModal(false)}>
+                <div className={styles.modalContainer}>
+                  <span className={styles.paragraphe}>Etes vous sur de vouloir supprimer ce scénario ?</span>
+                  <div className={styles.buttonsConfirmation}>
+                  <button
+                    className={styles.button + " " + styles.deleteAccount}
+                    onClick={() => deletion()}
+                  >
+                    Oui
+                  </button>
+                  <button
+                    className={styles.button + " " + styles.right}
+                    onClick={() => setHandleBeforeDeleteModal(false)}
+                  >
+                    Non
+                  </button>
+                  </div>
+                </div>
+              </Modal>
         </div>
       </div>
     </>
