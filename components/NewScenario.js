@@ -408,7 +408,7 @@ function NewScenario() {
   if (oldScenario) {
     header = `Nom du scénario : ${scenarioName}`;
   } else {
-    header = "Nouveau Scenario";
+    header = "Nouveau Scénario";
   }
   // console.log("SECNARIO NAME", scenarioName);
   let clientsListDeroulante;
