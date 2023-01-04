@@ -32,7 +32,7 @@ function ClientCard(props) {
             fontWeight: "bold",
           }}
         >
-          {props.name.substring(0, 20)}
+          {props.name}
         </span>
         <span
           style={{
