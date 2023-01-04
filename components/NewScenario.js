@@ -511,7 +511,7 @@ function NewScenario() {
                   : `${clientFromCard}`}
               </p>
             )}
-            <p className={style.para}>Nom du client : </p>
+            {!oldScenario && <p className={style.para}>Nom du client : </p>}
             {!oldScenario && (
               <select
                 className={style.input}

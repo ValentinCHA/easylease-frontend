@@ -78,6 +78,10 @@ function Login() {
     setForgetPasswordModal(true);
   };
 
+  const handleClick = () => {
+    window.open('/Conditions.pdf', '_blank');
+  };
+
   const handleSubmit = () => {
     console.log("Sign in submit");
     if (EMAIL_REGEX.test(username)) {
@@ -187,7 +191,7 @@ function Login() {
               Connexion
             </button>
           </div>
-          <a href={url} target="_blank" className={styles.textContent} rel="noreferrer">
+          <a href="#" className={styles.textContent} rel="noreferrer" onClick={handleClick}>
             Conditions d'utilisation
           </a>
         </div>
