@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+/* eslint-disable react/prop-types */
+/* eslint-disable no-dupe-keys */
+import React from "react";
 import style from "../styles/ContratCard.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileSignature } from "@fortawesome/free-solid-svg-icons";
+
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addId } from "../reducers/contrat";
 
 function ContratCard(props) {

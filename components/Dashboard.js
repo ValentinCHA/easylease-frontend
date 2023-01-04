@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 import { Doughnut } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
+// eslint-disable-next-line no-unused-vars
 import Chart from "chart.js/auto";
 
 function Dashboard() {

@@ -11,7 +11,7 @@ function AllContrat() {
   let BACKEND_ADDRESS = "https://easylease-backend.vercel.app";
   const user = useSelector((state) => state.user.value);
   const [inputValue, setInputValue] = useState("");
-  const [nameClient, setNameClient] = useState("");
+  // const [nameClient, setNameClient] = useState("");
   const [dataContrat, setDataContrat] = useState([]);
 
   console.log("Console log de l'état", dataContrat);
