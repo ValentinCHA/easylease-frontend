@@ -8,7 +8,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 
 function AllContrat() {
-  let BACKEND_ADDRESS = "https://easylease-backend.vercel.app"
+  let BACKEND_ADDRESS = "https://easylease-backend.vercel.app";
   const user = useSelector((state) => state.user.value);
   const [inputValue, setInputValue] = useState("");
   const [nameClient, setNameClient] = useState("");
@@ -58,7 +58,6 @@ function AllContrat() {
               value={inputValue}
             />
             <FontAwesomeIcon icon={faMagnifyingGlass} className={style.icon} />
-            
           </div>
           {/* {/ div qui contiendra tout mes coponents contrat Card /} */}
           <div className={style.containerContratCard}>{infoContrat}</div>

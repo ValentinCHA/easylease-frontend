@@ -27,6 +27,7 @@ function Login() {
   const [emailErrorModal, setEmailErrorModal] = useState(false);
   const [userInnexistant, setUserInnexistant] = useState(false);
   const [modalCreationSuccess, setModalCreationSuccess] = useState(false);
+  const [modalLoginSuccess, setModalLoginSuccess] = useState(false);
   //
 
   // Check si l'email est valide //
@@ -85,15 +86,15 @@ function Login() {
       })
         .then((response) => response.json())
         .then((data) => {
-          data.result &&
-            dispatch(
-              login({
-                token: data.token,
-                email: data.email,
-                poste: data.poste,
-                isAdmin: data.isAdmin,
-              })
-            );
+          data.result && setModalLoginSuccess(true);
+          dispatch(
+            login({
+              token: data.token,
+              email: data.email,
+              poste: data.poste,
+              isAdmin: data.isAdmin,
+            })
+          );
           console.log("CONNECTE");
           if (!data.result) {
             console.log("DATAS DE SUBMIT =>", data);
@@ -118,16 +119,15 @@ function Login() {
       })
         .then((response) => response.json())
         .then((data) => {
-          data.result &&
-          setModalCreationSuccess(true);
-            dispatch(
-              login({
-                token: data.token,
-                email: data.email,
-                poste: data.poste,
-                isAdmin: data.isAdmin,
-              })
-            );
+          data.result && setModalCreationSuccess(true);
+          dispatch(
+            login({
+              token: data.token,
+              email: data.email,
+              poste: data.poste,
+              isAdmin: data.isAdmin,
+            })
+          );
           console.log("CONNECTE");
         });
     } else {
@@ -268,17 +268,29 @@ function Login() {
           </p>
         </Modal>
         <Modal
-            onCancel={() => setModalCreationSuccess(false)}
-            open={modalCreationSuccess}
-            footer={null}
-          >
-            <p style={{ fontSize: 18, textAlign: "center" }}>
-              ✅ Utilisateur créer et connecté ! ✅
-            </p>
-            <p style={{ fontSize: 18, textAlign: "center" }}>
-              Redirection en cours ....
-            </p>
-          </Modal>
+          onCancel={() => setModalCreationSuccess(false)}
+          open={modalCreationSuccess}
+          footer={null}
+        >
+          <p style={{ fontSize: 18, textAlign: "center" }}>
+            ✅ Utilisateur créer et connecté ! ✅
+          </p>
+          <p style={{ fontSize: 18, textAlign: "center" }}>
+            Redirection en cours ....
+          </p>
+        </Modal>
+        <Modal
+          onCancel={() => setModalLoginSuccess(false)}
+          open={modalLoginSuccess}
+          footer={null}
+        >
+          <p style={{ fontSize: 18, textAlign: "center" }}>
+            ✅ Utilisateur connecté ! ✅
+          </p>
+          <p style={{ fontSize: 18, textAlign: "center" }}>
+            Redirection en cours ....
+          </p>
+        </Modal>
       </div>
     </>
   );

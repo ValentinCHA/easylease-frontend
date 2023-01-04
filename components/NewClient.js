@@ -9,7 +9,7 @@ import Header from "./Header";
 
 function NewClient() {
   // Définir l'état local pour les champs de formulaire
-  let BACKEND_ADDRESS = "https://easylease-backend.vercel.app"
+  let BACKEND_ADDRESS = "https://easylease-backend.vercel.app";
 
   const user = useSelector((state) => state.user.value);
   const [name, setName] = useState("");
@@ -270,12 +270,12 @@ function NewClient() {
           )}
         </div>
         <div className={style.containerBtn}>
-        <button
-          className={style.button}
-          onClick={() => handleNewClientSubmit()}
-        >
-           Création du client ! 
-        </button>
+          <button
+            className={style.button}
+            onClick={() => handleNewClientSubmit()}
+          >
+            Création du client !
+          </button>
         </div>
       </div>
     </div>

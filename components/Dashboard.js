@@ -5,9 +5,8 @@ import Header from "./Header";
 import { useSelector } from "react-redux";
 
 import { Doughnut } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2"; 
-import Chart from 'chart.js/auto'
-
+import { Bar } from "react-chartjs-2";
+import Chart from "chart.js/auto";
 
 function Dashboard() {
   const [datasContrats, setDatasContrats] = useState([]);
@@ -193,7 +192,7 @@ function Dashboard() {
             </div>
           </div>
           <div className={styles.graphicBar}>
-          <Bar data={dataBarCa} options={optionsBarCa} />
+            <Bar data={dataBarCa} options={optionsBarCa} />
           </div>
         </div>
       </div>

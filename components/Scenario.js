@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addId } from "../reducers/scenario";
 
 function Scenario(props) {
+  console.log("PROPS FROM ALL SCENARIO", props);
   const idScenario = useSelector((state) => state.scenario.value);
 
   const router = useRouter();
@@ -14,7 +15,7 @@ function Scenario(props) {
   const dispatch = useDispatch();
 
   const affichePageScenario = () => {
-    // console.log('the props',props)
+    console.log('the props',props)
     dispatch(addId(props));
     //  console.log('valeur reducer scenario',idScenario.id)
     router.push("/newScenario");
