@@ -47,7 +47,7 @@ const Settings = () => {
   return (
     <div className={style.main}>
       <Navbar styleSettings={{ backgroundColor: "#2A9C90" }} />
-      <Header name="Settings" />
+      <Header name="Options" />
 
       <div className={style.container}>
         <div className={style.form}>

@@ -129,7 +129,7 @@ function NewClient() {
   return (
     <div className={style.maincontainer}>
       <Navbar />
-      <Header name="New Client" />
+      <Header name="Nouveau Client" />
       <div className={style.container}>
         <div className={style.form}>
           <div className={style.newClientContainer}>
@@ -142,7 +142,7 @@ function NewClient() {
                 onChange={(e) => setName(e.target.value)}
                 value={name}
               ></input>
-              <label>Address</label>
+              <label>Adresse</label>
               <input
                 className={style.input + " " + style.inputNewClient}
                 placeholder="Address"
