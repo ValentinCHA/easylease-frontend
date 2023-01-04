@@ -98,14 +98,9 @@ function NewClient() {
           clientBirth: Date.now(),
         }),
       })
-        .then((response) => {
-          console.log(response);
-          if (!response.ok) {
-            console.log("Error fetching data");
-          }
-          return response.json();
-        })
+        .then(response => response.json())
         .then((data) => {
+          console.log("TRUE, DATAS FROM CREATION CLIENT", data);
           if (data.result) {
             console.log("Client bien ajouté");
             setName("");
@@ -114,6 +109,8 @@ function NewClient() {
             setChiffreAffaire("");
             setNewClientAdded(true);
             setInterlocutors([]);
+          } else if (!data.result) {
+            console.log("ERREUR", data);
           }
         })
         .catch((error) => {
