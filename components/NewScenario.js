@@ -571,7 +571,7 @@ function NewScenario() {
               <option>84</option>
               <option>96</option>
             </select>
-            <p className={style.para}>Montant financé :</p>
+            <p className={style.para}>Montant financé (€) :</p>
             <input
               type="text"
               className={style.input}
@@ -579,7 +579,7 @@ function NewScenario() {
               value={amountFinance}
               placeholder="Montant financé (€)"
             />
-            <p className={style.para}>Marge :</p>
+            <p className={style.para}>Marge (%) :</p>
             <input
               type="text"
               className={style.input}
