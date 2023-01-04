@@ -38,7 +38,7 @@ function Scenario(props) {
             fontWeight: "bold",
           }}
         >
-          {props.client.name.substring(0, 10)}
+          {props.client.name.substring(0, 20)}
         </span>
         <span style={{ fontSize: 23, color: "white", fontSize: "1.2em" }}>
           {props.name}
