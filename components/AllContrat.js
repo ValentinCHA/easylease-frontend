@@ -27,22 +27,19 @@ function AllContrat() {
       });
   }, []);
 
-  let infoContrat;
-  if (dataContrat) {
-    infoContrat = dataContrat
-      .filter((data) => {
-        if (inputValue == "") {
-          return data;
-        } else if (
-          data.name.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())
-        ) {
-          return data;
-        }
-      })
-      .map((data, i) => {
-        return <ContratCard key={i} {...data} />;
-      });
-  }
+  const infoContrat = dataContrat
+    .filter((data) => {
+      if (inputValue == "") {
+        return data;
+      } else if (
+        data.name.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())
+      ) {
+        return data;
+      }
+    })
+    .map((data, i) => {
+      return <ContratCard key={i} {...data} />;
+    });
 
   return (
     <>
