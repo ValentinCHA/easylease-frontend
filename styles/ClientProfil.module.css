@@ -99,37 +99,59 @@
 .button:active {
   background-color: #3498db;
 }
-.buttonModal{
-  padding: 1.3% 3%;
+.buttonModal {
+  padding: 13.5px 10px;
   gap: 10px;
-  width: 200px;
+  width: 20%;
   background: #3A3E9C;
   border-radius: 5px;
   border: none;
   color: white;
-  cursor: pointer;
-  transition-duration: 0.3s;
-  transition-timing-function: linear;
-  height:50px;
   font-size: 16px;
+  font-weight: 400;
+  transition: 500ms;
 }
 
-.buttonModal:hover {
+.buttonModal:hover, .buttonModal:focus, .buttonModal:active {
   background-color: #2980b9;
-  color: white;
+  cursor: pointer;
 }
 
 
 .docsContainer {
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  border: 1px solid #ddd;
+  padding: 10px;
+  border: 1px solid rgba(120, 118, 118, 0.568);
   justify-content: space-between;
   margin: 20px;
   align-items: center;
   color: #326E9C;
   width: 50%;
-
+  border-radius: 10px;
+  height: auto;
 }
 
+.modalUpdateClient {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonModif {
+    padding: 13.5px 10px;
+    gap: 10px;
+    width: 100%;
+    background: #3A3E9C;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    transition: 500ms;
+}
+
+.buttonModif:hover, .buttonModif:focus, .buttonModif:active {
+    background-color: #2980b9;
+    cursor: pointer;
+}

@@ -179,21 +179,22 @@ function ClientProfil() {
               <div className={style.docsContainer}>
                 <h3>Documents joints : </h3>
                 {contratData}
-                <button
+                {/* <button
                   className={style.buttonModal}
                   onClick={() => handleCloseModal()}
                 >
                   Ajouter un document
-                </button>
+                </button> */}
               </div>
             </div>
-            <div className={style.ButtonContainer}></div>
+            {/* <div className={style.ButtonContainer}></div> */}
           </div>
         </div>
       </div>
-      <Modal onCancel={() => handleModal()} open={addDocModal} footer={null}>
+      <Modal className={style.modalUpdateClient} onCancel={() => handleModal()} open={addDocModal} footer={null}>
         <div>
           <div className="modal-modifier">
+            <p>Nom entreprise : </p>
             <input
               type="text"
               placeholder="Nom entreprise"
@@ -202,6 +203,7 @@ function ClientProfil() {
             />
           </div>
           <div className="modal-modifier">
+          <p>Ancienneté du client : </p>
             <input
               type="text"
               placeholder="ancienneté"
@@ -210,6 +212,7 @@ function ClientProfil() {
             />
           </div>
           <div className="modal-modifier">
+          <p>Adresse : </p>
             <input
               type="text"
               placeholder="addresse"
@@ -218,6 +221,7 @@ function ClientProfil() {
             />
           </div>
           <div className="modal-modifier">
+          <p>Nombre d'employés : </p>
             <input
               type="text"
               placeholder="nombre d'employés"
@@ -226,6 +230,7 @@ function ClientProfil() {
             />
           </div>
           <div className="modal-modifier">
+          <p>Chiffre d'affaires : </p>
             <input
               type="text"
               placeholder="CA"

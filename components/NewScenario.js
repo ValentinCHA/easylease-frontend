@@ -511,6 +511,7 @@ function NewScenario() {
                   : `${clientFromCard}`}
               </p>
             )}
+            <p className={style.para}>Nom du client : </p>
             {!oldScenario && (
               <select
                 className={style.input}
@@ -531,6 +532,7 @@ function NewScenario() {
               onChange={(e) => setCreationDate(e.target.value)}
               value={creationDate}
             />
+            <p className={style.para}>Nom du scénario :</p>
             <input
               type="text"
               className={style.input}
@@ -538,7 +540,7 @@ function NewScenario() {
               value={scenarioName}
               placeholder="Nom du scénario"
             />
-
+            <p className={style.para}>Type d'équipement :</p>
             <select
               className={style.input}
               onChange={(e) => setEquipementType(e.target.value)}
@@ -569,6 +571,7 @@ function NewScenario() {
               <option>84</option>
               <option>96</option>
             </select>
+            <p className={style.para}>Montant financé :</p>
             <input
               type="text"
               className={style.input}
@@ -576,6 +579,7 @@ function NewScenario() {
               value={amountFinance}
               placeholder="Montant financé (€)"
             />
+            <p className={style.para}>Marge :</p>
             <input
               type="text"
               className={style.input}
