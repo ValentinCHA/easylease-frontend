@@ -272,7 +272,7 @@ function ClientProfil() {
         </p>
       </Modal>
       <Modal
-        onCancel={() => setSuccesDeleteModal(false)}
+        onCancel={() => handleDeleteModal()}
         open={successDeleteModal}
         footer={null}
       >
