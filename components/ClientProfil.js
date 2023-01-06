@@ -97,11 +97,12 @@ function ClientProfil() {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log("DATA FROM DELETE CLIENT", data.result);
         if (data.result) {
           setSuccesDeleteModal(true);
         } else {
           console.log("echec");
-          setErrorDeleteModal(false);
+          setErrorDeleteModal(true);
         }
       });
   };
@@ -271,7 +272,7 @@ function ClientProfil() {
         </p>
       </Modal>
       <Modal
-        onCancel={() => handleDeleteModal()}
+        onCancel={() => setSuccesDeleteModal(false)}
         open={successDeleteModal}
         footer={null}
       >
@@ -280,7 +281,7 @@ function ClientProfil() {
         </p>
       </Modal>
       <Modal
-        onCancel={() => handleCloseModal()}
+        onCancel={() => setErrorDeleteModal(false)}
         open={errorDeleteModal}
         footer={null}
       >
