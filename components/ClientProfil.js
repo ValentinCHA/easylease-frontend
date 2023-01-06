@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { Modal } from "antd";
 import Header from "./Header";
+import styles from "../styles/Settings.module.css"
 Header;
 
 function ClientProfil() {
@@ -23,6 +24,8 @@ function ClientProfil() {
   const [chiffre, setchiffre] = useState("");
   const [interlocutor, setinterlocutor] = useState("");
   const [contrat, setContrat] = useState("");
+  const [handleBeforeDeleteModal, setHandleBeforeDeleteModal] = useState(false);
+
   const backend_adress = "https://easylease-backend.vercel.app";
 
   const clientBirthDate = new Date(clientBirth);
@@ -120,6 +123,7 @@ function ClientProfil() {
     setSuccesModifModal(false);
     setaddDocModal(false);
   };
+
   console.log("inter", interlocutor);
 
   let interlocutorData;
@@ -168,7 +172,7 @@ function ClientProfil() {
                   </button>
                   <button
                     className={style.buttonModal}
-                    onClick={() => SupprimClient()}
+                    onClick={() =>  setHandleBeforeDeleteModal(true)}
                   >
                     Supprimer
                   </button>
@@ -292,6 +296,25 @@ function ClientProfil() {
           Veuillez les supprimer avant de réessayer. 
         </p>
       </Modal>
+      <Modal footer={null} open={handleBeforeDeleteModal} onCancel={() => setHandleBeforeDeleteModal(false)}>
+                <div className={styles.modalContainer}>
+                  <span className={styles.paragraphe}>Etes vous sur de vouloir supprimer ce scénario ?</span>
+                  <div className={styles.buttonsConfirmation}>
+                  <button
+                    className={styles.button + " " + styles.deleteAccount}
+                    onClick={() => SupprimClient()}
+                  >
+                    Oui
+                  </button>
+                  <button
+                    className={styles.button + " " + styles.right}
+                    onClick={() => setHandleBeforeDeleteModal(false)}
+                  >
+                    Non
+                  </button>
+                  </div>
+                </div>
+              </Modal>
     </>
   );
 }
