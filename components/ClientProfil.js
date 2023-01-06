@@ -286,7 +286,7 @@ function ClientProfil() {
         footer={null}
       >
         <p style={{ fontSize: 18, textAlign: "center" }}>
-          ❌ Erreur client non suprimé car il dispose de contrat(s) à son nom ! ❌
+          ❌ Erreur client non suprimé car il dispose de contrat(s) ou de scenario(s) à son nom ! ❌
         </p>
         <p style={{ fontSize: 18, textAlign: "center" }}>
           Veuillez les supprimer avant de réessayer. 
