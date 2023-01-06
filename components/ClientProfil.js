@@ -298,7 +298,7 @@ function ClientProfil() {
       </Modal>
       <Modal footer={null} open={handleBeforeDeleteModal} onCancel={() => setHandleBeforeDeleteModal(false)}>
                 <div className={styles.modalContainer}>
-                  <span className={styles.paragraphe}>Etes vous sur de vouloir supprimer ce scénario ?</span>
+                  <span className={styles.paragraphe}>Etes vous sur de vouloir supprimer ce client ?</span>
                   <div className={styles.buttonsConfirmation}>
                   <button
                     className={styles.button + " " + styles.deleteAccount}
