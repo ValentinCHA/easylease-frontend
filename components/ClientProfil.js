@@ -3,8 +3,6 @@ import Navbar from "./Navbar";
 import style from "../styles/ClientProfil.module.css";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import client from "../reducers/client";
 import { useRouter } from "next/router";
 import { Modal } from "antd";
 import Header from "./Header";
@@ -18,7 +16,6 @@ function ClientProfil() {
   const [errorModifModal, setErrorModifModal] = useState(false);
   const [successDeleteModal, setSuccesDeleteModal] = useState(false);
   const [errorDeleteModal, setErrorDeleteModal] = useState(false);
-  const [dataInterlocutor, setDataInterlocutor] = useState([]);
   const [name, setname] = useState("");
   const [clientBirth, setclientBirth] = useState("");
   const [address, setaddress] = useState("");
@@ -261,7 +258,7 @@ function ClientProfil() {
         footer={null}
       >
         <p style={{ fontSize: 18, textAlign: "center" }}>
-          ✅ client modifié ! ✅
+          ✅ Client modifié ! ✅
         </p>
       </Modal>
       <Modal
@@ -270,7 +267,7 @@ function ClientProfil() {
         footer={null}
       >
         <p style={{ fontSize: 18, textAlign: "center" }}>
-          ❌ erreur client non modifié ! ❌
+          ❌ Erreur client non modifié ! ❌
         </p>
       </Modal>
       <Modal
@@ -279,7 +276,7 @@ function ClientProfil() {
         footer={null}
       >
         <p style={{ fontSize: 18, textAlign: "center" }}>
-          ✅ client supprimé ! ✅
+          ✅ Client supprimé ! ✅
         </p>
       </Modal>
       <Modal
@@ -288,7 +285,10 @@ function ClientProfil() {
         footer={null}
       >
         <p style={{ fontSize: 18, textAlign: "center" }}>
-          ❌ erreur client non suprimé ! ❌
+          ❌ Erreur client non suprimé car il dispose de contrat(s) à son nom ! ❌
+        </p>
+        <p style={{ fontSize: 18, textAlign: "center" }}>
+          Veuillez les supprimer avant de réessayer. 
         </p>
       </Modal>
     </>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import style from "../styles/AllClients.module.css";
 import Navbar from "./Navbar";
 import ClientCard from "./ClientCard";
-import { addId } from "../reducers/contrat";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
