@@ -305,6 +305,9 @@ function NewScenario() {
           setModalSaveSuccess(true);
           setOldScenario(true);
           setSelectionClient("");
+          setInterval(() => {
+            window.location.assign('/allScenario');
+          }, 900)
         } else {
           // console.log("DATA =>", data);
           setModalSaveFailed(true);
@@ -668,15 +671,21 @@ function NewScenario() {
               style={{ fontSize: 22, textAlign: "center" }}
               className={style.modalSave}
             >
-              ✅ Scenario eneregistré ! ✅
+              ✅ Scénario eneregistré ! ✅
+            </p>
+            <p
+              style={{ fontSize: 22, textAlign: "center" }}
+              className={style.modalSave}
+            >
+              Redirection en cours ...
             </p>
             <div className={style.divSaveBtnModal}>
-              <button
+              {/* <button
                 className={style.button + " " + style.scenarioBtnModal}
                 onClick={() => returnScenario()}
               >
                 Retourner sur la page scenarios
-              </button>
+              </button> */}
             </div>
           </Modal>
           <Modal
