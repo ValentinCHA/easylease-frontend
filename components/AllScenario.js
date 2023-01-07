@@ -70,7 +70,7 @@ function AllScenario() {
               className={style.nouveauContrat}
               onClick={() => afficheNewScenarioPage()}
             >
-              Nouveau scenario
+              Nouveau scénario
             </button>
           </div>
           {/* {/ div qui contiendra tout mes coponents contrat Card /} */}

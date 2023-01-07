@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "antd";
 import Header from "./Header";
+const { checkBodyFront } = require("../modules/checkBody");
 
 function NewClient() {
   // Définir l'état local pour les champs de formulaire
@@ -65,7 +66,24 @@ function NewClient() {
     );
   });
 
+  const [CheckBodyNonValid, setCheckBodyNonValid] = useState(false);
+
   const handleNewInterlocutorSubmit = () => {
+    if (
+      !checkBodyFront(
+        [
+          interlocFirstName,
+          interlocName,
+          interlocMail,
+          phoneNumber,
+          interlocJob,
+      ])
+    ) {
+      setCheckBodyNonValid(true);
+      return;
+    } else {
+      setCheckBodyNonValid(false);
+    }
     setInterlocutors((interlocutor) => [
       ...interlocutor,
       {
@@ -257,6 +275,7 @@ function NewClient() {
             >
               Ajout Interlocuteur
             </button>
+            {CheckBodyNonValid && <p style={{fontSize: 16, color: "red", margin: 10}}>Champs vides ou manquants !</p>}
           </div>
 
           <div className={style.buttonNewClientContainer}></div>
