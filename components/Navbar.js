@@ -92,7 +92,7 @@ function Navbar(props) {
             {/* taille de ma 2e navBar */}
             <div className={style.secondNav}>
                 <div className={style.BoxSpan} onClick={()=>handleLogout()}>
-                    <span  className={style.boxSpan} ><FontAwesomeIcon icon={faSignOutAlt} className={style.spaceIconSpan} />Logout</span>
+                    <span  className={style.boxSpan} ><FontAwesomeIcon icon={faSignOutAlt} className={style.spaceIconSpan} />Déconnexion</span>
                 </div>
             </div>
         </div>
