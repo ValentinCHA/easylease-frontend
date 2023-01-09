@@ -270,7 +270,7 @@ function Login() {
           footer={null}
         >
           <p style={{ fontSize: 18, textAlign: "center" }}>
-            ❌ Utilisateur innexistant ! ❌
+            ❌ Utilisateur ou mot de passe incorrect ! ❌
           </p>
         </Modal>
         <Modal
